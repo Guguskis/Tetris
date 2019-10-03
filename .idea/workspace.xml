@@ -1,14 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a8746e15-b292-47e1-abb5-d5e68e8d0f0c" name="Default Changelist" comment="" />
+    <list default="true" id="a8746e15-b292-47e1-abb5-d5e68e8d0f0c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Tetris/META-INF/Tetris.kotlin_module" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Tetris/app/Test$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Tetris/app/Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Tetris/contracts/Command.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Tetris/ds/Action.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Tetris/ds/AsciiGraphics.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Tetris/ds/Grid.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Tetris/ds/Position.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Tetris/ds/Rules.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Tetris/ds/Shape.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/contracts/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ds/Action.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ds/AsciiGraphics.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ds/Grid.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ds/Position.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ds/Rules.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ds/Shape.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/app/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/app/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Main.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="Tetris" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1RdbBhiqdq6h60gayV63TRO4yLy" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="ds.Shape" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -23,9 +78,8 @@
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="com.company.Main" />
+      <option name="MAIN_CLASS_NAME" value="app.Main" />
       <module name="Tetris" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method v="2">
@@ -64,5 +118,18 @@
       <updated>1569999786483</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
