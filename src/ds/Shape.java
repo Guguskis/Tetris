@@ -19,18 +19,22 @@ public class Shape {
         return form.length;
     }
 
-    public int getTile(Position coordinates) {
+    public int getUnmappedTile(Position coordinates) {
         if (inShape(coordinates)) {
-            var normalizedPosition = coordinates.minus(position);
-            return form[normalizedPosition.y][normalizedPosition.x];
+            return form[coordinates.y][coordinates.x];
         } else {
             return -1;
         }
     }
 
+    public int getMappedTile(Position coordinates) {
+        var unmappedCoordinates = coordinates.minus(position);
+        return getUnmappedTile(unmappedCoordinates);
+    }
+
     public boolean inShape(Position coordinates) {
-        var inXAxis = coordinates.x >= position.x && coordinates.x < position.x + form[0].length;
-        var inYAxis = coordinates.y >= position.y && coordinates.y < position.y + form.length;
+        var inXAxis = coordinates.x >= 0 && coordinates.x < getWidth();
+        var inYAxis = coordinates.y >= 0 && coordinates.y < getHeight();
         return inXAxis && inYAxis;
     }
 
@@ -65,10 +69,10 @@ public class Shape {
                 {0, 1, 1},
         });
 
-        int option = (int) (Math.random() * (shapes.size() - 1));
-        var newShape = shapes.get(option);
+        int randomOption = (int) (Math.random() * (shapes.size() - 1));
+        var randomShape = shapes.get(randomOption);
 
-        return newShape;
+        return randomShape;
     }
 
     public void reset(int x, int y) {

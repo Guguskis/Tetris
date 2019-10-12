@@ -3,19 +3,27 @@ package ds;
 public class Rules {
 
     public static void imprintShape(Grid grid, Shape shape) {
-        for (int i = 0; i < shape.form.length; i++) {
-            for (int j = 0; j < shape.form[0].length; j++) {
-                if (shape.form[i][j] == 1) {
-                    grid.map[shape.position.y + i][shape.position.x + j] = 1;
+        for (int i = 0; i < shape.getHeight(); i++) {
+            for (int j = 0; j < shape.getWidth(); j++) {
+                var coordinates = new Position(j, i);
+                var shapeTile = shape.getUnmappedTile(coordinates);
+
+                if (shapeTile == 1) {
+                    var mappedCoordinates = coordinates.plus(shape.position);
+                    grid.setTile(mappedCoordinates, shapeTile);
                 }
             }
         }
     }
+
     public static boolean hasCollided(Grid grid, Shape shape) {
-        for (int i = 0; i < shape.form.length; i++) {
-            for (int j = 0; j < shape.form[0].length; j++) {
-                var coordinates = new Position(shape.position.x + j, shape.position.y + i);
-                if (isOverlapped(grid, shape, coordinates)) {
+        for (int i = 0; i < shape.getHeight(); i++) {
+            for (int j = 0; j < shape.getWidth(); j++) {
+                var mappedCoordinates = shape.position.plus(new Position(j, i));
+                var isOverlapped = isOverlapped(grid, shape, mappedCoordinates);
+                var isOutOfBounds = isOutOfBounds(grid, shape, mappedCoordinates);
+
+                if (isOverlapped || isOutOfBounds) {
                     return true;
                 }
             }
@@ -24,15 +32,24 @@ public class Rules {
     }
 
     private static boolean isOverlapped(Grid grid, Shape shape, Position coordinates) {
-        var shapeTile = shape.getTile(coordinates);
-        var gridTile = grid.getGridTile(coordinates);
+        var shapeTile = shape.getMappedTile(coordinates);
+        var gridTile = grid.getTile(coordinates);
 
         if (shapeTile == 1 && gridTile == 1) {
-            return true;
-        } else if (shapeTile == 1 && gridTile == -1) {
             return true;
         }
         return false;
     }
+
+    private static boolean isOutOfBounds(Grid grid, Shape shape, Position coordinates) {
+        var shapeTile = shape.getMappedTile(coordinates);
+        var gridTile = grid.getTile(coordinates);
+
+        if (shapeTile == 1 && gridTile == -1) {
+            return true;
+        }
+        return false;
+    }
+
 
 }

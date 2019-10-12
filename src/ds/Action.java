@@ -6,7 +6,6 @@ public class Action {
         if (Rules.hasCollided(grid, shape)) {
             shape.position.moveUp();
             Rules.imprintShape(grid, shape);
-            shape.position.setPosition(0, 0);
             shape.reset(0, 0);
         }
     }

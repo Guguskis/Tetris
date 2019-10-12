@@ -17,29 +17,38 @@ public class Position {
         this.x = x;
         this.y = y;
     }
-    public void setPosition(int x, int y){
-        this.x=x;
-        this.y=y;
+
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     public void moveLeft() {
-        x-=1;
+        x -= 1;
     }
 
     public void moveRight() {
-        x+=1;
+        x += 1;
     }
 
     public void moveDown() {
-        y+=1;
-    }
-    public void moveUp(){
-        y-=1;
+        y += 1;
     }
 
-    public Position minus(Position o){
-        var newX=x-o.x;
-        var newY=y-o.y;
+    public void moveUp() {
+        y -= 1;
+    }
+
+    public Position minus(Position o) {
+        var newX = x - o.x;
+        var newY = y - o.y;
         return new Position(newX, newY);
     }
+
+    public Position plus(Position o) {
+        var newX = x + o.x;
+        var newY = y + o.y;
+        return new Position(newX, newY);
+    }
+
 }

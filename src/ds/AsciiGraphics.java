@@ -11,8 +11,8 @@ public class AsciiGraphics {
                 if (i == -1 || j == -1 || i == grid.getHeight() || j == grid.getWidth()) {
                     System.out.print("w");
                 } else {
-                    var shapeTile = shape.getTile(new Position(j, i));
-                    var gridTile = grid.getGridTile(new Position(j, i));
+                    var shapeTile = shape.getUnmappedTile(new Position(j, i));
+                    var gridTile = grid.getTile(new Position(j, i));
 
                     if (shapeTile == 1 || gridTile == 1) {
                         System.out.print("x");
