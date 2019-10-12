@@ -7,6 +7,7 @@ public class Action {
             shape.position.moveUp();
             Rules.imprintShape(grid, shape);
             shape.reset(0, 0);
+            Rules.removeFilledLines(grid);
         }
     }
 

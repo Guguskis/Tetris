@@ -92,7 +92,9 @@ public class Test extends Application {
                     } else if (tile == -1) {
                         gc.setFill(Color.RED);
                     }
-                    gc.fillRect((j + 1) * 10, (i + 1) * 10, 10, 10);
+                    var x = (j + 1) * 10;
+                    var y = (i + 1) * 10;
+                    gc.fillRect(x, y, 10, 10);
                 }
             }
         }
@@ -100,11 +102,10 @@ public class Test extends Application {
         gc.setFill(Color.YELLOW);
         for (int i = 0; i < shape.getHeight(); i++) {
             for (int j = 0; j < shape.getWidth(); j++) {
-                // Shape getTile will take in unmapped indexes, not mapped.
-                // I will need to unmap them before getTile call
-
                 if (shape.getUnmappedTile(new Position(j, i)) == 1) {
-                    gc.fillRect((j + 1 + shape.position.x) * 10, (i + 1 + shape.position.y) * 10, 10, 10);
+                    var x = (j + 1 + shape.position.x) * 10;
+                    var y = (i + 1 + shape.position.y) * 10;
+                    gc.fillRect(x, y, 10, 10);
                 }
             }
         }

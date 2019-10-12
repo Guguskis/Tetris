@@ -52,4 +52,17 @@ public class Rules {
     }
 
 
+    public static void removeFilledLines(Grid grid) {
+        for (int y = grid.getHeight() - 1; y >= 0; y--) {
+            if (grid.lineIsEmpty(y)) {
+                grid.removeLine(y);
+
+                for (int lineAbove = y - 1; lineAbove >= 0; lineAbove--) {
+                    grid.pushLineDown(lineAbove);
+                }
+                y++;
+            }
+
+        }
+    }
 }

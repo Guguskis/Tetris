@@ -2,26 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8746e15-b292-47e1-abb5-d5e68e8d0f0c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tetris.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Tetris.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/app/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/app/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/app/Test$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/app/Test$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Tetris/app/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/app/Test.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/contracts/Command.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/contracts/Command.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Tetris/ds/Action.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/ds/Action.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/ds/AsciiGraphics.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/ds/AsciiGraphics.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/ds/Grid.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/ds/Grid.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/ds/Position.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/ds/Position.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/ds/Rules.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/ds/Rules.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Tetris/ds/Shape.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/ds/Shape.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ds/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ds/Action.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ds/AsciiGraphics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ds/AsciiGraphics.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ds/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ds/Grid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ds/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ds/Position.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ds/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ds/Rules.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ds/Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ds/Shape.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

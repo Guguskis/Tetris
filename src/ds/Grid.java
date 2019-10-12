@@ -34,4 +34,26 @@ public class Grid {
         }
     }
 
+    public boolean lineIsEmpty(int y) {
+        for (int x = 0; x < getWidth(); x++) {
+            if (getTile(new Position(x, y)) != 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void removeLine(int y) {
+        for (int x = 0; x < getWidth(); x++) {
+            setTile(new Position(x, y), 0);
+        }
+    }
+
+    public void pushLineDown(int y) {
+        for (int x = 0; x < getWidth(); x++) {
+            var tile = getTile(new Position(x, y));
+            setTile(new Position(x, y + 1), tile);
+        }
+        removeLine(y);
+    }
 }
