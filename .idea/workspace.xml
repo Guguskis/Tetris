@@ -2,23 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8746e15-b292-47e1-abb5-d5e68e8d0f0c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/app/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/app/Test$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/app/Test.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/contracts/Command.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/contracts/Frame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/contracts/Renderer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/ds/Action.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/ds/Rules.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/ds/Rules.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/Test.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/contracts/Command.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/contracts/Frame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/contracts/Renderer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ds/Action.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/CommandInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/commands/CommandInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/MoveDownCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/commands/MoveDownCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/MoveLeftCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/commands/MoveLeftCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/MoveRightCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/commands/MoveRightCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/RotateShapeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/commands/RotateShapeCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/Score.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/commands/Score.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ds/AsciiGraphics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/AsciiGraphics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ds/GraphicsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/GraphicsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ds/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Grid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ds/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Position.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ds/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ds/Rules.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ds/Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Shape.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -74,14 +71,14 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Game">
     <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="app.Game" />
+      <option name="MAIN_CLASS_NAME" value="controller.Game" />
       <module name="Tetris" />
       <option name="VM_PARAMETERS" value="--module-path &quot;F:\Programming\ENVIRONMENTVARIABLES\javafx-sdk-13\lib&quot; --add-modules javafx.controls,javafx.fxml" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="app.*" />
+          <option name="PATTERN" value="controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>

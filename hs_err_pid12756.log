@@ -16,7 +16,7 @@
 
 ---------------  S U M M A R Y ------------
 
-Command Line: --module-path=F:\Programming\ENVIRONMENTVARIABLES\javafx-sdk-13\lib --add-modules=javafx.controls,javafx.fxml --add-modules=javafx.base,javafx.graphics --add-reads=javafx.base=ALL-UNNAMED --add-reads=javafx.graphics=ALL-UNNAMED -javaagent:F:\Programming\IntelliJ IDEA Community Edition 2019.2.3\lib\idea_rt.jar=49827:F:\Programming\IntelliJ IDEA Community Edition 2019.2.3\bin -Dfile.encoding=UTF-8 app.Game
+Command Line: --module-path=F:\Programming\ENVIRONMENTVARIABLES\javafx-sdk-13\lib --add-modules=javafx.controls,javafx.fxml --add-modules=javafx.base,javafx.graphics --add-reads=javafx.base=ALL-UNNAMED --add-reads=javafx.graphics=ALL-UNNAMED -javaagent:F:\Programming\IntelliJ IDEA Community Edition 2019.2.3\lib\idea_rt.jar=49827:F:\Programming\IntelliJ IDEA Community Edition 2019.2.3\bin -Dfile.encoding=UTF-8 controller.Game
 
 Host: Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz, 4 cores, 7G,  Windows 10 , 64 bit Build 17763 (10.0.17763.475)
 Time: Tue Oct 15 02:11:23 2019 Belarus Standard Time elapsed time: 0 seconds (0d 0h 0m 0s)
@@ -605,7 +605,7 @@ symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;F:\Pr
 
 VM Arguments:
 jvm_args: --module-path=F:\Programming\ENVIRONMENTVARIABLES\javafx-sdk-13\lib --add-modules=javafx.controls,javafx.fxml --add-modules=javafx.base,javafx.graphics --add-reads=javafx.base=ALL-UNNAMED --add-reads=javafx.graphics=ALL-UNNAMED -javaagent:F:\Programming\IntelliJ IDEA Community Edition 2019.2.3\lib\idea_rt.jar=49827:F:\Programming\IntelliJ IDEA Community Edition 2019.2.3\bin -Dfile.encoding=UTF-8 
-java_command: app.Game
+java_command: controller.Game
 java_class_path (initial): F:\Dev\Java\Tetris\out\production\Tetris;F:\Programming\ENVIRONMENTVARIABLES\javafx-sdk-13\lib\src.zip;F:\Programming\ENVIRONMENTVARIABLES\javafx-sdk-13\lib\javafx-swt.jar;F:\Programming\ENVIRONMENTVARIABLES\javafx-sdk-13\lib\javafx.web.jar;F:\Programming\ENVIRONMENTVARIABLES\javafx-sdk-13\lib\javafx.base.jar;F:\Programming\ENVIRONMENTVARIABLES\javafx-sdk-13\lib\javafx.fxml.jar;F:\Programming\ENVIRONMENTVARIABLES\javafx-sdk-13\lib\javafx.media.jar;F:\Programming\ENVIRONMENTVARIABLES\javafx-sdk-13\lib\javafx.swing.jar;F:\Programming\ENVIRONMENTVARIABLES\javafx-sdk-13\lib\javafx.controls.jar;F:\Programming\ENVIRONMENTVARIABLES\javafx-sdk-13\lib\javafx.graphics.jar
 Launcher Type: SUN_STANDARD
 
