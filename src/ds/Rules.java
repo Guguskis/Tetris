@@ -1,8 +1,9 @@
 package ds;
 
 public class Rules {
+    private static Rules instance;
 
-    public static void imprintShape(Grid grid, Shape shape) {
+    public void imprintShape(Grid grid, Shape shape) {
         for (int i = 0; i < shape.getHeight(); i++) {
             for (int j = 0; j < shape.getWidth(); j++) {
                 var coordinates = new Position(j, i);
@@ -16,7 +17,7 @@ public class Rules {
         }
     }
 
-    public static boolean hasCollided(Grid grid, Shape shape) {
+    public boolean hasCollided(Grid grid, Shape shape) {
         for (int i = 0; i < shape.getHeight(); i++) {
             for (int j = 0; j < shape.getWidth(); j++) {
                 var mappedCoordinates = shape.position.plus(new Position(j, i));
@@ -31,7 +32,7 @@ public class Rules {
         return false;
     }
 
-    private static boolean isOverlapped(Grid grid, Shape shape, Position coordinates) {
+    private boolean isOverlapped(Grid grid, Shape shape, Position coordinates) {
         var shapeTile = shape.getMappedTile(coordinates);
         var gridTile = grid.getTile(coordinates);
 
@@ -41,7 +42,7 @@ public class Rules {
         return false;
     }
 
-    private static boolean isOutOfBounds(Grid grid, Shape shape, Position coordinates) {
+    private boolean isOutOfBounds(Grid grid, Shape shape, Position coordinates) {
         var shapeTile = shape.getMappedTile(coordinates);
         var gridTile = grid.getTile(coordinates);
 
@@ -51,8 +52,7 @@ public class Rules {
         return false;
     }
 
-
-    public static void removeFilledLines(Grid grid) {
+    public void removeFilledLines(Grid grid) {
         for (int y = grid.getHeight() - 1; y >= 0; y--) {
             if (grid.lineIsEmpty(y)) {
                 grid.removeLine(y);
@@ -65,4 +65,12 @@ public class Rules {
 
         }
     }
+
+    public static Rules getInstance() {
+        if(instance == null){
+            instance = new Rules();
+        }
+        return instance;
+    }
+
 }
