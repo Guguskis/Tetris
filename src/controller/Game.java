@@ -1,25 +1,27 @@
 package controller;
 
 import controller.commands.*;
-import view.GraphicsManager;
+import javafx.scene.paint.Color;
+import model.Position;
+import view.Renderer.SimpleRenderer;
 import model.Grid;
 import model.Shape;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import view.Renderer.Renderer;
 
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 public class Game extends Application {
     private int width;
     private int height;
-    private int scale = 20;
 
     public static void main(String[] args) {
         launch();
@@ -30,8 +32,8 @@ public class Game extends Application {
         width = 800;
         height = 800;
     }
-    
-    
+
+
     @Override
     public void start(Stage primaryStage) {
         var root = new Group();
@@ -39,31 +41,61 @@ public class Game extends Application {
         root.getChildren().add(canvas);
 
         var graphicsContext = canvas.getGraphicsContext2D();
-        var graphicsManager = new GraphicsManager(graphicsContext, 20);
+        Renderer renderer = new SimpleRenderer(graphicsContext, 20);
         var gameplayScene = new Scene(root);
 
         var shape = new Shape(0, 0);
         var grid = new Grid(10, 20);
 
-        graphicsManager.drawScene(shape, grid);
-        // Finished by making the code work again. Was thinking about writing end condition
-        var commands = getPrepareCommands(shape, grid);
+        // Applied MVC architecture, refactored GraphicsManager into Renderer, but don't know how to data exchange
+        // Was thinking to use more interfaces as a tool for better code reusabilty
+        // Need struct for tile type
+        // Look at subscriber pattern
+        // Enumerator for shape type
+        var commands = getPreparedCommands(shape, grid);
+        setupMovementLogic(renderer, gameplayScene, shape, grid, commands);
 
-        automaticallyMoveShapeDown(graphicsManager, commands.get(KeyCode.S), shape, grid);
-        gameplayScene.addEventFilter(KeyEvent.KEY_PRESSED, (EventHandler<KeyEvent>) key -> {
-            var command = commands.get(key.getCode());
-            if (command != null) {
-                command.execute();
-                graphicsManager.drawScene(shape, grid);
-            }
-        });
 
         primaryStage.setScene(gameplayScene);
         primaryStage.show();
     }
 
+    private void setupMovementLogic(Renderer renderer, Scene gameplayScene, Shape shape, Grid grid, HashMap<KeyCode, CommandInterface> commands) {
+        var filteredCommands = commands.entrySet().stream()
+                .map(command -> command.getValue())
+                .filter(command -> command instanceof MoveDownCommand)
+                .collect(Collectors.toList());
 
-    private void automaticallyMoveShapeDown(GraphicsManager graphicsManager, CommandInterface moveDownCommand, Shape shape, Grid grid) {
+        var moveDownCommand = filteredCommands.size() == 1 ? (MoveDownCommand) filteredCommands.get(0) : null;
+        if (moveDownCommand != null) {
+            automaticallyMoveShapeDown(renderer, moveDownCommand, shape, grid);
+        }
+
+        gameplayScene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
+            handleCommand(renderer, shape, grid, commands, key);
+        });
+    }
+
+    private void handleCommand(Renderer renderer, Shape shape, Grid grid, HashMap<KeyCode, CommandInterface> commands, KeyEvent key) {
+        var command = getCommand(commands, key);
+        if (command != null) {
+            command.execute();
+            drawScene(renderer, shape, grid);
+        }
+    }
+
+    private CommandInterface getCommand(HashMap<KeyCode, CommandInterface> commands, KeyEvent key) {
+        return commands.get(key.getCode());
+    }
+
+    private void drawScene(Renderer renderer, Shape shape, Grid grid) {
+        renderer.fillBackground(width, height, Color.BLACK);
+        renderer.outline(new Position(0, 0), grid.getWidth() + 2, grid.getHeight() + 2, Color.PINK);
+        renderer.mainView(new Position(1, 1), shape, grid);
+    }
+
+
+    private void automaticallyMoveShapeDown(Renderer renderer, MoveDownCommand command, Shape shape, Grid grid) {
         new AnimationTimer() {
             long lastTick = 0;
 
@@ -71,22 +103,18 @@ public class Game extends Application {
             public void handle(long now) {
                 if (lastTick == 0) {
                     lastTick = now;
-                    graphicsManager.drawScene(shape, grid);
-
+                    drawScene(renderer, shape, grid);
                 }
                 if (now - lastTick > 250 * 1e6) {
                     lastTick = now;
-                    moveDownCommand.execute();
-                    graphicsManager.drawScene(shape, grid);
-
-
+                    command.execute();
+                    drawScene(renderer, shape, grid);
                 }
             }
         }.start();
     }
 
-
-    private HashMap<KeyCode, CommandInterface> getPrepareCommands(Shape shape, Grid grid) {
+    private HashMap<KeyCode, CommandInterface> getPreparedCommands(Shape shape, Grid grid) {
         var newCommands = new HashMap<KeyCode, CommandInterface>();
         newCommands.put(KeyCode.A, new MoveLeftCommand(shape, grid));
         newCommands.put(KeyCode.D, new MoveRightCommand(shape, grid));

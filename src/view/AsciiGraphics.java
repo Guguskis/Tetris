@@ -3,6 +3,7 @@ package view;
 import model.Grid;
 import model.Position;
 import model.Shape;
+import model.Tile;
 
 public class AsciiGraphics {
     public AsciiGraphics(){
@@ -18,7 +19,7 @@ public class AsciiGraphics {
                     var shapeTile = shape.getUnmappedTile(new Position(j, i));
                     var gridTile = grid.getTile(new Position(j, i));
 
-                    if (shapeTile == 1 || gridTile == 1) {
+                    if (shapeTile == Tile.Occupied|| gridTile == Tile.Occupied) {
                         System.out.print("x");
                     } else {
                         System.out.print(" ");

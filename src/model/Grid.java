@@ -1,10 +1,10 @@
 package model;
 
 public class Grid {
-    public int[][] map;
+    public Tile[][] map;
 
     public Grid(int width, int height) {
-        this.map = new int[height][width];
+        this.map = new Tile[height][width];
     }
 
     public int getWidth() {
@@ -21,14 +21,14 @@ public class Grid {
         return inXAxis && inYAxis;
     }
 
-    public int getTile(Position coordinates) {
+    public Tile getTile(Position coordinates) {
         if (inBounds(coordinates)) {
             return map[coordinates.y][coordinates.x];
         }
-        return -1;
+        return Tile.OutOfBounds;
     }
 
-    public void setTile(Position coordinates, int tile) {
+    public void setTile(Position coordinates, Tile tile) {
         if (inBounds(coordinates)) {
             map[coordinates.y][coordinates.x] = tile;
         }
@@ -36,7 +36,7 @@ public class Grid {
 
     public boolean lineIsEmpty(int y) {
         for (int x = 0; x < getWidth(); x++) {
-            if (getTile(new Position(x, y)) != 1) {
+            if (getTile(new Position(x, y)) != Tile.Occupied) {
                 return false;
             }
         }
@@ -45,7 +45,7 @@ public class Grid {
 
     public void removeLine(int y) {
         for (int x = 0; x < getWidth(); x++) {
-            setTile(new Position(x, y), 0);
+            setTile(new Position(x, y), Tile.Empty);
         }
     }
 

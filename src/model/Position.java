@@ -51,4 +51,9 @@ public class Position {
         return new Position(newX, newY);
     }
 
+    public Position multiply(int n) {
+        var newX = x*n;
+        var newY=y*n;
+        return new Position(newX, newY);
+    }
 }

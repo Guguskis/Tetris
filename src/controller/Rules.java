@@ -3,6 +3,7 @@ package controller;
 import model.Grid;
 import model.Position;
 import model.Shape;
+import model.Tile;
 
 public class Rules {
     private static Rules instance;
@@ -13,7 +14,7 @@ public class Rules {
                 var coordinates = new Position(j, i);
                 var shapeTile = shape.getUnmappedTile(coordinates);
 
-                if (shapeTile == 1) {
+                if (shapeTile == Tile.Occupied) {
                     var mappedCoordinates = coordinates.plus(shape.position);
                     grid.setTile(mappedCoordinates, shapeTile);
                 }
@@ -40,7 +41,7 @@ public class Rules {
         var shapeTile = shape.getMappedTile(coordinates);
         var gridTile = grid.getTile(coordinates);
 
-        if (shapeTile == 1 && gridTile == 1) {
+        if (shapeTile == Tile.Occupied && gridTile == Tile.Occupied) {
             return true;
         }
         return false;
@@ -50,7 +51,7 @@ public class Rules {
         var shapeTile = shape.getMappedTile(coordinates);
         var gridTile = grid.getTile(coordinates);
 
-        if (shapeTile == 1 && gridTile == -1) {
+        if (shapeTile == Tile.Occupied && gridTile == Tile.OutOfBounds) {
             return true;
         }
         return false;

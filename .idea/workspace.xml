@@ -2,20 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8746e15-b292-47e1-abb5-d5e68e8d0f0c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/view/Renderer/SimpleRenderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/CommandInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/commands/CommandInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/MoveDownCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/commands/MoveDownCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/MoveLeftCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/commands/MoveLeftCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/MoveRightCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/commands/MoveRightCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/RotateShapeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/commands/RotateShapeCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/Score.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/commands/Score.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ds/AsciiGraphics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/AsciiGraphics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ds/GraphicsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/GraphicsManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ds/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Grid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ds/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ds/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ds/Rules.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ds/Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Shape.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/controller/Game$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/controller/Game$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/controller/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/controller/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/controller/Rules.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/controller/Rules.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/model/Grid.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/model/Grid.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/model/Position.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/model/Position.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/model/Shape.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/model/Shape.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/view/AsciiGraphics.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/view/AsciiGraphics.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/view/GraphicsManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Rules.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Grid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Shape.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/AsciiGraphics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/AsciiGraphics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/GraphicsManager.java" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,8 +32,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -54,6 +58,10 @@
   <component name="RecentsManager">
     <key name="MoveMembersDialog.RECENTS_KEY">
       <recent name="ds.Shape" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="view.Renderer" />
+      <recent name="controller" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="commands" />

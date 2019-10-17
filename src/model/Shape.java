@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Shape {
     public Position position;
-    public int[][] form;
+    public Tile[][] form;
 
     public Shape(int x, int y) {
         this.position = new Position(x, y);
@@ -19,15 +19,15 @@ public class Shape {
         return form.length;
     }
 
-    public int getUnmappedTile(Position coordinates) {
+    public Tile getUnmappedTile(Position coordinates) {
         if (inShape(coordinates)) {
             return form[coordinates.y][coordinates.x];
         } else {
-            return -1;
+            return Tile.OutOfBounds;
         }
     }
 
-    public int getMappedTile(Position coordinates) {
+    public Tile getMappedTile(Position coordinates) {
         var unmappedCoordinates = coordinates.minus(position);
         return getUnmappedTile(unmappedCoordinates);
     }
@@ -38,35 +38,35 @@ public class Shape {
         return inXAxis && inYAxis;
     }
 
-    private int[][] getRandomForm() {
-        var shapes = new ArrayList<int[][]>();
+    private Tile[][] getRandomForm() {
+        var shapes = new ArrayList<Tile[][]>();
 
-        shapes.add(new int[][]{
-                {1, 1, 1, 1},
+        shapes.add(new Tile[][]{
+                {Tile.Occupied, Tile.Occupied, Tile.Occupied, Tile.Occupied},
         });
-        shapes.add(new int[][]{
-                {1, 0, 0},
-                {1, 1, 1},
+        shapes.add(new Tile[][]{
+                {Tile.Occupied, Tile.Empty, Tile.Empty},
+                {Tile.Occupied, Tile.Occupied, Tile.Occupied},
         });
-        shapes.add(new int[][]{
-                {0, 0, 1},
-                {1, 1, 1},
+        shapes.add(new Tile[][]{
+                {Tile.Empty, Tile.Empty, Tile.Occupied},
+                {Tile.Occupied, Tile.Occupied, Tile.Occupied},
         });
-        shapes.add(new int[][]{
-                {1, 1},
-                {1, 1},
+        shapes.add(new Tile[][]{
+                {Tile.Occupied, Tile.Occupied},
+                {Tile.Occupied, Tile.Occupied},
         });
-        shapes.add(new int[][]{
-                {0, 1, 1},
-                {1, 1, 0},
+        shapes.add(new Tile[][]{
+                {Tile.Empty, Tile.Occupied, Tile.Occupied},
+                {Tile.Occupied, Tile.Occupied, Tile.Empty},
         });
-        shapes.add(new int[][]{
-                {0, 1, 0},
-                {1, 1, 1},
+        shapes.add(new Tile[][]{
+                {Tile.Empty, Tile.Occupied, Tile.Empty},
+                {Tile.Occupied, Tile.Occupied, Tile.Occupied},
         });
-        shapes.add(new int[][]{
-                {1, 1, 0},
-                {0, 1, 1},
+        shapes.add(new Tile[][]{
+                {Tile.Occupied, Tile.Occupied, Tile.Empty},
+                {Tile.Empty, Tile.Occupied, Tile.Occupied},
         });
 
         int randomOption = (int) (Math.random() * (shapes.size() - 1));
@@ -81,7 +81,7 @@ public class Shape {
     }
 
     public void rotateClockwise() {
-        var newForm = new int[getWidth()][getHeight()];
+        var newForm = new Tile[getWidth()][getHeight()];
 
         for (int i = 0; i < getHeight(); i++) {
             for (int j = 0; j < getWidth(); j++) {
