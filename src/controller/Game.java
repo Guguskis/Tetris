@@ -3,9 +3,10 @@ package controller;
 import controller.commands.*;
 import javafx.scene.paint.Color;
 import model.Position;
-import view.Renderer.SimpleRenderer;
+import model.shapes.Shape;
+import model.shapes.ShapeFactory;
+import view.renderer.SimpleRenderer;
 import model.Grid;
-import model.Shape;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -14,7 +15,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import view.Renderer.Renderer;
+import view.renderer.Renderer;
 
 import java.util.HashMap;
 import java.util.stream.Collectors;
@@ -37,21 +38,21 @@ public class Game extends Application {
     @Override
     public void start(Stage primaryStage) {
         var root = new Group();
+        var gameplayScene = new Scene(root);
+
         var canvas = new Canvas(width, height);
         root.getChildren().add(canvas);
 
         var graphicsContext = canvas.getGraphicsContext2D();
-        Renderer renderer = new SimpleRenderer(graphicsContext, 20);
-        var gameplayScene = new Scene(root);
+        var renderer = new SimpleRenderer(graphicsContext, 20);
 
-        var shape = new Shape(0, 0);
+        var shape = ShapeFactory.makeRandom(0, 0);
         var grid = new Grid(10, 20);
 
-        // Applied MVC architecture, refactored GraphicsManager into Renderer, but don't know how to data exchange
+        // Should factory allow to see next shape or should I store current and next shape in here?
         // Was thinking to use more interfaces as a tool for better code reusabilty
-        // Need struct for tile type
         // Look at subscriber pattern
-        // Enumerator for shape type
+        // Scene builder? I could extract current logic to build gameplay scene
         var commands = getPreparedCommands(shape, grid);
         setupMovementLogic(renderer, gameplayScene, shape, grid, commands);
 
@@ -89,11 +90,10 @@ public class Game extends Application {
     }
 
     private void drawScene(Renderer renderer, Shape shape, Grid grid) {
-        renderer.fillBackground(width, height, Color.BLACK);
-        renderer.outline(new Position(0, 0), grid.getWidth() + 2, grid.getHeight() + 2, Color.PINK);
+        renderer.fillBackground(width, height, Color.rgb(30, 0, 40));
+        renderer.outline(new Position(0, 0), grid.getWidth() + 2, grid.getHeight() + 2, Color.rgb(125, 190, 80));
         renderer.mainView(new Position(1, 1), shape, grid);
     }
-
 
     private void automaticallyMoveShapeDown(Renderer renderer, MoveDownCommand command, Shape shape, Grid grid) {
         new AnimationTimer() {

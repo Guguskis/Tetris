@@ -1,10 +1,10 @@
-package view.Renderer;
+package view.renderer;
 
 import controller.commands.Score;
 import javafx.scene.paint.Color;
 import model.Grid;
 import model.Position;
-import model.Shape;
+import model.shapes.Shape;
 
 public interface Renderer {
     void outline(Position start, int width, int height, Color color);

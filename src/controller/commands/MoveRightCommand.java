@@ -2,7 +2,7 @@ package controller.commands;
 
 import model.Grid;
 import controller.Rules;
-import model.Shape;
+import model.shapes.Shape;
 
 public class MoveRightCommand implements CommandInterface {
 

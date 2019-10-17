@@ -2,7 +2,7 @@ package controller.commands;
 
 import model.Grid;
 import controller.Rules;
-import model.Shape;
+import model.shapes.Shape;
 
 public class MoveDownCommand implements CommandInterface {
 
@@ -22,8 +22,8 @@ public class MoveDownCommand implements CommandInterface {
         if (rules.hasCollided(grid, shape)) {
             shape.position.moveUp();
             rules.imprintShape(grid, shape);
-            shape.reset(0, 0);
             rules.removeFilledLines(grid);
+            shape.reset(0, 0);
         }
     }
 }

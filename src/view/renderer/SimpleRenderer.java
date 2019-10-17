@@ -1,11 +1,11 @@
-package view.Renderer;
+package view.renderer;
 
 import controller.commands.Score;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.Grid;
 import model.Position;
-import model.Shape;
+import model.shapes.Shape;
 import model.Tile;
 
 public class SimpleRenderer implements Renderer {
@@ -31,11 +31,6 @@ public class SimpleRenderer implements Renderer {
         }
     }
 
-    private void drawScaledRect(Position where, Color color) {
-        var scaledWhere = getScaled(where);
-        context.setFill(color);
-        context.fillRect(scaledWhere.x, scaledWhere.y, scale, scale);
-    }
 
     private void drawGrid(Position start, Grid grid, Color color) {
         for (int i = 0; i < grid.getHeight(); i++) {
@@ -90,5 +85,10 @@ public class SimpleRenderer implements Renderer {
     private void drawRect(Position where, int width, int height, Color color) {
         context.setFill(color);
         context.fillRect(where.x, where.y, width, height);
+    }
+
+    private void drawScaledRect(Position where, Color color) {
+        var scaledWhere = getScaled(where);
+        drawRect(scaledWhere, scale, scale, color);
     }
 }

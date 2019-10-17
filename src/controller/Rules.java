@@ -2,7 +2,7 @@ package controller;
 
 import model.Grid;
 import model.Position;
-import model.Shape;
+import model.shapes.Shape;
 import model.Tile;
 
 public class Rules {
