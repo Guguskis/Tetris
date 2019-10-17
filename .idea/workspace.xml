@@ -3,27 +3,24 @@
   <component name="ChangeListManager">
     <list default="true" id="a8746e15-b292-47e1-abb5-d5e68e8d0f0c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/controller/Game$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/controller/Game$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/controller/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/controller/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/controller/Rules.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/controller/Rules.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/controller/commands/MoveDownCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/controller/commands/MoveDownCommand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/controller/commands/MoveLeftCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/controller/commands/MoveLeftCommand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/controller/commands/MoveRightCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/controller/commands/MoveRightCommand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/controller/commands/RotateShapeCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/controller/commands/RotateShapeCommand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/model/Shape.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/view/AsciiGraphics.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/view/AsciiGraphics.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/view/Renderer/Renderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/view/Renderer/Renderer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/view/Renderer/SimpleRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/view/Renderer/SimpleRenderer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Rules.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/commands/MoveDownCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/commands/MoveDownCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/commands/MoveLeftCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/commands/MoveLeftCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/commands/MoveRightCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/commands/MoveRightCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/commands/RotateShapeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/commands/RotateShapeCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/shapes/Shape.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/commands/RotateShapeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/commands/RotateTetrominoCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/shapes/LeftLShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/tetromino/LeftLTetromino.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/shapes/LeftZShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/tetromino/LeftZTetromino.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/shapes/LongShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/tetromino/LongTetromino.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/shapes/RightLShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/tetromino/RightLTetromino.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/shapes/RightZShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/tetromino/RightZTetromino.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/shapes/Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/tetromino/Tetromino.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/shapes/ShapeFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/tetromino/TetrominoFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/shapes/SquareShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/tetromino/SquareTetromino.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/shapes/TriangleShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/tetromino/TriangleTetromino.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/AsciiGraphics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/AsciiGraphics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Renderer/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/renderer/Renderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Renderer/SimpleRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/renderer/SimpleRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/renderer/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/renderer/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/renderer/SimpleRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/renderer/SimpleRenderer.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

@@ -5,7 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.Grid;
 import model.Position;
-import model.shapes.Shape;
+import model.tetromino.Tetromino;
 import model.Tile;
 
 public class SimpleRenderer implements Renderer {
@@ -18,12 +18,12 @@ public class SimpleRenderer implements Renderer {
         this.scale = scale;
     }
 
-    private void drawShape(Position start, Shape shape, Color color) {
-        for (int i = 0; i < shape.getHeight(); i++) {
-            for (int j = 0; j < shape.getWidth(); j++) {
-                var tile = shape.getUnmappedTile(new Position(j, i));
+    private void drawTetromino(Position start, Tetromino tetromino, Color color) {
+        for (int i = 0; i < tetromino.getHeight(); i++) {
+            for (int j = 0; j < tetromino.getWidth(); j++) {
+                var tile = tetromino.getUnmappedTile(new Position(j, i));
                 if (tile == Tile.Occupied) {
-                    var offset = new Position(j, i).plus(shape.position);
+                    var offset = new Position(j, i).plus(tetromino.position);
                     var drawPosition = start.plus(offset);
                     drawScaledRect(drawPosition, color);
                 }
@@ -58,8 +58,8 @@ public class SimpleRenderer implements Renderer {
     }
 
     @Override
-    public void mainView(Position start, Shape shape, Grid grid) {
-        drawShape(start, shape, Color.GREEN);
+    public void mainView(Position start, Tetromino tetromino, Grid grid) {
+        drawTetromino(start, tetromino, Color.GREEN);
         drawGrid(start, grid, Color.GREY);
     }
 
@@ -78,7 +78,7 @@ public class SimpleRenderer implements Renderer {
     }
 
     @Override
-    public void nextShape(Position start, Shape shape) {
+    public void nextTetromino(Position start, Tetromino tetromino) {
         //Todo implement
     }
 

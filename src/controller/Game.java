@@ -3,8 +3,8 @@ package controller;
 import controller.commands.*;
 import javafx.scene.paint.Color;
 import model.Position;
-import model.shapes.Shape;
-import model.shapes.ShapeFactory;
+import model.tetromino.Tetromino;
+import model.tetromino.TetrominoFactory;
 import view.renderer.SimpleRenderer;
 import model.Grid;
 import javafx.animation.AnimationTimer;
@@ -46,22 +46,23 @@ public class Game extends Application {
         var graphicsContext = canvas.getGraphicsContext2D();
         var renderer = new SimpleRenderer(graphicsContext, 20);
 
-        var shape = ShapeFactory.makeRandom(0, 0);
+        var tetrominoFactory = new TetrominoFactory();
+
+        var tetromino = tetrominoFactory.makeRandom(0, 0);
         var grid = new Grid(10, 20);
 
-        // Should factory allow to see next shape or should I store current and next shape in here?
         // Was thinking to use more interfaces as a tool for better code reusabilty
         // Look at subscriber pattern
         // Scene builder? I could extract current logic to build gameplay scene
-        var commands = getPreparedCommands(shape, grid);
-        setupMovementLogic(renderer, gameplayScene, shape, grid, commands);
+        var commands = getPreparedCommands(tetromino, grid);
+        setupMovementLogic(renderer, gameplayScene, tetromino, grid, commands);
 
 
         primaryStage.setScene(gameplayScene);
         primaryStage.show();
     }
 
-    private void setupMovementLogic(Renderer renderer, Scene gameplayScene, Shape shape, Grid grid, HashMap<KeyCode, CommandInterface> commands) {
+    private void setupMovementLogic(Renderer renderer, Scene gameplayScene, Tetromino tetromino, Grid grid, HashMap<KeyCode, CommandInterface> commands) {
         var filteredCommands = commands.entrySet().stream()
                 .map(command -> command.getValue())
                 .filter(command -> command instanceof MoveDownCommand)
@@ -69,19 +70,19 @@ public class Game extends Application {
 
         var moveDownCommand = filteredCommands.size() == 1 ? (MoveDownCommand) filteredCommands.get(0) : null;
         if (moveDownCommand != null) {
-            automaticallyMoveShapeDown(renderer, moveDownCommand, shape, grid);
+            automaticallyMoveTetrominoDown(renderer, moveDownCommand, tetromino, grid);
         }
 
         gameplayScene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
-            handleCommand(renderer, shape, grid, commands, key);
+            handleCommand(renderer, tetromino, grid, commands, key);
         });
     }
 
-    private void handleCommand(Renderer renderer, Shape shape, Grid grid, HashMap<KeyCode, CommandInterface> commands, KeyEvent key) {
+    private void handleCommand(Renderer renderer, Tetromino tetromino, Grid grid, HashMap<KeyCode, CommandInterface> commands, KeyEvent key) {
         var command = getCommand(commands, key);
         if (command != null) {
             command.execute();
-            drawScene(renderer, shape, grid);
+            drawScene(renderer, tetromino, grid);
         }
     }
 
@@ -89,13 +90,13 @@ public class Game extends Application {
         return commands.get(key.getCode());
     }
 
-    private void drawScene(Renderer renderer, Shape shape, Grid grid) {
+    private void drawScene(Renderer renderer, Tetromino tetromino, Grid grid) {
         renderer.fillBackground(width, height, Color.rgb(30, 0, 40));
         renderer.outline(new Position(0, 0), grid.getWidth() + 2, grid.getHeight() + 2, Color.rgb(125, 190, 80));
-        renderer.mainView(new Position(1, 1), shape, grid);
+        renderer.mainView(new Position(1, 1), tetromino, grid);
     }
 
-    private void automaticallyMoveShapeDown(Renderer renderer, MoveDownCommand command, Shape shape, Grid grid) {
+    private void automaticallyMoveTetrominoDown(Renderer renderer, MoveDownCommand command, Tetromino tetromino, Grid grid) {
         new AnimationTimer() {
             long lastTick = 0;
 
@@ -103,23 +104,23 @@ public class Game extends Application {
             public void handle(long now) {
                 if (lastTick == 0) {
                     lastTick = now;
-                    drawScene(renderer, shape, grid);
+                    drawScene(renderer, tetromino, grid);
                 }
                 if (now - lastTick > 250 * 1e6) {
                     lastTick = now;
                     command.execute();
-                    drawScene(renderer, shape, grid);
+                    drawScene(renderer, tetromino, grid);
                 }
             }
         }.start();
     }
 
-    private HashMap<KeyCode, CommandInterface> getPreparedCommands(Shape shape, Grid grid) {
+    private HashMap<KeyCode, CommandInterface> getPreparedCommands(Tetromino tetromino, Grid grid) {
         var newCommands = new HashMap<KeyCode, CommandInterface>();
-        newCommands.put(KeyCode.A, new MoveLeftCommand(shape, grid));
-        newCommands.put(KeyCode.D, new MoveRightCommand(shape, grid));
-        newCommands.put(KeyCode.S, new MoveDownCommand(shape, grid));
-        newCommands.put(KeyCode.W, new RotateShapeCommand(shape, grid));
+        newCommands.put(KeyCode.A, new MoveLeftCommand(tetromino, grid));
+        newCommands.put(KeyCode.D, new MoveRightCommand(tetromino, grid));
+        newCommands.put(KeyCode.S, new MoveDownCommand(tetromino, grid));
+        newCommands.put(KeyCode.W, new RotateTetrominoCommand(tetromino, grid));
 
         return newCommands;
     }

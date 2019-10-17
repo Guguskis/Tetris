@@ -2,32 +2,32 @@ package controller;
 
 import model.Grid;
 import model.Position;
-import model.shapes.Shape;
+import model.tetromino.Tetromino;
 import model.Tile;
 
 public class Rules {
     private static Rules instance;
 
-    public void imprintShape(Grid grid, Shape shape) {
-        for (int i = 0; i < shape.getHeight(); i++) {
-            for (int j = 0; j < shape.getWidth(); j++) {
+    public void imprintTetromino(Grid grid, Tetromino tetromino) {
+        for (int i = 0; i < tetromino.getHeight(); i++) {
+            for (int j = 0; j < tetromino.getWidth(); j++) {
                 var coordinates = new Position(j, i);
-                var shapeTile = shape.getUnmappedTile(coordinates);
+                var tile = tetromino.getUnmappedTile(coordinates);
 
-                if (shapeTile == Tile.Occupied) {
-                    var mappedCoordinates = coordinates.plus(shape.position);
-                    grid.setTile(mappedCoordinates, shapeTile);
+                if (tile == Tile.Occupied) {
+                    var mappedCoordinates = coordinates.plus(tetromino.position);
+                    grid.setTile(mappedCoordinates, tile);
                 }
             }
         }
     }
 
-    public boolean hasCollided(Grid grid, Shape shape) {
-        for (int i = 0; i < shape.getHeight(); i++) {
-            for (int j = 0; j < shape.getWidth(); j++) {
-                var mappedCoordinates = shape.position.plus(new Position(j, i));
-                var isOverlapped = isOverlapped(grid, shape, mappedCoordinates);
-                var isOutOfBounds = isOutOfBounds(grid, shape, mappedCoordinates);
+    public boolean hasCollided(Grid grid, Tetromino tetromino) {
+        for (int i = 0; i < tetromino.getHeight(); i++) {
+            for (int j = 0; j < tetromino.getWidth(); j++) {
+                var mappedCoordinates = tetromino.position.plus(new Position(j, i));
+                var isOverlapped = isOverlapped(grid, tetromino, mappedCoordinates);
+                var isOutOfBounds = isOutOfBounds(grid, tetromino, mappedCoordinates);
 
                 if (isOverlapped || isOutOfBounds) {
                     return true;
@@ -37,21 +37,21 @@ public class Rules {
         return false;
     }
 
-    private boolean isOverlapped(Grid grid, Shape shape, Position coordinates) {
-        var shapeTile = shape.getMappedTile(coordinates);
+    private boolean isOverlapped(Grid grid, Tetromino tetromino, Position coordinates) {
+        var tetrominoTile = tetromino.getMappedTile(coordinates);
         var gridTile = grid.getTile(coordinates);
 
-        if (shapeTile == Tile.Occupied && gridTile == Tile.Occupied) {
+        if (tetrominoTile == Tile.Occupied && gridTile == Tile.Occupied) {
             return true;
         }
         return false;
     }
 
-    private boolean isOutOfBounds(Grid grid, Shape shape, Position coordinates) {
-        var shapeTile = shape.getMappedTile(coordinates);
+    private boolean isOutOfBounds(Grid grid, Tetromino tetromino, Position coordinates) {
+        var tetrominoTile = tetromino.getMappedTile(coordinates);
         var gridTile = grid.getTile(coordinates);
 
-        if (shapeTile == Tile.Occupied && gridTile == Tile.OutOfBounds) {
+        if (tetrominoTile == Tile.Occupied && gridTile == Tile.OutOfBounds) {
             return true;
         }
         return false;

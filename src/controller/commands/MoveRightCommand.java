@@ -2,25 +2,25 @@ package controller.commands;
 
 import model.Grid;
 import controller.Rules;
-import model.shapes.Shape;
+import model.tetromino.Tetromino;
 
 public class MoveRightCommand implements CommandInterface {
 
-    private final Shape shape;
+    private final Tetromino tetromino;
     private final Grid grid;
     private final Rules rules;
 
-    public MoveRightCommand(Shape shape, Grid grid) {
-        this.shape = shape;
+    public MoveRightCommand(Tetromino tetromino, Grid grid) {
+        this.tetromino = tetromino;
         this.grid = grid;
         this.rules = Rules.getInstance();
     }
 
     @Override
     public void execute() {
-        shape.position.moveRight();
-        if (rules.hasCollided(grid, shape)) {
-            shape.position.moveLeft();
+        tetromino.position.moveRight();
+        if (rules.hasCollided(grid, tetromino)) {
+            tetromino.position.moveLeft();
         }
     }
 }
