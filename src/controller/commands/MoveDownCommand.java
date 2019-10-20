@@ -28,7 +28,7 @@ public class MoveDownCommand implements CommandInterface {
             rules.removeFilledLines(grid);
 
             var newX = (grid.getWidth() - tetrominoFactory.getCurrent().getWidth()) / 2;
-            tetrominoFactory.moveConveyor(newX, 0);
+            tetrominoFactory.moveConveyor();
         }
     }
 }

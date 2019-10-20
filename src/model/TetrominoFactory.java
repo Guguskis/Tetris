@@ -7,43 +7,45 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TetrominoFactory {
+    private final Grid grid;
     private Tetromino current;
     private Tetromino next;
 
-    public TetrominoFactory(int x, int y) {
-        current = getRandom(x, y);
-        next = getRandom(x, y);
+
+    public TetrominoFactory(Grid grid) {
+        this.grid = grid;
+        current = getRandom(grid.getWidth()/2);
+        next = getRandom(grid.getWidth()/2);
     }
 
     public Tetromino getCurrent() {
         return current;
     }
 
-    public void moveConveyor(int x, int y) {
+    public void moveConveyor() {
         current = next;
-        next = getRandom(x, y);
+        next = getRandom(grid.getWidth()/2);
     }
 
     public Tetromino preview() {
         return next;
     }
 
-    private Tetromino getRandom(int x, int y) {
-
-        var options = getAvailableTetrominoes(x, y);
+    private Tetromino getRandom(int x) {
+        var options = getAvailableTetrominoes(x);
         int selection = (int) (Math.random() * (options.size() - 1));
         return options.get(selection);
     }
 
-    private List<Tetromino> getAvailableTetrominoes(int x, int y) {
+    private List<Tetromino> getAvailableTetrominoes(int x) {
         return Arrays.asList(
-                new LTetromino(x, y),
-                new JTetromino(x, y),
-                new ZTetromino(x, y),
-                new STetromino(x, y),
-                new ITetromino(x, y),
-                new OTetromino(x, y),
-                new TTetromino(x, y)
+                new LTetromino(x),
+                new JTetromino(x),
+                new ZTetromino(x),
+                new STetromino(x),
+                new ITetromino(x),
+                new OTetromino(x),
+                new TTetromino(x)
         );
     }
 }

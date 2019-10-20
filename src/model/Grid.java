@@ -24,6 +24,8 @@ public class Grid {
     public Tile getTile(Position coordinates) {
         if (inBounds(coordinates)) {
             return map[coordinates.y][coordinates.x];
+        } else if (coordinates.y < 0) {
+            return Tile.Empty;
         }
         return Tile.OutOfBounds;
     }

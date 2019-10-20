@@ -42,6 +42,7 @@ public class Game extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setScene(gameplayScene);
         primaryStage.show();
+        // I finished by implementing some UI elements and encapsulating Tetromino creation
     }
 
     private Scene setGameplayScene() {
@@ -54,9 +55,9 @@ public class Game extends Application {
         var grid = new Grid(10, 20);
         /* Todo
          *  Customized factory, now I cannot initialise properly to always have tetromino aligned vertically
-         * Solution - maybe customize factory contructor to take in Grid? Probably not, need to keep it x and y
+         *  Solution - maybe customize factory contructor to take in Grid? Probably not, need to keep it x and y
          */
-        var tetrominoFactory = new TetrominoFactory(grid.getWidth() / 2, 0);
+        var tetrominoFactory = new TetrominoFactory(grid);
 
         var graphicsContext = canvas.getGraphicsContext2D();
         var renderer = new SimpleRenderer(graphicsContext, 12);
