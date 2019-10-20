@@ -1,7 +1,5 @@
 package controller;
 
-import controller.Rules;
-
 public class ScoreCalculator {
     private int score = 0;
 

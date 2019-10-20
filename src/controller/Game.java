@@ -42,12 +42,6 @@ public class Game extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setScene(gameplayScene);
         primaryStage.show();
-        // when should a variable be field
-        // Design pattern examples
-        // cohesion
-        // I was about to commit, but though I better do it after implementing next shape for nice commit message
-        // Customized factory, now I cannot initialise properly to always have tetromino aligned vertically
-        // Solution - maybe customize factory contructor to take in Grid? Probably not, need to keep it x and y
     }
 
     private Scene setGameplayScene() {
@@ -58,6 +52,10 @@ public class Game extends Application {
 
         var rules = Rules.getInstance();
         var grid = new Grid(10, 20);
+        /* Todo
+         *  Customized factory, now I cannot initialise properly to always have tetromino aligned vertically
+         * Solution - maybe customize factory contructor to take in Grid? Probably not, need to keep it x and y
+         */
         var tetrominoFactory = new TetrominoFactory(grid.getWidth() / 2, 0);
 
         var graphicsContext = canvas.getGraphicsContext2D();
@@ -70,7 +68,7 @@ public class Game extends Application {
     }
 
     private void setMovementLogic(Renderer renderer, Scene gameplayScene, TetrominoFactory factory, Grid grid, HashMap<KeyCode, CommandInterface> commands, Rules rules) {
-        var moveDownCommand = (MoveDownCommand)getCommand(commands, MoveDownCommand.class);
+        var moveDownCommand = (MoveDownCommand) getCommand(commands, MoveDownCommand.class);
 
         if (moveDownCommand != null) {
             automaticallyMoveTetrominoDown(renderer, moveDownCommand, factory, grid, rules);
@@ -98,16 +96,12 @@ public class Game extends Application {
     }
 
     private void handleCommand(Renderer renderer, TetrominoFactory factory, Grid grid, HashMap<KeyCode, CommandInterface> commands, KeyEvent key, Rules rules) {
-        var command = getCommand(commands, key);
+        var command = commands.get(key.getCode());
 
         if (command != null) {
             command.execute();
             drawScene(renderer, factory, grid, rules);
         }
-    }
-
-    private CommandInterface getCommand(HashMap<KeyCode, CommandInterface> commands, KeyEvent key) {
-        return commands.get(key.getCode());
     }
 
     private void drawScene(Renderer renderer, TetrominoFactory factory, Grid grid, Rules rules) {
@@ -131,7 +125,8 @@ public class Game extends Application {
                     lastTick = now;
                     drawScene(renderer, factory, grid, rules);
                 }
-                if (now - lastTick > 250 * 1e6) {
+                var gameSpeed = rules.getTickIntervalInMilliseconds() * 1e9;
+                if (now - lastTick > gameSpeed) {
                     lastTick = now;
                     command.execute();
                     drawScene(renderer, factory, grid, rules);

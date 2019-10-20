@@ -71,7 +71,7 @@ public class SimpleRenderer implements Renderer {
     @Override
     public void gameInformation(Position start, Rules rules) {
         var scoreCoordinates = start;
-        var scoreText = "Score: " + rules.scoreCalculator.getScore();
+        var scoreText = "Score: " + rules.getScore();
         fillScaledText(scoreCoordinates, scoreText, Color.GREEN);
 
         var levelCoordinates = start.plus(new Position(0, 2));

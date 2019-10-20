@@ -8,7 +8,7 @@ import model.Tile;
 public class Rules {
     private static Rules instance;
     public ScoreCalculator scoreCalculator;
-    private int linesCleared = 0;
+    private int goal = 0;
 
     public Rules(ScoreCalculator scoreCalculator) {
         this.scoreCalculator = scoreCalculator;
@@ -77,7 +77,7 @@ public class Rules {
             }
         }
 
-        increaseLinesCleared(linesRemoved);
+        increaseGoal(linesRemoved);
         scoreCalculator.calculate(linesRemoved, getLevel());
     }
 
@@ -88,11 +88,32 @@ public class Rules {
         return instance;
     }
 
-    private void increaseLinesCleared(int amount){
-        linesCleared+=amount;
+    private void increaseGoal(int linesRemoved) {
+        switch (linesRemoved) {
+            case 1:
+                goal += 1;
+                break;
+            case 2:
+                goal += 3;
+                break;
+            case 3:
+                goal += 5;
+                break;
+            case 4:
+                goal += 8;
+                break;
+        }
     }
 
     public int getLevel() {
-        return linesCleared / 1;
+        return goal / 10 + 1;
+    }
+
+    public int getScore() {
+        return scoreCalculator.getScore();
+    }
+
+    public double getTickIntervalInMilliseconds() {
+        return Math.pow((0.8 - ((getLevel() - 1) * 0.007)), getLevel() - 1);
     }
 }
