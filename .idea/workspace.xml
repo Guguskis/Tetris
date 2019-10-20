@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a8746e15-b292-47e1-abb5-d5e68e8d0f0c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/controller/Game$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/controller/Game$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/controller/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/controller/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/controller/Rules.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/controller/Rules.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/controller/ScoreCalculator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/controller/ScoreCalculator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Rules.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/ScoreCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ScoreCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/renderer/SimpleRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/renderer/SimpleRenderer.java" afterDir="false" />
-    </list>
+    <list default="true" id="a8746e15-b292-47e1-abb5-d5e68e8d0f0c" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
