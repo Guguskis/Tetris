@@ -7,7 +7,7 @@ public class Tetromino {
     public Position position;
     public Tile[][] form;
 
-    public Tetromino(int x, int y, Tile[][] form) {
+    protected Tetromino(int x, int y, Tile[][] form) {
         this.position = new Position(x, y);
         this.form = form;
     }
@@ -54,9 +54,5 @@ public class Tetromino {
         for (int i = 0; i < 3; i++) {
             rotateClockwise();
         }
-    }
-
-    public void reset(int x, int y) {
-        this.position=new Position(x, y);
     }
 }

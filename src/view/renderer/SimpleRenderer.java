@@ -1,6 +1,7 @@
 package view.renderer;
 
-import controller.commands.Score;
+import controller.Rules;
+import controller.ScoreCalculator;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.Grid;
@@ -25,7 +26,7 @@ public class SimpleRenderer implements Renderer {
                 if (tile == Tile.Occupied) {
                     var offset = new Position(j, i).plus(tetromino.position);
                     var drawPosition = start.plus(offset);
-                    drawScaledRect(drawPosition, color);
+                    drawScaledRect(drawPosition, Color.KHAKI);
                 }
             }
         }
@@ -68,8 +69,15 @@ public class SimpleRenderer implements Renderer {
     }
 
     @Override
-    public void score(Position start, Score score) {
-        //Todo implement
+    public void gameInformation(Position start, Rules rules) {
+        var scoreCoordinates = start;
+        var scoreText = "Score: " + rules.scoreCalculator.getScore();
+        fillScaledText(scoreCoordinates, scoreText, Color.GREEN);
+
+        var levelCoordinates = start.plus(new Position(0, 2));
+        var levelText = "Level: " + rules.getLevel();
+        fillScaledText(levelCoordinates, levelText, Color.GREEN);
+
     }
 
     @Override
@@ -79,7 +87,14 @@ public class SimpleRenderer implements Renderer {
 
     @Override
     public void nextTetromino(Position start, Tetromino tetromino) {
-        //Todo implement
+        for (int i = 0; i < tetromino.getHeight(); i++) {
+            for (int j = 0; j < tetromino.getWidth(); j++) {
+                if (tetromino.getUnmappedTile(new Position(j, i)) == Tile.Occupied) {
+                    var drawPosition = start.plus(new Position(j, i));
+                    drawScaledRect(drawPosition, Color.PURPLE);
+                }
+            }
+        }
     }
 
     private void drawRect(Position where, int width, int height, Color color) {
@@ -90,5 +105,10 @@ public class SimpleRenderer implements Renderer {
     private void drawScaledRect(Position where, Color color) {
         var scaledWhere = getScaled(where);
         drawRect(scaledWhere, scale, scale, color);
+    }
+
+    private void fillScaledText(Position where, String text, Color color) {
+        context.setFill(color);
+        context.fillText(text, where.x * scale, where.y * scale);
     }
 }
