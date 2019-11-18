@@ -30,29 +30,17 @@ public class SimpleRenderer implements Renderer {
         this.scale = scale;
     }
 
-    private void drawTetromino(Position start, Tetromino tetromino) {
-        for (int i = 0; i < tetromino.getHeight(); i++) {
-            for (int j = 0; j < tetromino.getWidth(); j++) {
-                var tile = tetromino.getUnmappedTile(new Position(j, i));
-                if (tile == Tile.OCCUPIED) {
-                    var offset = new Position(j, i).plus(tetromino.getPosition());
-                    var drawPosition = start.plus(offset);
-                    drawScaledRect(drawPosition, currentTetrominoColor);
-                }
-            }
-        }
+    @Override
+    public void drawFrame(Grid grid, GameLogic gameLogic, TetrominoManager tetrominoManager) {
+        fillBackground();
+        outline(grid);
+        mainView(grid, tetrominoManager);
+        nextTetromino(grid, tetrominoManager);
+        gameInformation(grid, gameLogic);
     }
 
-    private void drawGrid(Position start, Grid grid) {
-        for (int i = 0; i < grid.getHeight(); i++) {
-            for (int j = 0; j < grid.getWidth(); j++) {
-                var tile = grid.getTile(new Position(j, i));
-                if (tile == Tile.OCCUPIED) {
-                    var drawPosition = start.plus(new Position(j, i));
-                    drawScaledRect(drawPosition, gridColor);
-                }
-            }
-        }
+    private void fillBackground() {
+        drawRect(new Position(0, 0), width, height, backgroundColor);
     }
 
     private void outline(Grid grid) {
@@ -80,8 +68,18 @@ public class SimpleRenderer implements Renderer {
         drawGrid(start, grid);
     }
 
-    private Position getScaled(Position topLeftCorner) {
-        return topLeftCorner.multiply(scale);
+    private void nextTetromino(Grid grid, TetrominoManager manager) {
+        Tetromino tetromino = manager.getNext();
+        var start = new Position(grid.getWidth() + 4, 1);
+
+        for (int i = 0; i < tetromino.getHeight(); i++) {
+            for (int j = 0; j < tetromino.getWidth(); j++) {
+                if (tetromino.getUnmappedTile(new Position(j, i)) == Tile.OCCUPIED) {
+                    var drawPosition = start.plus(new Position(j, i));
+                    drawScaledRect(drawPosition, nextTetrominoColor);
+                }
+            }
+        }
     }
 
     private void gameInformation(Grid grid, GameLogic gameLogic) {
@@ -97,36 +95,34 @@ public class SimpleRenderer implements Renderer {
 
     }
 
-    private void fillBackground() {
-        drawRect(new Position(0, 0), width, height, backgroundColor);
-    }
-
-    private void nextTetromino(Grid grid, TetrominoManager manager) {
-        Tetromino tetromino = manager.getNext();
-        var start = new Position(grid.getWidth() + 4, 1);
-
-        for (int i = 0; i < tetromino.getHeight(); i++) {
-            for (int j = 0; j < tetromino.getWidth(); j++) {
-                if (tetromino.getUnmappedTile(new Position(j, i)) == Tile.OCCUPIED) {
+    private void drawGrid(Position start, Grid grid) {
+        for (int i = 0; i < grid.getHeight(); i++) {
+            for (int j = 0; j < grid.getWidth(); j++) {
+                var tile = grid.getTile(new Position(j, i));
+                if (tile == Tile.OCCUPIED) {
                     var drawPosition = start.plus(new Position(j, i));
-                    drawScaledRect(drawPosition, nextTetrominoColor);
+                    drawScaledRect(drawPosition, gridColor);
                 }
             }
         }
     }
 
-    @Override
-    public void drawFrame(Grid grid, GameLogic gameLogic, TetrominoManager tetrominoManager) {
-        fillBackground();
-        outline(grid);
-        mainView(grid, tetrominoManager);
-        nextTetromino(grid, tetrominoManager);
-        gameInformation(grid, gameLogic);
+    private void drawTetromino(Position start, Tetromino tetromino) {
+        for (int i = 0; i < tetromino.getHeight(); i++) {
+            for (int j = 0; j < tetromino.getWidth(); j++) {
+                var tile = tetromino.getUnmappedTile(new Position(j, i));
+                if (tile == Tile.OCCUPIED) {
+                    var offset = new Position(j, i).plus(tetromino.getPosition());
+                    var drawPosition = start.plus(offset);
+                    drawScaledRect(drawPosition, currentTetrominoColor);
+                }
+            }
+        }
     }
 
-    private void drawRect(Position where, int width, int height, Color color) {
+    private void fillScaledText(Position where, String text, Color color) {
         context.setFill(color);
-        context.fillRect(where.x, where.y, width, height);
+        context.fillText(text, where.x * scale, where.y * scale);
     }
 
     private void drawScaledRect(Position where, Color color) {
@@ -134,8 +130,12 @@ public class SimpleRenderer implements Renderer {
         drawRect(scaledWhere, scale, scale, color);
     }
 
-    private void fillScaledText(Position where, String text, Color color) {
+    private Position getScaled(Position topLeftCorner) {
+        return topLeftCorner.multiply(scale);
+    }
+
+    private void drawRect(Position where, int width, int height, Color color) {
         context.setFill(color);
-        context.fillText(text, where.x * scale, where.y * scale);
+        context.fillRect(where.x, where.y, width, height);
     }
 }
