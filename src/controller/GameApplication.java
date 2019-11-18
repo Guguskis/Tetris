@@ -12,10 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Grid;
-import model.Position;
 import model.tetromino.TetrominoManager;
 import view.renderer.Renderer;
 import view.renderer.SimpleRenderer;
@@ -27,11 +25,11 @@ public class GameApplication extends Application {
     private int height = 800;
     private int pixelScale = 20;
 
+    private GameLogic gameLogic;
     private Renderer renderer;
     private Scene scene;
     private Grid grid;
     private TetrominoManager tetrominoManager;
-    private GameLogic gameLogic;
 
     public static void main(String[] args) {
         launch();
@@ -44,12 +42,13 @@ public class GameApplication extends Application {
     }
 
     private void initialiseFields() {
-        Group root = new Group();
-        scene = new Scene(root);
-        renderer = getRenderer(root);
         grid = new Grid(10, 20);
         tetrominoManager = new TetrominoManager(grid);
         gameLogic = new GameLogic();
+
+        Group root = new Group();
+        renderer = getRenderer(root);
+        scene = new Scene(root);
     }
 
     private void mapCommandsToKeyboardInput() {
@@ -67,7 +66,7 @@ public class GameApplication extends Application {
     private Renderer getRenderer(Group root) {
         var canvas = new Canvas(width, height);
         root.getChildren().add(canvas);
-        return new SimpleRenderer(canvas.getGraphicsContext2D(), pixelScale);
+        return new SimpleRenderer(canvas.getGraphicsContext2D(), width, height, pixelScale);
     }
 
     private EnumMap<KeyCode, CommandInterface> getPreparedCommands() {
@@ -93,19 +92,8 @@ public class GameApplication extends Application {
 
         if (command != null) {
             command.execute();
-            drawScene();
+            renderer.drawFrame(grid, gameLogic, tetrominoManager);
         }
-    }
-
-    private void drawScene() {
-        var currentTetromino = tetrominoManager.getCurrent();
-        var nextTetromino = tetrominoManager.getNext();
-
-        renderer.fillBackground(width, height, Color.rgb(30, 0, 40));
-        renderer.outline(new Position(0, 0), grid.getWidth() + 2, grid.getHeight() + 2, Color.rgb(125, 190, 80));
-        renderer.mainView(new Position(1, 1), currentTetromino, grid);
-        renderer.nextTetromino(new Position(grid.getWidth() + 4, 1), nextTetromino);
-        renderer.gameInformation(new Position(grid.getWidth() + 4, 7), gameLogic);
     }
 
     private void startAutomaticTetrominoMovement() {
@@ -118,13 +106,13 @@ public class GameApplication extends Application {
                 if (!gameLogic.isGameOver()) {
                     if (lastTick == 0) {
                         lastTick = now;
-                        drawScene();
+                        renderer.drawFrame(grid, gameLogic, tetrominoManager);
                     }
                     var gameSpeed = gameLogic.getTickIntervalInMilliseconds() * 1e9;
                     if (now - lastTick > gameSpeed) {
                         lastTick = now;
                         command.execute();
-                        drawScene();
+                        renderer.drawFrame(grid, gameLogic, tetrominoManager);
                     }
                 }
             }

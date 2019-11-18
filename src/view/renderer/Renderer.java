@@ -1,20 +1,9 @@
 package view.renderer;
 
 import controller.GameLogic;
-import javafx.scene.paint.Color;
 import model.Grid;
-import model.Position;
-import model.tetromino.Tetromino;
+import model.tetromino.TetrominoManager;
 
 public interface Renderer {
-    void outline(Position start, int width, int height, Color color);
-
-    void mainView(Position start, Tetromino tetromino, Grid grid);
-
-    void gameInformation(Position start, GameLogic gameLogic);
-
-    void fillBackground(int width, int height, Color color);
-
-    void nextTetromino(Position start, Tetromino tetromino);
-
+    void drawFrame(Grid grid, GameLogic gameLogic, TetrominoManager tetrominoManager);
 }
