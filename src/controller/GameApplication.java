@@ -22,9 +22,10 @@ import view.renderer.SimpleRenderer;
 
 import java.util.HashMap;
 
-public class Game extends Application {
-    private int width;
-    private int height;
+public class GameApplication extends Application {
+    private int width = 800;
+    private int height = 800;
+    private Renderer renderer;
 
     public static void main(String[] args) {
         launch();
@@ -32,8 +33,6 @@ public class Game extends Application {
 
     @Override
     public void init() {
-        width = 800;
-        height = 800;
 
     }
 
@@ -46,41 +45,43 @@ public class Game extends Application {
     private Scene getMainScene() {
         var root = new Group();
         var scene = new Scene(root);
-        var canvas = new Canvas(width, height);
-        root.getChildren().add(canvas);
 
-        var gameLogic = GameLogic.getInstance();
+        renderer = getRenderer(root, 20);
+
         var grid = new Grid(10, 20);
         var tetrominoFactory = new TetrominoFactory(grid);
 
-        var graphicsContext = canvas.getGraphicsContext2D();
-        var renderer = new SimpleRenderer(graphicsContext, 20);
-
-        var commands = getPreparedCommands(tetrominoFactory, grid, gameLogic);
-        setMovementLogic(renderer, scene, tetrominoFactory, grid, commands, gameLogic);
+        setMovementLogic(scene, tetrominoFactory, grid, new GameLogic(new ScoreCalculator()));
 
         return scene;
     }
 
-    private void setMovementLogic(Renderer renderer, Scene gameplayScene, TetrominoFactory factory, Grid grid, HashMap<KeyCode, CommandInterface> commands, GameLogic gameLogic) {
+    private Renderer getRenderer(Group root, int scale) {
+        var canvas = new Canvas(width, height);
+        var graphicsContext = canvas.getGraphicsContext2D();
+        root.getChildren().add(canvas);
+        return new SimpleRenderer(graphicsContext, scale);
+    }
 
-        automaticallyMoveTetrominoDown(renderer, factory, grid, gameLogic);
+    private void setMovementLogic(Scene gameplayScene, TetrominoFactory factory, Grid grid, GameLogic gameLogic) {
+        HashMap<KeyCode, CommandInterface> commands = getPreparedCommands(factory, grid, gameLogic);
+        automaticallyMoveTetrominoDown(factory, grid, gameLogic);
 
         gameplayScene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
-            handleCommand(renderer, factory, grid, commands, key, gameLogic);
+            handleCommand(factory, grid, commands, key, gameLogic);
         });
     }
 
-    private void handleCommand(Renderer renderer, TetrominoFactory factory, Grid grid, HashMap<KeyCode, CommandInterface> commands, KeyEvent key, GameLogic gameLogic) {
+    private void handleCommand(TetrominoFactory factory, Grid grid, HashMap<KeyCode, CommandInterface> commands, KeyEvent key, GameLogic gameLogic) {
         var command = commands.get(key.getCode());
 
         if (command != null) {
             command.execute();
-            drawScene(renderer, factory, grid, gameLogic);
+            drawScene(factory, grid, gameLogic);
         }
     }
 
-    private void drawScene(Renderer renderer, TetrominoFactory factory, Grid grid, GameLogic gameLogic) {
+    private void drawScene(TetrominoFactory factory, Grid grid, GameLogic gameLogic) {
         var currentTetromino = factory.peekCurrent();
         var nextTetromino = factory.peekNext();
 
@@ -91,7 +92,7 @@ public class Game extends Application {
         renderer.gameInformation(new Position(grid.getWidth() + 4, 7), gameLogic);
     }
 
-    private void automaticallyMoveTetrominoDown(Renderer renderer, TetrominoFactory factory, Grid grid, GameLogic gameLogic) {
+    private void automaticallyMoveTetrominoDown(TetrominoFactory factory, Grid grid, GameLogic gameLogic) {
         new AnimationTimer() {
             long lastTick = 0;
             MoveDownCommand command = new MoveDownCommand(factory, grid, gameLogic);
@@ -101,13 +102,13 @@ public class Game extends Application {
                 if (!gameLogic.isGameOver()) {
                     if (lastTick == 0) {
                         lastTick = now;
-                        drawScene(renderer, factory, grid, gameLogic);
+                        drawScene(factory, grid, gameLogic);
                     }
                     var gameSpeed = gameLogic.getTickIntervalInMilliseconds() * 1e9;
                     if (now - lastTick > gameSpeed) {
                         lastTick = now;
                         command.execute();
-                        drawScene(renderer, factory, grid, gameLogic);
+                        drawScene(factory, grid, gameLogic);
                     }
                 }
             }
