@@ -2,22 +2,22 @@ package controller.commands;
 
 import controller.GameLogic;
 import model.Grid;
-import model.tetromino.TetrominoFactory;
+import model.tetromino.TetrominoManager;
 
 public class RotateTetrominoCommand implements CommandInterface {
-    private final TetrominoFactory tetrominoFactory;
+    private final TetrominoManager tetrominoManager;
     private final Grid grid;
     private final GameLogic gameLogic;
 
-    public RotateTetrominoCommand(TetrominoFactory factory, Grid grid, GameLogic gameLogic) {
-        this.tetrominoFactory = factory;
+    public RotateTetrominoCommand(TetrominoManager factory, Grid grid, GameLogic gameLogic) {
+        this.tetrominoManager = factory;
         this.grid = grid;
         this.gameLogic = gameLogic;
     }
 
     @Override
     public void execute() {
-        var tetromino = tetrominoFactory.peekCurrent();
+        var tetromino = tetrominoManager.getCurrent();
 
         tetromino.rotateClockwise();
         if (gameLogic.hasCollided(grid, tetromino)) {

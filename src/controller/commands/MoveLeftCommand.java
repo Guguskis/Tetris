@@ -2,22 +2,22 @@ package controller.commands;
 
 import controller.GameLogic;
 import model.Grid;
-import model.tetromino.TetrominoFactory;
+import model.tetromino.TetrominoManager;
 
 public class MoveLeftCommand implements CommandInterface {
-    private final TetrominoFactory tetrominoFactory;
+    private final TetrominoManager tetrominoManager;
     private final Grid grid;
     private final GameLogic gameLogic;
 
-    public MoveLeftCommand(TetrominoFactory factory, Grid grid, GameLogic gameLogic) {
-        this.tetrominoFactory = factory;
+    public MoveLeftCommand(TetrominoManager factory, Grid grid, GameLogic gameLogic) {
+        this.tetrominoManager = factory;
         this.grid = grid;
         this.gameLogic = gameLogic;
     }
 
     @Override
     public void execute() {
-        var tetromino = tetrominoFactory.peekCurrent();
+        var tetromino = tetrominoManager.getCurrent();
 
         tetromino.moveLeft();
         if (gameLogic.hasCollided(grid, tetromino)) {

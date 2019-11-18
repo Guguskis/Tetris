@@ -16,21 +16,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Grid;
 import model.Position;
-import model.tetromino.ITetromino;
-import model.tetromino.JTetromino;
-import model.tetromino.LTetromino;
-import model.tetromino.OTetromino;
-import model.tetromino.STetromino;
-import model.tetromino.TTetromino;
-import model.tetromino.Tetromino;
-import model.tetromino.TetrominoFactory;
-import model.tetromino.ZTetromino;
+import model.tetromino.TetrominoManager;
 import view.renderer.Renderer;
 import view.renderer.SimpleRenderer;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 public class GameApplication extends Application {
     private int width = 800;
@@ -38,10 +28,8 @@ public class GameApplication extends Application {
     private Renderer renderer;
     private Scene scene;
     private Grid grid;
-    private TetrominoFactory tetrominoFactory;
+    private TetrominoManager tetrominoManager;
     private GameLogic gameLogic;
-    private Tetromino currentTetromino;
-    private Tetromino nextTetromino;
 
     public static void main(String[] args) {
         launch();
@@ -54,11 +42,8 @@ public class GameApplication extends Application {
         scene = new Scene(root);
         renderer = getRenderer(root, 20);
         grid = new Grid(10, 20);
-        tetrominoFactory = new TetrominoFactory(grid);
+        tetrominoManager = new TetrominoManager(grid);
         gameLogic = new GameLogic();
-
-        currentTetromino = getRandomTetromino();
-        nextTetromino = getRandomTetromino();
 
         setMovementLogic();
     }
@@ -67,22 +52,6 @@ public class GameApplication extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    private Tetromino getRandomTetromino() {
-        int centerX = grid.getWidth() / 2;
-        List<Tetromino> availableTetrominoes = Arrays.asList(
-                new LTetromino(centerX),
-                new JTetromino(centerX),
-                new ZTetromino(centerX),
-                new STetromino(centerX),
-                new ITetromino(centerX),
-                new OTetromino(centerX),
-                new TTetromino(centerX)
-        );
-        int randomSelection = (int) (Math.random() * availableTetrominoes.size() - 1);
-
-        return availableTetrominoes.get(randomSelection);
     }
 
     private Renderer getRenderer(Group root, int scale) {
@@ -103,14 +72,14 @@ public class GameApplication extends Application {
 
     private HashMap<KeyCode, CommandInterface> getPreparedCommands() {
         HashMap<KeyCode, CommandInterface> newCommands = new HashMap<>();
-        newCommands.put(KeyCode.A, new MoveLeftCommand(tetrominoFactory, grid, gameLogic));
-        newCommands.put(KeyCode.LEFT, new MoveLeftCommand(tetrominoFactory, grid, gameLogic));
-        newCommands.put(KeyCode.D, new MoveRightCommand(tetrominoFactory, grid, gameLogic));
-        newCommands.put(KeyCode.RIGHT, new MoveRightCommand(tetrominoFactory, grid, gameLogic));
-        newCommands.put(KeyCode.S, new MoveDownCommand(tetrominoFactory, grid, gameLogic));
-        newCommands.put(KeyCode.DOWN, new MoveDownCommand(tetrominoFactory, grid, gameLogic));
-        newCommands.put(KeyCode.W, new RotateTetrominoCommand(tetrominoFactory, grid, gameLogic));
-        newCommands.put(KeyCode.UP, new RotateTetrominoCommand(tetrominoFactory, grid, gameLogic));
+        newCommands.put(KeyCode.A, new MoveLeftCommand(tetrominoManager, grid, gameLogic));
+        newCommands.put(KeyCode.LEFT, new MoveLeftCommand(tetrominoManager, grid, gameLogic));
+        newCommands.put(KeyCode.D, new MoveRightCommand(tetrominoManager, grid, gameLogic));
+        newCommands.put(KeyCode.RIGHT, new MoveRightCommand(tetrominoManager, grid, gameLogic));
+        newCommands.put(KeyCode.S, new MoveDownCommand(tetrominoManager, grid, gameLogic));
+        newCommands.put(KeyCode.DOWN, new MoveDownCommand(tetrominoManager, grid, gameLogic));
+        newCommands.put(KeyCode.W, new RotateTetrominoCommand(tetrominoManager, grid, gameLogic));
+        newCommands.put(KeyCode.UP, new RotateTetrominoCommand(tetrominoManager, grid, gameLogic));
 
         return newCommands;
     }
@@ -125,8 +94,8 @@ public class GameApplication extends Application {
     }
 
     private void drawScene() {
-        var currentTetromino = tetrominoFactory.peekCurrent();
-        var nextTetromino = tetrominoFactory.peekNext();
+        var currentTetromino = tetrominoManager.getCurrent();
+        var nextTetromino = tetrominoManager.getNext();
 
         renderer.fillBackground(width, height, Color.rgb(30, 0, 40));
         renderer.outline(new Position(0, 0), grid.getWidth() + 2, grid.getHeight() + 2, Color.rgb(125, 190, 80));
@@ -138,7 +107,7 @@ public class GameApplication extends Application {
     private void automaticallyMoveTetrominoDown() {
         new AnimationTimer() {
             long lastTick = 0;
-            MoveDownCommand command = new MoveDownCommand(tetrominoFactory, grid, gameLogic);
+            MoveDownCommand command = new MoveDownCommand(tetrominoManager, grid, gameLogic);
 
             @Override
             public void handle(long now) {

@@ -2,23 +2,23 @@ package controller.commands;
 
 import controller.GameLogic;
 import model.Grid;
-import model.tetromino.TetrominoFactory;
+import model.tetromino.TetrominoManager;
 
 public class MoveDownCommand implements CommandInterface {
 
-    private final TetrominoFactory tetrominoFactory;
+    private final TetrominoManager tetrominoManager;
     private final Grid grid;
     private final GameLogic gameLogic;
 
-    public MoveDownCommand(TetrominoFactory factory, Grid grid, GameLogic gameLogic) {
-        this.tetrominoFactory = factory;
+    public MoveDownCommand(TetrominoManager factory, Grid grid, GameLogic gameLogic) {
+        this.tetrominoManager = factory;
         this.grid = grid;
         this.gameLogic = gameLogic;
     }
 
     @Override
     public void execute() {
-        var tetromino = tetrominoFactory.peekCurrent();
+        var tetromino = tetrominoManager.getCurrent();
 
         tetromino.moveDown();
         if (gameLogic.hasCollided(grid, tetromino)) {
@@ -27,10 +27,10 @@ public class MoveDownCommand implements CommandInterface {
             gameLogic.imprintTetromino(grid, tetromino);
             gameLogic.removeFilledLines(grid);
 
-            if (gameLogic.hasCollided(grid, tetrominoFactory.peekNext())) {
+            if (gameLogic.hasCollided(grid, tetrominoManager.getNext())) {
                 gameLogic.setGameOver();
             } else {
-                tetrominoFactory.moveConveyor();
+                tetrominoManager.parseNext();
             }
         }
 
