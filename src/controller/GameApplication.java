@@ -43,7 +43,7 @@ public class GameApplication extends Application {
         grid = new Grid(10, 20);
         tetrominoFactory = new TetrominoFactory(grid);
 
-        setMovementLogic(grid, new GameLogic(new ScoreCalculator()));
+        setMovementLogic(new GameLogic(new ScoreCalculator()));
     }
 
     @Override
@@ -63,7 +63,7 @@ public class GameApplication extends Application {
         return new SimpleRenderer(graphicsContext, scale);
     }
 
-    private void setMovementLogic(Grid grid, GameLogic gameLogic) {
+    private void setMovementLogic(GameLogic gameLogic) {
         HashMap<KeyCode, CommandInterface> commands = getPreparedCommands(grid, gameLogic);
         automaticallyMoveTetrominoDown(grid, gameLogic);
 
