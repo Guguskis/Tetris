@@ -6,8 +6,7 @@ import model.Tile;
 import model.tetromino.Tetromino;
 
 public class GameLogic {
-    private static GameLogic instance;
-    public ScoreCalculator scoreCalculator;
+    private ScoreCalculator scoreCalculator;
     private int goal = 0;
     private boolean gameOver = false;
 
@@ -24,7 +23,7 @@ public class GameLogic {
                 var tile = tetromino.getUnmappedTile(coordinates);
 
                 if (tile == Tile.Occupied) {
-                    var mappedCoordinates = coordinates.plus(tetromino.position);
+                    var mappedCoordinates = coordinates.plus(tetromino.getPosition());
                     grid.setTile(mappedCoordinates, tile);
                 }
             }
@@ -34,7 +33,7 @@ public class GameLogic {
     public boolean hasCollided(Grid grid, Tetromino tetromino) {
         for (int i = 0; i < tetromino.getHeight(); i++) {
             for (int j = 0; j < tetromino.getWidth(); j++) {
-                var mappedCoordinates = tetromino.position.plus(new Position(j, i));
+                var mappedCoordinates = tetromino.getPosition().plus(new Position(j, i));
                 var isOverlapped = isOverlapped(grid, tetromino, mappedCoordinates);
                 var isOutOfBounds = isOutOfBounds(grid, tetromino, mappedCoordinates);
 

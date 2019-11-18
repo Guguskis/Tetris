@@ -23,7 +23,7 @@ public class SimpleRenderer implements Renderer {
             for (int j = 0; j < tetromino.getWidth(); j++) {
                 var tile = tetromino.getUnmappedTile(new Position(j, i));
                 if (tile == Tile.Occupied) {
-                    var offset = new Position(j, i).plus(tetromino.position);
+                    var offset = new Position(j, i).plus(tetromino.getPosition());
                     var drawPosition = start.plus(offset);
                     drawScaledRect(drawPosition, Color.KHAKI);
                 }

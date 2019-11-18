@@ -1,7 +1,7 @@
 package model;
 
 public class Grid {
-    public Tile[][] map;
+    private Tile[][] map;
 
     public Grid(int width, int height) {
         this.map = new Tile[height][width];

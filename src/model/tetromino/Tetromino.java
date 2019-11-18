@@ -4,8 +4,8 @@ import model.Position;
 import model.Tile;
 
 public class Tetromino {
-    public Position position;
-    public Tile[][] form;
+    private Position position;
+    private Tile[][] form;
 
     protected Tetromino(int x, int y, Tile[][] form) {
         this.position = new Position(x, y);
@@ -33,7 +33,7 @@ public class Tetromino {
         return getUnmappedTile(unmappedCoordinates);
     }
 
-    public boolean inShape(Position coordinates) {
+    private boolean inShape(Position coordinates) {
         var inXAxis = coordinates.x >= 0 && coordinates.x < getWidth();
         var inYAxis = coordinates.y >= 0 && coordinates.y < getHeight();
         return inXAxis && inYAxis;
@@ -71,5 +71,9 @@ public class Tetromino {
 
     public void moveUp() {
         position.y--;
+    }
+
+    public Position getPosition() {
+        return position;
     }
 }
