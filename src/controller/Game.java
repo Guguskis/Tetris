@@ -26,8 +26,6 @@ public class Game extends Application {
     private int width;
     private int height;
 
-    private Scene gameplayScene;
-
     public static void main(String[] args) {
         launch();
     }
@@ -36,17 +34,16 @@ public class Game extends Application {
     public void init() {
         width = 800;
         height = 800;
-        this.gameplayScene = setGameplayScene();
 
     }
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setScene(gameplayScene);
+        primaryStage.setScene(getMainScene());
         primaryStage.show();
     }
 
-    private Scene setGameplayScene() {
+    private Scene getMainScene() {
         var root = new Group();
         var scene = new Scene(root);
         var canvas = new Canvas(width, height);
