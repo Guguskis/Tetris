@@ -62,24 +62,24 @@ public class GameApplication extends Application {
     }
 
     private void setMovementLogic() {
-        HashMap<KeyCode, CommandInterface> commands = getPreparedCommands(grid, gameLogic);
-        automaticallyMoveTetrominoDown(grid, gameLogic);
+        HashMap<KeyCode, CommandInterface> commands = getPreparedCommands(gameLogic);
+        automaticallyMoveTetrominoDown(gameLogic);
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
-            handleCommand(grid, commands, key, gameLogic);
+            handleCommand(commands, key, gameLogic);
         });
     }
 
-    private void handleCommand(Grid grid, HashMap<KeyCode, CommandInterface> commands, KeyEvent key, GameLogic gameLogic) {
+    private void handleCommand(HashMap<KeyCode, CommandInterface> commands, KeyEvent key, GameLogic gameLogic) {
         var command = commands.get(key.getCode());
 
         if (command != null) {
             command.execute();
-            drawScene(grid, gameLogic);
+            drawScene(gameLogic);
         }
     }
 
-    private void drawScene(Grid grid, GameLogic gameLogic) {
+    private void drawScene(GameLogic gameLogic) {
         var currentTetromino = tetrominoFactory.peekCurrent();
         var nextTetromino = tetrominoFactory.peekNext();
 
@@ -90,7 +90,7 @@ public class GameApplication extends Application {
         renderer.gameInformation(new Position(grid.getWidth() + 4, 7), gameLogic);
     }
 
-    private void automaticallyMoveTetrominoDown(Grid grid, GameLogic gameLogic) {
+    private void automaticallyMoveTetrominoDown(GameLogic gameLogic) {
         new AnimationTimer() {
             long lastTick = 0;
             MoveDownCommand command = new MoveDownCommand(tetrominoFactory, grid, gameLogic);
@@ -100,20 +100,20 @@ public class GameApplication extends Application {
                 if (!gameLogic.isGameOver()) {
                     if (lastTick == 0) {
                         lastTick = now;
-                        drawScene(grid, gameLogic);
+                        drawScene(gameLogic);
                     }
                     var gameSpeed = gameLogic.getTickIntervalInMilliseconds() * 1e9;
                     if (now - lastTick > gameSpeed) {
                         lastTick = now;
                         command.execute();
-                        drawScene(grid, gameLogic);
+                        drawScene(gameLogic);
                     }
                 }
             }
         }.start();
     }
 
-    private HashMap<KeyCode, CommandInterface> getPreparedCommands(Grid grid, GameLogic gameLogic) {
+    private HashMap<KeyCode, CommandInterface> getPreparedCommands(GameLogic gameLogic) {
         var newCommands = new HashMap<KeyCode, CommandInterface>();
         newCommands.put(KeyCode.A, new MoveLeftCommand(tetrominoFactory, grid, gameLogic));
         newCommands.put(KeyCode.LEFT, new MoveLeftCommand(tetrominoFactory, grid, gameLogic));
