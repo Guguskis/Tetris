@@ -12,8 +12,9 @@ public class GameLogic {
     private boolean gameOver = false;
 
 
-    public GameLogic(ScoreCalculator scoreCalculator) {
-        this.scoreCalculator = scoreCalculator;
+    public GameLogic() {
+        // Todo move to GameApplication
+        this.scoreCalculator = new ScoreCalculator();
     }
 
     public void imprintTetromino(Grid grid, Tetromino tetromino) {
@@ -81,13 +82,6 @@ public class GameLogic {
 
         increaseGoal(linesRemoved);
         scoreCalculator.calculate(linesRemoved, getLevel());
-    }
-
-    public static GameLogic getInstance() {
-        if (instance == null) {
-            instance = new GameLogic(new ScoreCalculator());
-        }
-        return instance;
     }
 
     private void increaseGoal(int linesRemoved) {

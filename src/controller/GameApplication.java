@@ -29,6 +29,7 @@ public class GameApplication extends Application {
     private Scene scene;
     private Grid grid;
     private TetrominoFactory tetrominoFactory;
+    private GameLogic gameLogic;
 
     public static void main(String[] args) {
         launch();
@@ -42,18 +43,15 @@ public class GameApplication extends Application {
         renderer = getRenderer(root, 20);
         grid = new Grid(10, 20);
         tetrominoFactory = new TetrominoFactory(grid);
+        gameLogic = new GameLogic();
 
-        setMovementLogic(new GameLogic(new ScoreCalculator()));
+        setMovementLogic();
     }
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setScene(getMainScene());
+        primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    private Scene getMainScene() {
-        return scene;
     }
 
     private Renderer getRenderer(Group root, int scale) {
@@ -63,7 +61,7 @@ public class GameApplication extends Application {
         return new SimpleRenderer(graphicsContext, scale);
     }
 
-    private void setMovementLogic(GameLogic gameLogic) {
+    private void setMovementLogic() {
         HashMap<KeyCode, CommandInterface> commands = getPreparedCommands(grid, gameLogic);
         automaticallyMoveTetrominoDown(grid, gameLogic);
 
