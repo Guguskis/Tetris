@@ -5,14 +5,14 @@ import model.Position;
 import model.Tile;
 import model.tetromino.Tetromino;
 
-public class Rules {
-    private static Rules instance;
+public class GameLogic {
+    private static GameLogic instance;
     public ScoreCalculator scoreCalculator;
     private int goal = 0;
     private boolean gameOver = false;
 
 
-    public Rules(ScoreCalculator scoreCalculator) {
+    public GameLogic(ScoreCalculator scoreCalculator) {
         this.scoreCalculator = scoreCalculator;
     }
 
@@ -83,9 +83,9 @@ public class Rules {
         scoreCalculator.calculate(linesRemoved, getLevel());
     }
 
-    public static Rules getInstance() {
+    public static GameLogic getInstance() {
         if (instance == null) {
-            instance = new Rules(new ScoreCalculator());
+            instance = new GameLogic(new ScoreCalculator());
         }
         return instance;
     }

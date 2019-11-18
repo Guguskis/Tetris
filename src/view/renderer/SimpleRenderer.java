@@ -1,6 +1,6 @@
 package view.renderer;
 
-import controller.Rules;
+import controller.GameLogic;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.Grid;
@@ -68,13 +68,13 @@ public class SimpleRenderer implements Renderer {
     }
 
     @Override
-    public void gameInformation(Position start, Rules rules) {
+    public void gameInformation(Position start, GameLogic gameLogic) {
         var scoreCoordinates = start;
-        var scoreText = "Score: " + rules.getScore();
+        var scoreText = "Score: " + gameLogic.getScore();
         fillScaledText(scoreCoordinates, scoreText, Color.YELLOW);
 
         var levelCoordinates = start.plus(new Position(0, 2));
-        var levelText = "Level: " + rules.getLevel();
+        var levelText = "Level: " + gameLogic.getLevel();
         fillScaledText(levelCoordinates, levelText, Color.YELLOWGREEN);
 
     }

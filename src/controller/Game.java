@@ -44,7 +44,6 @@ public class Game extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setScene(gameplayScene);
         primaryStage.show();
-        // I finished by implementing some UI elements and encapsulating Tetromino creation
     }
 
     private Scene setGameplayScene() {
@@ -53,42 +52,38 @@ public class Game extends Application {
         var canvas = new Canvas(width, height);
         root.getChildren().add(canvas);
 
-        var rules = Rules.getInstance();
+        var gameLogic = GameLogic.getInstance();
         var grid = new Grid(10, 20);
-        /* Rules pervadinti i kazka bendresnio (GameLogic)
-         * Factory turi tureti tik make, todel reiketu likusia logika iskelti i kita klase
-         *
-         */
         var tetrominoFactory = new TetrominoFactory(grid);
 
         var graphicsContext = canvas.getGraphicsContext2D();
         var renderer = new SimpleRenderer(graphicsContext, 20);
 
-        var commands = getPreparedCommands(tetrominoFactory, grid, rules);
-        setMovementLogic(renderer, scene, tetrominoFactory, grid, commands, rules);
+        var commands = getPreparedCommands(tetrominoFactory, grid, gameLogic);
+        setMovementLogic(renderer, scene, tetrominoFactory, grid, commands, gameLogic);
 
         return scene;
     }
 
-    private void setMovementLogic(Renderer renderer, Scene gameplayScene, TetrominoFactory factory, Grid grid, HashMap<KeyCode, CommandInterface> commands, Rules rules) {
+    private void setMovementLogic(Renderer renderer, Scene gameplayScene, TetrominoFactory factory, Grid grid, HashMap<KeyCode, CommandInterface> commands, GameLogic gameLogic) {
 
-        automaticallyMoveTetrominoDown(renderer, factory, grid, rules);
+        automaticallyMoveTetrominoDown(renderer, factory, grid, gameLogic);
 
         gameplayScene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
-            handleCommand(renderer, factory, grid, commands, key, rules);
+            handleCommand(renderer, factory, grid, commands, key, gameLogic);
         });
     }
 
-    private void handleCommand(Renderer renderer, TetrominoFactory factory, Grid grid, HashMap<KeyCode, CommandInterface> commands, KeyEvent key, Rules rules) {
+    private void handleCommand(Renderer renderer, TetrominoFactory factory, Grid grid, HashMap<KeyCode, CommandInterface> commands, KeyEvent key, GameLogic gameLogic) {
         var command = commands.get(key.getCode());
 
         if (command != null) {
             command.execute();
-            drawScene(renderer, factory, grid, rules);
+            drawScene(renderer, factory, grid, gameLogic);
         }
     }
 
-    private void drawScene(Renderer renderer, TetrominoFactory factory, Grid grid, Rules rules) {
+    private void drawScene(Renderer renderer, TetrominoFactory factory, Grid grid, GameLogic gameLogic) {
         var currentTetromino = factory.peekCurrent();
         var nextTetromino = factory.peekNext();
 
@@ -96,42 +91,42 @@ public class Game extends Application {
         renderer.outline(new Position(0, 0), grid.getWidth() + 2, grid.getHeight() + 2, Color.rgb(125, 190, 80));
         renderer.mainView(new Position(1, 1), currentTetromino, grid);
         renderer.nextTetromino(new Position(grid.getWidth() + 4, 1), nextTetromino);
-        renderer.gameInformation(new Position(grid.getWidth() + 4, 7), rules);
+        renderer.gameInformation(new Position(grid.getWidth() + 4, 7), gameLogic);
     }
 
-    private void automaticallyMoveTetrominoDown(Renderer renderer, TetrominoFactory factory, Grid grid, Rules rules) {
+    private void automaticallyMoveTetrominoDown(Renderer renderer, TetrominoFactory factory, Grid grid, GameLogic gameLogic) {
         new AnimationTimer() {
             long lastTick = 0;
-            MoveDownCommand command = new MoveDownCommand(factory, grid, rules);
+            MoveDownCommand command = new MoveDownCommand(factory, grid, gameLogic);
 
             @Override
             public void handle(long now) {
-                if (!rules.isGameOver()) {
+                if (!gameLogic.isGameOver()) {
                     if (lastTick == 0) {
                         lastTick = now;
-                        drawScene(renderer, factory, grid, rules);
+                        drawScene(renderer, factory, grid, gameLogic);
                     }
-                    var gameSpeed = rules.getTickIntervalInMilliseconds() * 1e9;
+                    var gameSpeed = gameLogic.getTickIntervalInMilliseconds() * 1e9;
                     if (now - lastTick > gameSpeed) {
                         lastTick = now;
                         command.execute();
-                        drawScene(renderer, factory, grid, rules);
+                        drawScene(renderer, factory, grid, gameLogic);
                     }
                 }
             }
         }.start();
     }
 
-    private HashMap<KeyCode, CommandInterface> getPreparedCommands(TetrominoFactory factory, Grid grid, Rules rules) {
+    private HashMap<KeyCode, CommandInterface> getPreparedCommands(TetrominoFactory factory, Grid grid, GameLogic gameLogic) {
         var newCommands = new HashMap<KeyCode, CommandInterface>();
-        newCommands.put(KeyCode.A, new MoveLeftCommand(factory, grid, rules));
-        newCommands.put(KeyCode.LEFT, new MoveLeftCommand(factory, grid, rules));
-        newCommands.put(KeyCode.D, new MoveRightCommand(factory, grid, rules));
-        newCommands.put(KeyCode.RIGHT, new MoveRightCommand(factory, grid, rules));
-        newCommands.put(KeyCode.S, new MoveDownCommand(factory, grid, rules));
-        newCommands.put(KeyCode.DOWN, new MoveDownCommand(factory, grid, rules));
-        newCommands.put(KeyCode.W, new RotateTetrominoCommand(factory, grid, rules));
-        newCommands.put(KeyCode.UP, new RotateTetrominoCommand(factory, grid, rules));
+        newCommands.put(KeyCode.A, new MoveLeftCommand(factory, grid, gameLogic));
+        newCommands.put(KeyCode.LEFT, new MoveLeftCommand(factory, grid, gameLogic));
+        newCommands.put(KeyCode.D, new MoveRightCommand(factory, grid, gameLogic));
+        newCommands.put(KeyCode.RIGHT, new MoveRightCommand(factory, grid, gameLogic));
+        newCommands.put(KeyCode.S, new MoveDownCommand(factory, grid, gameLogic));
+        newCommands.put(KeyCode.DOWN, new MoveDownCommand(factory, grid, gameLogic));
+        newCommands.put(KeyCode.W, new RotateTetrominoCommand(factory, grid, gameLogic));
+        newCommands.put(KeyCode.UP, new RotateTetrominoCommand(factory, grid, gameLogic));
 
         return newCommands;
     }

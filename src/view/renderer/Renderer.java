@@ -1,6 +1,6 @@
 package view.renderer;
 
-import controller.Rules;
+import controller.GameLogic;
 import javafx.scene.paint.Color;
 import model.Grid;
 import model.Position;
@@ -11,7 +11,7 @@ public interface Renderer {
 
     void mainView(Position start, Tetromino tetromino, Grid grid);
 
-    void gameInformation(Position start, Rules rules);
+    void gameInformation(Position start, GameLogic gameLogic);
 
     void fillBackground(int width, int height, Color color);
 

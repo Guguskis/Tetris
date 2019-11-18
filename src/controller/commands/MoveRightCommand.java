@@ -1,6 +1,6 @@
 package controller.commands;
 
-import controller.Rules;
+import controller.GameLogic;
 import model.Grid;
 import model.tetromino.TetrominoFactory;
 
@@ -8,12 +8,12 @@ public class MoveRightCommand implements CommandInterface {
 
     private final TetrominoFactory tetrominoFactory;
     private final Grid grid;
-    private final Rules rules;
+    private final GameLogic gameLogic;
 
-    public MoveRightCommand(TetrominoFactory factory, Grid grid, Rules rules) {
+    public MoveRightCommand(TetrominoFactory factory, Grid grid, GameLogic gameLogic) {
         this.tetrominoFactory = factory;
         this.grid = grid;
-        this.rules = rules;
+        this.gameLogic = gameLogic;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class MoveRightCommand implements CommandInterface {
         var tetromino = tetrominoFactory.peekCurrent();
 
         tetromino.position.moveRight();
-        if (rules.hasCollided(grid, tetromino)) {
+        if (gameLogic.hasCollided(grid, tetromino)) {
             tetromino.position.moveLeft();
         }
     }
