@@ -2,13 +2,15 @@ package controller;
 
 import model.Grid;
 import model.Position;
-import model.tetromino.Tetromino;
 import model.Tile;
+import model.tetromino.Tetromino;
 
 public class Rules {
     private static Rules instance;
     public ScoreCalculator scoreCalculator;
     private int goal = 0;
+    private boolean gameOver = false;
+
 
     public Rules(ScoreCalculator scoreCalculator) {
         this.scoreCalculator = scoreCalculator;
@@ -115,5 +117,13 @@ public class Rules {
 
     public double getTickIntervalInMilliseconds() {
         return Math.pow((0.8 - ((getLevel() - 1) * 0.007)), getLevel() - 1);
+    }
+
+    public void setGameOver() {
+        this.gameOver = true;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
     }
 }

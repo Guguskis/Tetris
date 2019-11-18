@@ -1,13 +1,12 @@
 package view.renderer;
 
 import controller.Rules;
-import controller.ScoreCalculator;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.Grid;
 import model.Position;
-import model.tetromino.Tetromino;
 import model.Tile;
+import model.tetromino.Tetromino;
 
 public class SimpleRenderer implements Renderer {
 
@@ -72,11 +71,11 @@ public class SimpleRenderer implements Renderer {
     public void gameInformation(Position start, Rules rules) {
         var scoreCoordinates = start;
         var scoreText = "Score: " + rules.getScore();
-        fillScaledText(scoreCoordinates, scoreText, Color.GREEN);
+        fillScaledText(scoreCoordinates, scoreText, Color.YELLOW);
 
         var levelCoordinates = start.plus(new Position(0, 2));
         var levelText = "Level: " + rules.getLevel();
-        fillScaledText(levelCoordinates, levelText, Color.GREEN);
+        fillScaledText(levelCoordinates, levelText, Color.YELLOWGREEN);
 
     }
 

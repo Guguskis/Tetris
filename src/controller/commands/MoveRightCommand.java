@@ -1,8 +1,8 @@
 package controller.commands;
 
-import model.Grid;
 import controller.Rules;
-import model.TetrominoFactory;
+import model.Grid;
+import model.tetromino.TetrominoFactory;
 
 public class MoveRightCommand implements CommandInterface {
 
@@ -18,7 +18,7 @@ public class MoveRightCommand implements CommandInterface {
 
     @Override
     public void execute() {
-        var tetromino = tetrominoFactory.getCurrent();
+        var tetromino = tetrominoFactory.peekCurrent();
 
         tetromino.position.moveRight();
         if (rules.hasCollided(grid, tetromino)) {

@@ -1,7 +1,7 @@
-package model;
+package model.tetromino;
 
 
-import model.tetromino.*;
+import model.Grid;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,24 +11,24 @@ public class TetrominoFactory {
     private Tetromino current;
     private Tetromino next;
 
-
+    // Pasiziureti state pattern
     public TetrominoFactory(Grid grid) {
         this.grid = grid;
-        current = getRandom(grid.getWidth()/2);
-        next = getRandom(grid.getWidth()/2);
+        current = getRandom(grid.getWidth() / 2);
+        next = getRandom(grid.getWidth() / 2);
     }
 
-    public Tetromino getCurrent() {
+    public Tetromino peekNext() {
+        return next;
+    }
+
+    public Tetromino peekCurrent() {
         return current;
     }
 
     public void moveConveyor() {
         current = next;
-        next = getRandom(grid.getWidth()/2);
-    }
-
-    public Tetromino preview() {
-        return next;
+        next = getRandom(grid.getWidth() / 2);
     }
 
     private Tetromino getRandom(int x) {

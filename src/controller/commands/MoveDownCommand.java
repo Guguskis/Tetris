@@ -1,8 +1,8 @@
 package controller.commands;
 
-import model.Grid;
 import controller.Rules;
-import model.TetrominoFactory;
+import model.Grid;
+import model.tetromino.TetrominoFactory;
 
 public class MoveDownCommand implements CommandInterface {
 
@@ -18,7 +18,7 @@ public class MoveDownCommand implements CommandInterface {
 
     @Override
     public void execute() {
-        var tetromino = tetrominoFactory.getCurrent();
+        var tetromino = tetrominoFactory.peekCurrent();
 
         tetromino.position.moveDown();
         if (rules.hasCollided(grid, tetromino)) {
@@ -27,8 +27,14 @@ public class MoveDownCommand implements CommandInterface {
             rules.imprintTetromino(grid, tetromino);
             rules.removeFilledLines(grid);
 
-            var newX = (grid.getWidth() - tetrominoFactory.getCurrent().getWidth()) / 2;
-            tetrominoFactory.moveConveyor();
+            var newX = (grid.getWidth() - tetrominoFactory.peekCurrent().getWidth()) / 2;
+            if (rules.hasCollided(grid, tetrominoFactory.peekNext())) {
+                rules.setGameOver();
+            } else {
+                tetrominoFactory.moveConveyor();
+            }
         }
+
+
     }
 }
