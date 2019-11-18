@@ -25,6 +25,8 @@ import java.util.HashMap;
 public class GameApplication extends Application {
     private int width = 800;
     private int height = 800;
+    private int pixelScale = 20;
+
     private Renderer renderer;
     private Scene scene;
     private Grid grid;
@@ -37,47 +39,49 @@ public class GameApplication extends Application {
 
     @Override
     public void init() {
-        Group root = new Group();
+        initialiseFields();
+        mapCommandsToKeyboardInput();
+    }
 
+    private void initialiseFields() {
+        Group root = new Group();
         scene = new Scene(root);
-        renderer = getRenderer(root, 20);
+        renderer = getRenderer(root);
         grid = new Grid(10, 20);
         tetrominoManager = new TetrominoManager(grid);
         gameLogic = new GameLogic();
+    }
 
-        setMovementLogic();
+    private void mapCommandsToKeyboardInput() {
+        HashMap<KeyCode, CommandInterface> commands = getPreparedCommands();
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> handleCommand(commands, key));
     }
 
     @Override
     public void start(Stage primaryStage) {
+        startAutomaticTetrominoMovement();
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    private Renderer getRenderer(Group root, int scale) {
+    private Renderer getRenderer(Group root) {
         var canvas = new Canvas(width, height);
-        var graphicsContext = canvas.getGraphicsContext2D();
         root.getChildren().add(canvas);
-        return new SimpleRenderer(graphicsContext, scale);
-    }
-
-    private void setMovementLogic() {
-        HashMap<KeyCode, CommandInterface> commands = getPreparedCommands();
-        automaticallyMoveTetrominoDown();
-
-        scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
-            handleCommand(commands, key);
-        });
+        return new SimpleRenderer(canvas.getGraphicsContext2D(), pixelScale);
     }
 
     private HashMap<KeyCode, CommandInterface> getPreparedCommands() {
         HashMap<KeyCode, CommandInterface> newCommands = new HashMap<>();
+
         newCommands.put(KeyCode.A, new MoveLeftCommand(tetrominoManager, grid, gameLogic));
         newCommands.put(KeyCode.LEFT, new MoveLeftCommand(tetrominoManager, grid, gameLogic));
+
         newCommands.put(KeyCode.D, new MoveRightCommand(tetrominoManager, grid, gameLogic));
         newCommands.put(KeyCode.RIGHT, new MoveRightCommand(tetrominoManager, grid, gameLogic));
+
         newCommands.put(KeyCode.S, new MoveDownCommand(tetrominoManager, grid, gameLogic));
         newCommands.put(KeyCode.DOWN, new MoveDownCommand(tetrominoManager, grid, gameLogic));
+
         newCommands.put(KeyCode.W, new RotateTetrominoCommand(tetrominoManager, grid, gameLogic));
         newCommands.put(KeyCode.UP, new RotateTetrominoCommand(tetrominoManager, grid, gameLogic));
 
@@ -104,7 +108,7 @@ public class GameApplication extends Application {
         renderer.gameInformation(new Position(grid.getWidth() + 4, 7), gameLogic);
     }
 
-    private void automaticallyMoveTetrominoDown() {
+    private void startAutomaticTetrominoMovement() {
         new AnimationTimer() {
             long lastTick = 0;
             MoveDownCommand command = new MoveDownCommand(tetrominoManager, grid, gameLogic);
