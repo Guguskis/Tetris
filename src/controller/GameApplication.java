@@ -20,7 +20,7 @@ import model.tetromino.TetrominoManager;
 import view.renderer.Renderer;
 import view.renderer.SimpleRenderer;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 
 public class GameApplication extends Application {
     private int width = 800;
@@ -53,7 +53,7 @@ public class GameApplication extends Application {
     }
 
     private void mapCommandsToKeyboardInput() {
-        HashMap<KeyCode, CommandInterface> commands = getPreparedCommands();
+        EnumMap<KeyCode, CommandInterface> commands = getPreparedCommands();
         scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> handleCommand(commands, key));
     }
 
@@ -70,25 +70,25 @@ public class GameApplication extends Application {
         return new SimpleRenderer(canvas.getGraphicsContext2D(), pixelScale);
     }
 
-    private HashMap<KeyCode, CommandInterface> getPreparedCommands() {
-        HashMap<KeyCode, CommandInterface> newCommands = new HashMap<>();
+    private EnumMap<KeyCode, CommandInterface> getPreparedCommands() {
+        EnumMap<KeyCode, CommandInterface> commands = new EnumMap<>(KeyCode.class);
 
-        newCommands.put(KeyCode.A, new MoveLeftCommand(tetrominoManager, grid, gameLogic));
-        newCommands.put(KeyCode.LEFT, new MoveLeftCommand(tetrominoManager, grid, gameLogic));
+        commands.put(KeyCode.A, new MoveLeftCommand(tetrominoManager, grid, gameLogic));
+        commands.put(KeyCode.LEFT, new MoveLeftCommand(tetrominoManager, grid, gameLogic));
 
-        newCommands.put(KeyCode.D, new MoveRightCommand(tetrominoManager, grid, gameLogic));
-        newCommands.put(KeyCode.RIGHT, new MoveRightCommand(tetrominoManager, grid, gameLogic));
+        commands.put(KeyCode.D, new MoveRightCommand(tetrominoManager, grid, gameLogic));
+        commands.put(KeyCode.RIGHT, new MoveRightCommand(tetrominoManager, grid, gameLogic));
 
-        newCommands.put(KeyCode.S, new MoveDownCommand(tetrominoManager, grid, gameLogic));
-        newCommands.put(KeyCode.DOWN, new MoveDownCommand(tetrominoManager, grid, gameLogic));
+        commands.put(KeyCode.S, new MoveDownCommand(tetrominoManager, grid, gameLogic));
+        commands.put(KeyCode.DOWN, new MoveDownCommand(tetrominoManager, grid, gameLogic));
 
-        newCommands.put(KeyCode.W, new RotateTetrominoCommand(tetrominoManager, grid, gameLogic));
-        newCommands.put(KeyCode.UP, new RotateTetrominoCommand(tetrominoManager, grid, gameLogic));
+        commands.put(KeyCode.W, new RotateTetrominoCommand(tetrominoManager, grid, gameLogic));
+        commands.put(KeyCode.UP, new RotateTetrominoCommand(tetrominoManager, grid, gameLogic));
 
-        return newCommands;
+        return commands;
     }
 
-    private void handleCommand(HashMap<KeyCode, CommandInterface> commands, KeyEvent key) {
+    private void handleCommand(EnumMap<KeyCode, CommandInterface> commands, KeyEvent key) {
         var command = commands.get(key.getCode());
 
         if (command != null) {
