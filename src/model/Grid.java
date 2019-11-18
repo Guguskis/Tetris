@@ -25,9 +25,9 @@ public class Grid {
         if (inBounds(coordinates)) {
             return map[coordinates.y][coordinates.x];
         } else if (coordinates.y < 0) {
-            return Tile.Empty;
+            return Tile.EMPTY;
         }
-        return Tile.OutOfBounds;
+        return Tile.OUT_OF_BOUNDS;
     }
 
     public void setTile(Position coordinates, Tile tile) {
@@ -38,7 +38,7 @@ public class Grid {
 
     public boolean lineIsEmpty(int y) {
         for (int x = 0; x < getWidth(); x++) {
-            if (getTile(new Position(x, y)) != Tile.Occupied) {
+            if (getTile(new Position(x, y)) != Tile.OCCUPIED) {
                 return false;
             }
         }
@@ -47,7 +47,7 @@ public class Grid {
 
     public void removeLine(int y) {
         for (int x = 0; x < getWidth(); x++) {
-            setTile(new Position(x, y), Tile.Empty);
+            setTile(new Position(x, y), Tile.EMPTY);
         }
     }
 

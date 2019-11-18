@@ -24,7 +24,7 @@ public class Tetromino {
         if (inShape(coordinates)) {
             return form[coordinates.y][coordinates.x];
         } else {
-            return Tile.OutOfBounds;
+            return Tile.OUT_OF_BOUNDS;
         }
     }
 

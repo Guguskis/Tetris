@@ -1,7 +1,7 @@
 package model;
 
 public enum Tile {
-    Empty,
-    Occupied,
-    OutOfBounds
+    EMPTY,
+    OCCUPIED,
+    OUT_OF_BOUNDS
 }

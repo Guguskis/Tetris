@@ -2,8 +2,8 @@ package view;
 
 import model.Grid;
 import model.Position;
-import model.tetromino.Tetromino;
 import model.Tile;
+import model.tetromino.Tetromino;
 
 public class AsciiGraphics {
     public AsciiGraphics(){
@@ -19,7 +19,7 @@ public class AsciiGraphics {
                     var tetrominoTile = tetromino.getUnmappedTile(new Position(j, i));
                     var gridTile = grid.getTile(new Position(j, i));
 
-                    if (tetrominoTile == Tile.Occupied|| gridTile == Tile.Occupied) {
+                    if (tetrominoTile == Tile.OCCUPIED || gridTile == Tile.OCCUPIED) {
                         System.out.print("x");
                     } else {
                         System.out.print(" ");

@@ -22,7 +22,7 @@ public class SimpleRenderer implements Renderer {
         for (int i = 0; i < tetromino.getHeight(); i++) {
             for (int j = 0; j < tetromino.getWidth(); j++) {
                 var tile = tetromino.getUnmappedTile(new Position(j, i));
-                if (tile == Tile.Occupied) {
+                if (tile == Tile.OCCUPIED) {
                     var offset = new Position(j, i).plus(tetromino.getPosition());
                     var drawPosition = start.plus(offset);
                     drawScaledRect(drawPosition, Color.KHAKI);
@@ -36,7 +36,7 @@ public class SimpleRenderer implements Renderer {
         for (int i = 0; i < grid.getHeight(); i++) {
             for (int j = 0; j < grid.getWidth(); j++) {
                 var tile = grid.getTile(new Position(j, i));
-                if (tile == Tile.Occupied) {
+                if (tile == Tile.OCCUPIED) {
                     var drawPosition = start.plus(new Position(j, i));
                     drawScaledRect(drawPosition, color);
                 }
@@ -88,7 +88,7 @@ public class SimpleRenderer implements Renderer {
     public void nextTetromino(Position start, Tetromino tetromino) {
         for (int i = 0; i < tetromino.getHeight(); i++) {
             for (int j = 0; j < tetromino.getWidth(); j++) {
-                if (tetromino.getUnmappedTile(new Position(j, i)) == Tile.Occupied) {
+                if (tetromino.getUnmappedTile(new Position(j, i)) == Tile.OCCUPIED) {
                     var drawPosition = start.plus(new Position(j, i));
                     drawScaledRect(drawPosition, Color.PURPLE);
                 }

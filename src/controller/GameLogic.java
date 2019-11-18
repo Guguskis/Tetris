@@ -22,7 +22,7 @@ public class GameLogic {
                 var coordinates = new Position(j, i);
                 var tile = tetromino.getUnmappedTile(coordinates);
 
-                if (tile == Tile.Occupied) {
+                if (tile == Tile.OCCUPIED) {
                     var mappedCoordinates = coordinates.plus(tetromino.getPosition());
                     grid.setTile(mappedCoordinates, tile);
                 }
@@ -49,7 +49,7 @@ public class GameLogic {
         var tetrominoTile = tetromino.getMappedTile(coordinates);
         var gridTile = grid.getTile(coordinates);
 
-        if (tetrominoTile == Tile.Occupied && gridTile == Tile.Occupied) {
+        if (tetrominoTile == Tile.OCCUPIED && gridTile == Tile.OCCUPIED) {
             return true;
         }
         return false;
@@ -59,7 +59,7 @@ public class GameLogic {
         var tetrominoTile = tetromino.getMappedTile(coordinates);
         var gridTile = grid.getTile(coordinates);
 
-        if (tetrominoTile == Tile.Occupied && gridTile == Tile.OutOfBounds) {
+        if (tetrominoTile == Tile.OCCUPIED && gridTile == Tile.OUT_OF_BOUNDS) {
             return true;
         }
         return false;
