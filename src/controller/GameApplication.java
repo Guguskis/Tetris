@@ -26,6 +26,9 @@ public class GameApplication extends Application {
     private int width = 800;
     private int height = 800;
     private Renderer renderer;
+    private Scene scene;
+    private Grid grid;
+    private TetrominoFactory tetrominoFactory;
 
     public static void main(String[] args) {
         launch();
@@ -33,7 +36,14 @@ public class GameApplication extends Application {
 
     @Override
     public void init() {
+        Group root = new Group();
 
+        scene = new Scene(root);
+        renderer = getRenderer(root, 20);
+        grid = new Grid(10, 20);
+        tetrominoFactory = new TetrominoFactory(grid);
+
+        setMovementLogic(tetrominoFactory, grid, new GameLogic(new ScoreCalculator()));
     }
 
     @Override
@@ -43,16 +53,6 @@ public class GameApplication extends Application {
     }
 
     private Scene getMainScene() {
-        var root = new Group();
-        var scene = new Scene(root);
-
-        renderer = getRenderer(root, 20);
-
-        var grid = new Grid(10, 20);
-        var tetrominoFactory = new TetrominoFactory(grid);
-
-        setMovementLogic(scene, tetrominoFactory, grid, new GameLogic(new ScoreCalculator()));
-
         return scene;
     }
 
@@ -63,11 +63,11 @@ public class GameApplication extends Application {
         return new SimpleRenderer(graphicsContext, scale);
     }
 
-    private void setMovementLogic(Scene gameplayScene, TetrominoFactory factory, Grid grid, GameLogic gameLogic) {
+    private void setMovementLogic(TetrominoFactory factory, Grid grid, GameLogic gameLogic) {
         HashMap<KeyCode, CommandInterface> commands = getPreparedCommands(factory, grid, gameLogic);
         automaticallyMoveTetrominoDown(factory, grid, gameLogic);
 
-        gameplayScene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
             handleCommand(factory, grid, commands, key, gameLogic);
         });
     }
