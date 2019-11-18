@@ -16,11 +16,21 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Grid;
 import model.Position;
+import model.tetromino.ITetromino;
+import model.tetromino.JTetromino;
+import model.tetromino.LTetromino;
+import model.tetromino.OTetromino;
+import model.tetromino.STetromino;
+import model.tetromino.TTetromino;
+import model.tetromino.Tetromino;
 import model.tetromino.TetrominoFactory;
+import model.tetromino.ZTetromino;
 import view.renderer.Renderer;
 import view.renderer.SimpleRenderer;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class GameApplication extends Application {
     private int width = 800;
@@ -30,6 +40,8 @@ public class GameApplication extends Application {
     private Grid grid;
     private TetrominoFactory tetrominoFactory;
     private GameLogic gameLogic;
+    private Tetromino currentTetromino;
+    private Tetromino nextTetromino;
 
     public static void main(String[] args) {
         launch();
@@ -45,6 +57,9 @@ public class GameApplication extends Application {
         tetrominoFactory = new TetrominoFactory(grid);
         gameLogic = new GameLogic();
 
+        currentTetromino = getRandomTetromino();
+        nextTetromino = getRandomTetromino();
+
         setMovementLogic();
     }
 
@@ -52,6 +67,22 @@ public class GameApplication extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private Tetromino getRandomTetromino() {
+        int centerX = grid.getWidth() / 2;
+        List<Tetromino> availableTetrominoes = Arrays.asList(
+                new LTetromino(centerX),
+                new JTetromino(centerX),
+                new ZTetromino(centerX),
+                new STetromino(centerX),
+                new ITetromino(centerX),
+                new OTetromino(centerX),
+                new TTetromino(centerX)
+        );
+        int randomSelection = (int) (Math.random() * availableTetrominoes.size() - 1);
+
+        return availableTetrominoes.get(randomSelection);
     }
 
     private Renderer getRenderer(Group root, int scale) {

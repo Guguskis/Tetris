@@ -11,6 +11,7 @@ public class Tetromino {
         this.position = new Position(x, y);
         this.form = form;
     }
+
     public int getWidth() {
         return form[0].length;
     }
@@ -54,5 +55,21 @@ public class Tetromino {
         for (int i = 0; i < 3; i++) {
             rotateClockwise();
         }
+    }
+
+    public void moveLeft() {
+        position.x--;
+    }
+
+    public void moveRight() {
+        position.x++;
+    }
+
+    public void moveDown() {
+        position.y++;
+    }
+
+    public void moveUp() {
+        position.y--;
     }
 }

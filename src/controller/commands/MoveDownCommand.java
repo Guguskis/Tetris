@@ -20,14 +20,13 @@ public class MoveDownCommand implements CommandInterface {
     public void execute() {
         var tetromino = tetrominoFactory.peekCurrent();
 
-        tetromino.position.moveDown();
+        tetromino.moveDown();
         if (gameLogic.hasCollided(grid, tetromino)) {
-            tetromino.position.moveUp();
+            tetromino.moveUp();
 
             gameLogic.imprintTetromino(grid, tetromino);
             gameLogic.removeFilledLines(grid);
 
-            var newX = (grid.getWidth() - tetrominoFactory.peekCurrent().getWidth()) / 2;
             if (gameLogic.hasCollided(grid, tetrominoFactory.peekNext())) {
                 gameLogic.setGameOver();
             } else {

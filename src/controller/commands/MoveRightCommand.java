@@ -20,9 +20,9 @@ public class MoveRightCommand implements CommandInterface {
     public void execute() {
         var tetromino = tetrominoFactory.peekCurrent();
 
-        tetromino.position.moveRight();
+        tetromino.moveRight();
         if (gameLogic.hasCollided(grid, tetromino)) {
-            tetromino.position.moveLeft();
+            tetromino.moveLeft();
         }
     }
 }
