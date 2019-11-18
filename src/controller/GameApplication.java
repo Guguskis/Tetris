@@ -62,59 +62,16 @@ public class GameApplication extends Application {
     }
 
     private void setMovementLogic() {
-        HashMap<KeyCode, CommandInterface> commands = getPreparedCommands(gameLogic);
-        automaticallyMoveTetrominoDown(gameLogic);
+        HashMap<KeyCode, CommandInterface> commands = getPreparedCommands();
+        automaticallyMoveTetrominoDown();
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
-            handleCommand(commands, key, gameLogic);
+            handleCommand(commands, key);
         });
     }
 
-    private void handleCommand(HashMap<KeyCode, CommandInterface> commands, KeyEvent key, GameLogic gameLogic) {
-        var command = commands.get(key.getCode());
-
-        if (command != null) {
-            command.execute();
-            drawScene(gameLogic);
-        }
-    }
-
-    private void drawScene(GameLogic gameLogic) {
-        var currentTetromino = tetrominoFactory.peekCurrent();
-        var nextTetromino = tetrominoFactory.peekNext();
-
-        renderer.fillBackground(width, height, Color.rgb(30, 0, 40));
-        renderer.outline(new Position(0, 0), grid.getWidth() + 2, grid.getHeight() + 2, Color.rgb(125, 190, 80));
-        renderer.mainView(new Position(1, 1), currentTetromino, grid);
-        renderer.nextTetromino(new Position(grid.getWidth() + 4, 1), nextTetromino);
-        renderer.gameInformation(new Position(grid.getWidth() + 4, 7), gameLogic);
-    }
-
-    private void automaticallyMoveTetrominoDown(GameLogic gameLogic) {
-        new AnimationTimer() {
-            long lastTick = 0;
-            MoveDownCommand command = new MoveDownCommand(tetrominoFactory, grid, gameLogic);
-
-            @Override
-            public void handle(long now) {
-                if (!gameLogic.isGameOver()) {
-                    if (lastTick == 0) {
-                        lastTick = now;
-                        drawScene(gameLogic);
-                    }
-                    var gameSpeed = gameLogic.getTickIntervalInMilliseconds() * 1e9;
-                    if (now - lastTick > gameSpeed) {
-                        lastTick = now;
-                        command.execute();
-                        drawScene(gameLogic);
-                    }
-                }
-            }
-        }.start();
-    }
-
-    private HashMap<KeyCode, CommandInterface> getPreparedCommands(GameLogic gameLogic) {
-        var newCommands = new HashMap<KeyCode, CommandInterface>();
+    private HashMap<KeyCode, CommandInterface> getPreparedCommands() {
+        HashMap<KeyCode, CommandInterface> newCommands = new HashMap<>();
         newCommands.put(KeyCode.A, new MoveLeftCommand(tetrominoFactory, grid, gameLogic));
         newCommands.put(KeyCode.LEFT, new MoveLeftCommand(tetrominoFactory, grid, gameLogic));
         newCommands.put(KeyCode.D, new MoveRightCommand(tetrominoFactory, grid, gameLogic));
@@ -125,6 +82,49 @@ public class GameApplication extends Application {
         newCommands.put(KeyCode.UP, new RotateTetrominoCommand(tetrominoFactory, grid, gameLogic));
 
         return newCommands;
+    }
+
+    private void handleCommand(HashMap<KeyCode, CommandInterface> commands, KeyEvent key) {
+        var command = commands.get(key.getCode());
+
+        if (command != null) {
+            command.execute();
+            drawScene();
+        }
+    }
+
+    private void drawScene() {
+        var currentTetromino = tetrominoFactory.peekCurrent();
+        var nextTetromino = tetrominoFactory.peekNext();
+
+        renderer.fillBackground(width, height, Color.rgb(30, 0, 40));
+        renderer.outline(new Position(0, 0), grid.getWidth() + 2, grid.getHeight() + 2, Color.rgb(125, 190, 80));
+        renderer.mainView(new Position(1, 1), currentTetromino, grid);
+        renderer.nextTetromino(new Position(grid.getWidth() + 4, 1), nextTetromino);
+        renderer.gameInformation(new Position(grid.getWidth() + 4, 7), gameLogic);
+    }
+
+    private void automaticallyMoveTetrominoDown() {
+        new AnimationTimer() {
+            long lastTick = 0;
+            MoveDownCommand command = new MoveDownCommand(tetrominoFactory, grid, gameLogic);
+
+            @Override
+            public void handle(long now) {
+                if (!gameLogic.isGameOver()) {
+                    if (lastTick == 0) {
+                        lastTick = now;
+                        drawScene();
+                    }
+                    var gameSpeed = gameLogic.getTickIntervalInMilliseconds() * 1e9;
+                    if (now - lastTick > gameSpeed) {
+                        lastTick = now;
+                        command.execute();
+                        drawScene();
+                    }
+                }
+            }
+        }.start();
     }
 
 }
