@@ -33,7 +33,7 @@ public class TetrominoManager {
 
     private Tetromino getRandom() {
         var options = getAvailableTetrominoes();
-        int selection = (int) (Math.random() * (options.size() - 1));
+        int selection = (int) (Math.random() * (options.size()));
         return options.get(selection);
     }
 
