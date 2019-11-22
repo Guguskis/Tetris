@@ -21,14 +21,18 @@ public class Position {
     }
 
     public Position plus(Position o) {
-        var newX = x + o.x;
-        var newY = y + o.y;
-        return new Position(newX, newY);
+        return plus(o.x, o.y);
     }
 
     public Position multiply(int n) {
         var newX = x * n;
         var newY = y * n;
+        return new Position(newX, newY);
+    }
+
+    public Position plus(int x, int y) {
+        var newX = this.x + x;
+        var newY = this.y + y;
         return new Position(newX, newY);
     }
 }

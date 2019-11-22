@@ -58,4 +58,8 @@ public class Grid {
         }
         removeLine(y);
     }
+
+    public Tile getTile(int x, int y) {
+        return getTile(new Position(x, y));
+    }
 }
