@@ -1,8 +1,8 @@
-package model.tetromino;
+package controller;
 
 
-import controller.TetrominoGenerator;
 import model.Grid;
+import model.tetromino.Tetromino;
 
 public class TetrominoConveyor {
     private final Grid grid;

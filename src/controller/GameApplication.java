@@ -14,7 +14,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.Grid;
-import model.tetromino.TetrominoConveyor;
 import view.renderer.Renderer;
 import view.renderer.SimpleRenderer;
 

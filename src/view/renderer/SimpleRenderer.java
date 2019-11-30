@@ -1,13 +1,13 @@
 package view.renderer;
 
 import controller.GameLogic;
+import controller.TetrominoConveyor;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.Grid;
 import model.Position;
 import model.Tile;
 import model.tetromino.Tetromino;
-import model.tetromino.TetrominoConveyor;
 
 public class SimpleRenderer implements Renderer {
 

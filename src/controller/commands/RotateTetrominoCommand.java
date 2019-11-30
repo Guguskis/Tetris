@@ -1,8 +1,8 @@
 package controller.commands;
 
 import controller.GameLogic;
+import controller.TetrominoConveyor;
 import model.Grid;
-import model.tetromino.TetrominoConveyor;
 
 public class RotateTetrominoCommand implements CommandInterface {
     private final TetrominoConveyor conveyor;
