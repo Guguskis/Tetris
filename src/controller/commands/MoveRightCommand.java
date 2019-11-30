@@ -8,12 +8,12 @@ public class MoveRightCommand implements CommandInterface {
 
     private final TetrominoConveyor conveyor;
     private final Grid grid;
-    private final GameLogic gameLogic;
+    private final GameLogic logic;
 
     public MoveRightCommand(TetrominoConveyor conveyor, Grid grid, GameLogic gameLogic) {
         this.conveyor = conveyor;
         this.grid = grid;
-        this.gameLogic = gameLogic;
+        this.logic = gameLogic;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class MoveRightCommand implements CommandInterface {
         var tetromino = conveyor.getCurrent();
 
         tetromino.moveRight();
-        if (gameLogic.hasCollided(grid, tetromino)) {
+        if (logic.hasCollided(grid, tetromino)) {
             tetromino.moveLeft();
         }
     }

@@ -9,13 +9,13 @@ public class MoveDownCommand implements CommandInterface {
 
     private final TetrominoConveyor conveyor;
     private final Grid grid;
-    private final GameLogic gameLogic;
+    private final GameLogic logic;
 
     public MoveDownCommand(TetrominoConveyor conveyor, Grid grid, GameLogic gameLogic) {
         // Todo injetc dependencies
         this.conveyor = conveyor;
         this.grid = grid;
-        this.gameLogic = gameLogic;
+        this.logic = gameLogic;
     }
 
     @Override
@@ -36,17 +36,17 @@ public class MoveDownCommand implements CommandInterface {
 
     private void ifCannotSpawnNextSetGameOver() {
         if (hasCollided(conveyor.getNext())) {
-            gameLogic.setGameOver(true);
+            logic.setGameOver(true);
         }
     }
 
     private void removeFilledLines(Tetromino tetromino) {
-        gameLogic.imprintTetromino(grid, tetromino);
-        gameLogic.removeFilledLines(grid);
+        logic.imprintTetromino(grid, tetromino);
+        logic.removeFilledLines(grid);
     }
 
     private boolean hasCollided(Tetromino tetromino) {
-        return gameLogic.hasCollided(grid, tetromino);
+        return logic.hasCollided(grid, tetromino);
     }
 
 }
