@@ -26,7 +26,7 @@ public class GameApplication extends Application {
     private int height = 800;
     private int pixelScale = 20;
 
-    private GameLogic gameLogic;
+    private GameLogic logic;
     private Renderer renderer;
     private Scene scene;
     private Grid grid;
@@ -44,7 +44,7 @@ public class GameApplication extends Application {
 
     private void injectDependencies() {
         grid = new Grid(10, 20);
-        gameLogic = new GameLogic();
+        logic = new GameLogic(new ScoreCalculator());
 
         TetrominoGenerator generator = new TetrominoGenerator(new Random());
         conveyor = new TetrominoConveyor(grid, generator);
@@ -75,17 +75,17 @@ public class GameApplication extends Application {
     private EnumMap<KeyCode, CommandInterface> getPreparedCommands() {
         EnumMap<KeyCode, CommandInterface> commands = new EnumMap<>(KeyCode.class);
 
-        commands.put(KeyCode.A, new MoveLeftCommand(conveyor, grid, gameLogic));
-        commands.put(KeyCode.LEFT, new MoveLeftCommand(conveyor, grid, gameLogic));
+        commands.put(KeyCode.A, new MoveLeftCommand(conveyor, grid, logic));
+        commands.put(KeyCode.LEFT, new MoveLeftCommand(conveyor, grid, logic));
 
-        commands.put(KeyCode.D, new MoveRightCommand(conveyor, grid, gameLogic));
-        commands.put(KeyCode.RIGHT, new MoveRightCommand(conveyor, grid, gameLogic));
+        commands.put(KeyCode.D, new MoveRightCommand(conveyor, grid, logic));
+        commands.put(KeyCode.RIGHT, new MoveRightCommand(conveyor, grid, logic));
 
-        commands.put(KeyCode.S, new MoveDownCommand(conveyor, grid, gameLogic));
-        commands.put(KeyCode.DOWN, new MoveDownCommand(conveyor, grid, gameLogic));
+        commands.put(KeyCode.S, new MoveDownCommand(conveyor, grid, logic));
+        commands.put(KeyCode.DOWN, new MoveDownCommand(conveyor, grid, logic));
 
-        commands.put(KeyCode.W, new RotateTetrominoCommand(conveyor, grid, gameLogic));
-        commands.put(KeyCode.UP, new RotateTetrominoCommand(conveyor, grid, gameLogic));
+        commands.put(KeyCode.W, new RotateTetrominoCommand(conveyor, grid, logic));
+        commands.put(KeyCode.UP, new RotateTetrominoCommand(conveyor, grid, logic));
 
         return commands;
     }
@@ -95,27 +95,27 @@ public class GameApplication extends Application {
 
         if (command != null) {
             command.execute();
-            renderer.drawFrame(grid, gameLogic, conveyor);
+            renderer.drawFrame(grid, logic, conveyor);
         }
     }
 
     private void startAutomaticTetrominoMovement() {
         new AnimationTimer() {
             long lastTick = 0;
-            MoveDownCommand command = new MoveDownCommand(conveyor, grid, gameLogic);
+            MoveDownCommand command = new MoveDownCommand(conveyor, grid, logic);
 
             @Override
             public void handle(long now) {
-                if (!gameLogic.isGameOver()) {
+                if (!logic.isGameOver()) {
                     if (lastTick == 0) {
                         lastTick = now;
-                        renderer.drawFrame(grid, gameLogic, conveyor);
+                        renderer.drawFrame(grid, logic, conveyor);
                     }
-                    var gameSpeed = gameLogic.getTickIntervalInMilliseconds() * 1e9;
+                    var gameSpeed = logic.getTickIntervalInMilliseconds() * 1e9;
                     if (now - lastTick > gameSpeed) {
                         lastTick = now;
                         command.execute();
-                        renderer.drawFrame(grid, gameLogic, conveyor);
+                        renderer.drawFrame(grid, logic, conveyor);
                     }
                 }
             }

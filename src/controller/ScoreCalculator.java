@@ -3,13 +3,9 @@ package controller;
 public class ScoreCalculator {
     private int score = 0;
 
-    public void calculate(int linesRemoved, int level) {
-        try {
-            int scoreToAdd = (level + 1) * getLineCoefficient(linesRemoved);
-            score += scoreToAdd;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void add(int linesRemoved, int level) throws Exception {
+        int scoreToAdd = (level + 1) * getLineCoefficient(linesRemoved);
+        score += scoreToAdd;
     }
 
     public int getScore() {
@@ -29,7 +25,7 @@ public class ScoreCalculator {
             case 4:
                 return 1200;
             default:
-                throw new Exception("Coefficient is not specified for " + linesRemoved + " lines.");
+                throw new Exception("Coefficient is not specified for " + linesRemoved + " removed lines.");
         }
     }
 }

@@ -7,12 +7,12 @@ import model.tetromino.TetrominoConveyor;
 public class MoveLeftCommand implements CommandInterface {
     private final TetrominoConveyor conveyor;
     private final Grid grid;
-    private final GameLogic gameLogic;
+    private final GameLogic logic;
 
-    public MoveLeftCommand(TetrominoConveyor conveyor, Grid grid, GameLogic gameLogic) {
+    public MoveLeftCommand(TetrominoConveyor conveyor, Grid grid, GameLogic logic) {
         this.conveyor = conveyor;
         this.grid = grid;
-        this.gameLogic = gameLogic;
+        this.logic = logic;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class MoveLeftCommand implements CommandInterface {
         var tetromino = conveyor.getCurrent();
 
         tetromino.moveLeft();
-        if (gameLogic.hasCollided(grid, tetromino)) {
+        if (logic.hasCollided(grid, tetromino)) {
             tetromino.moveRight();
         }
     }
