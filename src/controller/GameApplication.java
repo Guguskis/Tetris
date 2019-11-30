@@ -38,14 +38,16 @@ public class GameApplication extends Application {
 
     @Override
     public void init() {
-        initialiseFields();
+        injectDependencies();
         mapCommandsToKeyboardInput();
     }
 
-    private void initialiseFields() {
+    private void injectDependencies() {
         grid = new Grid(10, 20);
-        tetrominoManager = new TetrominoConveyor(grid, new Random());
         gameLogic = new GameLogic();
+
+        TetrominoGenerator generator = new TetrominoGenerator(new Random());
+        tetrominoManager = new TetrominoConveyor(grid, generator);
 
         Group root = new Group();
         renderer = getRenderer(root);

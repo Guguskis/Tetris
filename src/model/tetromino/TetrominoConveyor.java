@@ -1,27 +1,25 @@
 package model.tetromino;
 
 
+import controller.TetrominoGenerator;
 import model.Grid;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
 
 public class TetrominoConveyor {
     private final Grid grid;
     private Tetromino current;
     private Tetromino next;
-    private Random random;
+    private TetrominoGenerator generator;
 
-    public TetrominoConveyor(Grid grid, Random random) {
+    public TetrominoConveyor(Grid grid, TetrominoGenerator generator) {
         this.grid = grid;
-        injectRandomAndGenerateValues(random);
+
+        this.generator = generator;
+        this.current = generator.getRandom(getCenterX());
+        this.next = generator.getRandom(getCenterX());
     }
 
-    private void injectRandomAndGenerateValues(Random random) {
-        this.random = random;
-        this.current = getRandom();
-        this.next = getRandom();
+    private int getCenterX() {
+        return grid.getWidth() / 2;
     }
 
     public Tetromino getNext() {
@@ -34,23 +32,6 @@ public class TetrominoConveyor {
 
     public void move() {
         current = next;
-        next = getRandom();
+        next = generator.getRandom(getCenterX());
     }
-
-    private Tetromino getRandom() {
-        int centerX = grid.getWidth() / 2;
-        String randomType = getRandomType();
-        return TetrominoFactory.getInstance(randomType, centerX);
-    }
-
-    private String getRandomType() {
-        List<String> availableTypes = getTetrominoTypes();
-        int randomSelection = random.nextInt(availableTypes.size());
-        return availableTypes.get(randomSelection);
-    }
-
-    private List<String> getTetrominoTypes() {
-        return Arrays.asList("I", "J", "L", "O", "S", "T", "Z");
-    }
-
 }
