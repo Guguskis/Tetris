@@ -7,13 +7,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class TetrominoManager {
+public class TetrominoConveyor {
     private final Grid grid;
     private Tetromino current;
     private Tetromino next;
     private Random random;
 
-    public TetrominoManager(Grid grid, Random random) {
+    public TetrominoConveyor(Grid grid, Random random) {
         this.grid = grid;
         injectRandomAndGenerateValues(random);
     }
@@ -32,7 +32,7 @@ public class TetrominoManager {
         return current;
     }
 
-    public void parseNext() {
+    public void move() {
         current = next;
         next = getRandom();
     }

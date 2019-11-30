@@ -2,15 +2,15 @@ package controller.commands;
 
 import controller.GameLogic;
 import model.Grid;
-import model.tetromino.TetrominoManager;
+import model.tetromino.TetrominoConveyor;
 
 public class MoveDownCommand implements CommandInterface {
 
-    private final TetrominoManager tetrominoManager;
+    private final TetrominoConveyor tetrominoManager;
     private final Grid grid;
     private final GameLogic gameLogic;
 
-    public MoveDownCommand(TetrominoManager factory, Grid grid, GameLogic gameLogic) {
+    public MoveDownCommand(TetrominoConveyor factory, Grid grid, GameLogic gameLogic) {
         this.tetrominoManager = factory;
         this.grid = grid;
         this.gameLogic = gameLogic;
@@ -30,7 +30,7 @@ public class MoveDownCommand implements CommandInterface {
             if (gameLogic.hasCollided(grid, tetrominoManager.getNext())) {
                 gameLogic.setGameOver();
             } else {
-                tetrominoManager.parseNext();
+                tetrominoManager.move();
             }
         }
 

@@ -2,8 +2,8 @@ package view.renderer;
 
 import controller.GameLogic;
 import model.Grid;
-import model.tetromino.TetrominoManager;
+import model.tetromino.TetrominoConveyor;
 
 public interface Renderer {
-    void drawFrame(Grid grid, GameLogic gameLogic, TetrominoManager tetrominoManager);
+    void drawFrame(Grid grid, GameLogic gameLogic, TetrominoConveyor tetrominoManager);
 }

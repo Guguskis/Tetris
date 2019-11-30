@@ -2,14 +2,14 @@ package controller.commands;
 
 import controller.GameLogic;
 import model.Grid;
-import model.tetromino.TetrominoManager;
+import model.tetromino.TetrominoConveyor;
 
 public class RotateTetrominoCommand implements CommandInterface {
-    private final TetrominoManager tetrominoManager;
+    private final TetrominoConveyor tetrominoManager;
     private final Grid grid;
     private final GameLogic gameLogic;
 
-    public RotateTetrominoCommand(TetrominoManager factory, Grid grid, GameLogic gameLogic) {
+    public RotateTetrominoCommand(TetrominoConveyor factory, Grid grid, GameLogic gameLogic) {
         this.tetrominoManager = factory;
         this.grid = grid;
         this.gameLogic = gameLogic;

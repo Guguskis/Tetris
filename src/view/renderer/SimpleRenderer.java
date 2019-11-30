@@ -7,7 +7,7 @@ import model.Grid;
 import model.Position;
 import model.Tile;
 import model.tetromino.Tetromino;
-import model.tetromino.TetrominoManager;
+import model.tetromino.TetrominoConveyor;
 
 public class SimpleRenderer implements Renderer {
 
@@ -32,7 +32,7 @@ public class SimpleRenderer implements Renderer {
     }
 
     @Override
-    public void drawFrame(Grid grid, GameLogic gameLogic, TetrominoManager tetrominoManager) {
+    public void drawFrame(Grid grid, GameLogic gameLogic, TetrominoConveyor tetrominoManager) {
         Tetromino currentTetromino = tetrominoManager.getCurrent();
         Tetromino nextTetromino = tetrominoManager.getNext();
 

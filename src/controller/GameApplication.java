@@ -14,7 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.Grid;
-import model.tetromino.TetrominoManager;
+import model.tetromino.TetrominoConveyor;
 import view.renderer.Renderer;
 import view.renderer.SimpleRenderer;
 
@@ -30,7 +30,7 @@ public class GameApplication extends Application {
     private Renderer renderer;
     private Scene scene;
     private Grid grid;
-    private TetrominoManager tetrominoManager;
+    private TetrominoConveyor tetrominoManager;
 
     public static void main(String[] args) {
         launch();
@@ -44,7 +44,7 @@ public class GameApplication extends Application {
 
     private void initialiseFields() {
         grid = new Grid(10, 20);
-        tetrominoManager = new TetrominoManager(grid, new Random());
+        tetrominoManager = new TetrominoConveyor(grid, new Random());
         gameLogic = new GameLogic();
 
         Group root = new Group();

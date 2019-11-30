@@ -2,15 +2,15 @@ package controller.commands;
 
 import controller.GameLogic;
 import model.Grid;
-import model.tetromino.TetrominoManager;
+import model.tetromino.TetrominoConveyor;
 
 public class MoveRightCommand implements CommandInterface {
 
-    private final TetrominoManager tetrominoManager;
+    private final TetrominoConveyor tetrominoManager;
     private final Grid grid;
     private final GameLogic gameLogic;
 
-    public MoveRightCommand(TetrominoManager factory, Grid grid, GameLogic gameLogic) {
+    public MoveRightCommand(TetrominoConveyor factory, Grid grid, GameLogic gameLogic) {
         this.tetrominoManager = factory;
         this.grid = grid;
         this.gameLogic = gameLogic;
