@@ -6,19 +6,19 @@ import model.tetromino.TetrominoConveyor;
 
 public class MoveDownCommand implements CommandInterface {
 
-    private final TetrominoConveyor tetrominoManager;
+    private final TetrominoConveyor conveyor;
     private final Grid grid;
     private final GameLogic gameLogic;
 
-    public MoveDownCommand(TetrominoConveyor factory, Grid grid, GameLogic gameLogic) {
-        this.tetrominoManager = factory;
+    public MoveDownCommand(TetrominoConveyor conveyor, Grid grid, GameLogic gameLogic) {
+        this.conveyor = conveyor;
         this.grid = grid;
         this.gameLogic = gameLogic;
     }
 
     @Override
     public void execute() {
-        var tetromino = tetrominoManager.getCurrent();
+        var tetromino = conveyor.getCurrent();
 
         tetromino.moveDown();
         if (gameLogic.hasCollided(grid, tetromino)) {
@@ -27,10 +27,10 @@ public class MoveDownCommand implements CommandInterface {
             gameLogic.imprintTetromino(grid, tetromino);
             gameLogic.removeFilledLines(grid);
 
-            if (gameLogic.hasCollided(grid, tetrominoManager.getNext())) {
+            if (gameLogic.hasCollided(grid, conveyor.getNext())) {
                 gameLogic.setGameOver();
             } else {
-                tetrominoManager.move();
+                conveyor.move();
             }
         }
 

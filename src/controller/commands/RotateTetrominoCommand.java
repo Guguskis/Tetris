@@ -5,19 +5,19 @@ import model.Grid;
 import model.tetromino.TetrominoConveyor;
 
 public class RotateTetrominoCommand implements CommandInterface {
-    private final TetrominoConveyor tetrominoManager;
+    private final TetrominoConveyor conveyor;
     private final Grid grid;
     private final GameLogic gameLogic;
 
-    public RotateTetrominoCommand(TetrominoConveyor factory, Grid grid, GameLogic gameLogic) {
-        this.tetrominoManager = factory;
+    public RotateTetrominoCommand(TetrominoConveyor conveyor, Grid grid, GameLogic gameLogic) {
+        this.conveyor = conveyor;
         this.grid = grid;
         this.gameLogic = gameLogic;
     }
 
     @Override
     public void execute() {
-        var tetromino = tetrominoManager.getCurrent();
+        var tetromino = conveyor.getCurrent();
 
         tetromino.rotateClockwise();
         if (gameLogic.hasCollided(grid, tetromino)) {

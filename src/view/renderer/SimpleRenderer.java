@@ -32,9 +32,9 @@ public class SimpleRenderer implements Renderer {
     }
 
     @Override
-    public void drawFrame(Grid grid, GameLogic gameLogic, TetrominoConveyor tetrominoManager) {
-        Tetromino currentTetromino = tetrominoManager.getCurrent();
-        Tetromino nextTetromino = tetrominoManager.getNext();
+    public void drawFrame(Grid grid, GameLogic gameLogic, TetrominoConveyor conveyor) {
+        Tetromino currentTetromino = conveyor.getCurrent();
+        Tetromino nextTetromino = conveyor.getNext();
 
         fillBackground();
         drawOutlinedGridAndCurrentTetromino(grid, currentTetromino);
