@@ -2,16 +2,13 @@ package controller.commands;
 
 import controller.GameLogic;
 import controller.TetrominoConveyor;
-import model.Grid;
 
 public class RotateTetrominoCommand implements CommandInterface {
     private final TetrominoConveyor conveyor;
-    private final Grid grid;
     private final GameLogic logic;
 
-    public RotateTetrominoCommand(TetrominoConveyor conveyor, Grid grid, GameLogic gameLogic) {
+    public RotateTetrominoCommand(TetrominoConveyor conveyor, GameLogic gameLogic) {
         this.conveyor = conveyor;
-        this.grid = grid;
         this.logic = gameLogic;
     }
 
@@ -20,7 +17,7 @@ public class RotateTetrominoCommand implements CommandInterface {
         var tetromino = conveyor.getCurrent();
 
         tetromino.rotateClockwise();
-        if (logic.hasCollided(grid, tetromino)) {
+        if (logic.hasCollided(tetromino)) {
             tetromino.rotateCounterClockwise();
         }
     }

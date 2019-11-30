@@ -41,7 +41,7 @@ public class GameApplication extends Application {
     private void injectDependencies() {
         root = new Group();
         grid = new Grid(10, 20);
-        logic = new GameLogic(new ScoreKeeper());
+        logic = new GameLogic(new ScoreKeeper(), grid);
         TetrominoGenerator generator = new TetrominoGenerator(new Random());
         conveyor = new TetrominoConveyor(grid, generator);
 
@@ -68,17 +68,17 @@ public class GameApplication extends Application {
     private EnumMap<KeyCode, CommandInterface> getPreparedCommands() {
         EnumMap<KeyCode, CommandInterface> commands = new EnumMap<>(KeyCode.class);
 
-        commands.put(KeyCode.A, new MoveLeftCommand(conveyor, grid, logic));
-        commands.put(KeyCode.LEFT, new MoveLeftCommand(conveyor, grid, logic));
+        commands.put(KeyCode.A, new MoveLeftCommand(conveyor, logic));
+        commands.put(KeyCode.LEFT, new MoveLeftCommand(conveyor, logic));
 
-        commands.put(KeyCode.D, new MoveRightCommand(conveyor, grid, logic));
-        commands.put(KeyCode.RIGHT, new MoveRightCommand(conveyor, grid, logic));
+        commands.put(KeyCode.D, new MoveRightCommand(conveyor, logic));
+        commands.put(KeyCode.RIGHT, new MoveRightCommand(conveyor, logic));
 
-        commands.put(KeyCode.S, new MoveDownCommand(conveyor, grid, logic));
-        commands.put(KeyCode.DOWN, new MoveDownCommand(conveyor, grid, logic));
+        commands.put(KeyCode.S, new MoveDownCommand(conveyor, logic));
+        commands.put(KeyCode.DOWN, new MoveDownCommand(conveyor, logic));
 
-        commands.put(KeyCode.W, new RotateTetrominoCommand(conveyor, grid, logic));
-        commands.put(KeyCode.UP, new RotateTetrominoCommand(conveyor, grid, logic));
+        commands.put(KeyCode.W, new RotateTetrominoCommand(conveyor, logic));
+        commands.put(KeyCode.UP, new RotateTetrominoCommand(conveyor, logic));
 
         return commands;
     }
@@ -95,7 +95,7 @@ public class GameApplication extends Application {
     private void startAutomaticTetrominoMovement() {
         new AnimationTimer() {
             long lastTick = 0;
-            MoveDownCommand command = new MoveDownCommand(conveyor, grid, logic);
+            MoveDownCommand command = new MoveDownCommand(conveyor, logic);
 
             @Override
             public void handle(long now) {

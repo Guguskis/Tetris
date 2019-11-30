@@ -3,7 +3,7 @@ package controller;
 public class ScoreKeeper {
     private int score = 0;
 
-    public void add(int linesRemoved, int level) throws Exception {
+    public void add(int linesRemoved, int level) {
         int scoreToAdd = (level + 1) * getLineCoefficient(linesRemoved);
         score += scoreToAdd;
     }
@@ -12,7 +12,7 @@ public class ScoreKeeper {
         return score;
     }
 
-    private int getLineCoefficient(int linesRemoved) throws Exception {
+    private int getLineCoefficient(int linesRemoved) throws RuntimeException {
         switch (linesRemoved) {
             case 0:
                 return 0;
@@ -25,7 +25,7 @@ public class ScoreKeeper {
             case 4:
                 return 1200;
             default:
-                throw new Exception("Coefficient is not specified for " + linesRemoved + " removed lines.");
+                throw new RuntimeException("Coefficient is not specified for " + linesRemoved + " removed lines.");
         }
     }
 }

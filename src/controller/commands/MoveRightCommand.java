@@ -2,17 +2,14 @@ package controller.commands;
 
 import controller.GameLogic;
 import controller.TetrominoConveyor;
-import model.Grid;
 
 public class MoveRightCommand implements CommandInterface {
 
     private final TetrominoConveyor conveyor;
-    private final Grid grid;
     private final GameLogic logic;
 
-    public MoveRightCommand(TetrominoConveyor conveyor, Grid grid, GameLogic gameLogic) {
+    public MoveRightCommand(TetrominoConveyor conveyor, GameLogic gameLogic) {
         this.conveyor = conveyor;
-        this.grid = grid;
         this.logic = gameLogic;
     }
 
@@ -21,7 +18,8 @@ public class MoveRightCommand implements CommandInterface {
         var tetromino = conveyor.getCurrent();
 
         tetromino.moveRight();
-        if (logic.hasCollided(grid, tetromino)) {
+        // Todo new class CollisionDetector?
+        if (logic.hasCollided(tetromino)) {
             tetromino.moveLeft();
         }
     }

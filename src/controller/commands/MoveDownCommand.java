@@ -2,19 +2,15 @@ package controller.commands;
 
 import controller.GameLogic;
 import controller.TetrominoConveyor;
-import model.Grid;
 import model.tetromino.Tetromino;
 
 public class MoveDownCommand implements CommandInterface {
 
     private final TetrominoConveyor conveyor;
-    private final Grid grid;
     private final GameLogic logic;
 
-    public MoveDownCommand(TetrominoConveyor conveyor, Grid grid, GameLogic gameLogic) {
-        // Todo injetc dependencies
+    public MoveDownCommand(TetrominoConveyor conveyor, GameLogic gameLogic) {
         this.conveyor = conveyor;
-        this.grid = grid;
         this.logic = gameLogic;
     }
 
@@ -41,12 +37,12 @@ public class MoveDownCommand implements CommandInterface {
     }
 
     private void removeFilledLines(Tetromino tetromino) {
-        logic.imprintTetromino(grid, tetromino);
-        logic.removeFilledLines(grid);
+        logic.imprintTetromino(tetromino);
+        logic.removeFilledLines();
     }
 
     private boolean hasCollided(Tetromino tetromino) {
-        return logic.hasCollided(grid, tetromino);
+        return logic.hasCollided(tetromino);
     }
 
 }
