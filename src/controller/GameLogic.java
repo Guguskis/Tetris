@@ -110,8 +110,8 @@ public class GameLogic {
         return Math.pow((0.8 - ((getLevel() - 1) * 0.007)), getLevel() - 1);
     }
 
-    public void setGameOver() {
-        this.gameOver = true;
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
     }
 
     public boolean isGameOver() {
