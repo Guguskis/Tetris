@@ -48,25 +48,19 @@ public class GameLogic {
         var tetrominoTile = tetromino.getMappedTile(coordinates);
         var gridTile = grid.getTile(coordinates);
 
-        if (tetrominoTile == Tile.OCCUPIED && gridTile == Tile.OCCUPIED) {
-            return true;
-        }
-        return false;
+        return tetrominoTile == Tile.OCCUPIED && gridTile == Tile.OCCUPIED;
     }
 
     private boolean isOutOfBounds(Grid grid, Tetromino tetromino, Position coordinates) {
         var tetrominoTile = tetromino.getMappedTile(coordinates);
         var gridTile = grid.getTile(coordinates);
 
-        if (tetrominoTile == Tile.OCCUPIED && gridTile == Tile.OUT_OF_BOUNDS) {
-            return true;
-        }
-        return false;
+        return tetrominoTile == Tile.OCCUPIED && gridTile == Tile.OUT_OF_BOUNDS;
     }
 
     public void removeFilledLines(Grid grid) {
         var linesRemoved = 0;
-        for (int y = grid.getHeight() - 1; y >= 0; y--) {
+        for (int y = grid.getHeight() - 1; y >= 0; ) {
             if (grid.lineIsEmpty(y)) {
                 grid.removeLine(y);
                 for (int lineAbove = y - 1; lineAbove >= 0; lineAbove--) {
@@ -74,7 +68,8 @@ public class GameLogic {
                 }
 
                 linesRemoved++;
-                y++;
+            } else {
+                y--;
             }
         }
 
