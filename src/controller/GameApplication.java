@@ -19,6 +19,7 @@ import view.renderer.Renderer;
 import view.renderer.SimpleRenderer;
 
 import java.util.EnumMap;
+import java.util.Random;
 
 public class GameApplication extends Application {
     private int width = 800;
@@ -43,7 +44,7 @@ public class GameApplication extends Application {
 
     private void initialiseFields() {
         grid = new Grid(10, 20);
-        tetrominoManager = new TetrominoManager(grid);
+        tetrominoManager = new TetrominoManager(grid, new Random());
         gameLogic = new GameLogic();
 
         Group root = new Group();

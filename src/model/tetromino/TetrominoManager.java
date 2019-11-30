@@ -11,9 +11,15 @@ public class TetrominoManager {
     private final Grid grid;
     private Tetromino current;
     private Tetromino next;
+    private Random random;
 
-    public TetrominoManager(Grid grid) {
+    public TetrominoManager(Grid grid, Random random) {
         this.grid = grid;
+        injectRandomAndGenerateValues(random);
+    }
+
+    private void injectRandomAndGenerateValues(Random random) {
+        this.random = random;
         this.current = getRandom();
         this.next = getRandom();
     }
@@ -32,16 +38,15 @@ public class TetrominoManager {
     }
 
     private Tetromino getRandom() {
-        // Todo use dependency injection
-        Random r = new Random();
-
-        List<String> availableTypes = getTetrominoTypes();
         int centerX = grid.getWidth() / 2;
-
-        int randomSelection = r.nextInt(availableTypes.size());
-
-        String randomType = availableTypes.get(randomSelection);
+        String randomType = getRandomType();
         return TetrominoFactory.getInstance(randomType, centerX);
+    }
+
+    private String getRandomType() {
+        List<String> availableTypes = getTetrominoTypes();
+        int randomSelection = random.nextInt(availableTypes.size());
+        return availableTypes.get(randomSelection);
     }
 
     private List<String> getTetrominoTypes() {
