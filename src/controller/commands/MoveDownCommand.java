@@ -22,7 +22,7 @@ public class MoveDownCommand implements CommandInterface {
     }
 
     private void handleCollisionAndGameOver(Tetromino tetromino) {
-        if (hasCollided(tetromino)) {
+        if (logic.hasCollided(tetromino)) {
             tetromino.moveUp();
             removeFilledLines(tetromino);
             ifCannotSpawnNextSetGameOver();
@@ -31,7 +31,7 @@ public class MoveDownCommand implements CommandInterface {
     }
 
     private void ifCannotSpawnNextSetGameOver() {
-        if (hasCollided(conveyor.getNext())) {
+        if (logic.hasCollided(conveyor.getNext())) {
             logic.setGameOver(true);
         }
     }
@@ -39,10 +39,6 @@ public class MoveDownCommand implements CommandInterface {
     private void removeFilledLines(Tetromino tetromino) {
         logic.imprintTetromino(tetromino);
         logic.removeFilledLines();
-    }
-
-    private boolean hasCollided(Tetromino tetromino) {
-        return logic.hasCollided(tetromino);
     }
 
 }
