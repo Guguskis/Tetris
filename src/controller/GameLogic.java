@@ -6,15 +6,17 @@ import model.Tile;
 import model.tetromino.Tetromino;
 
 public class GameLogic {
-    private ScoreKeeper scoreKeeper;
-    private Grid grid;
-    private int goal = 0;
     private boolean gameOver = false;
+    private int goal = 0;
 
+    private Grid grid;
+    private ScoreKeeper scoreKeeper;
+    private CollisionDetector collisionDetector;
 
-    public GameLogic(ScoreKeeper scoreKeeper, Grid grid) {
-        this.scoreKeeper = scoreKeeper;
+    public GameLogic(Grid grid, ScoreKeeper scoreKeeper, CollisionDetector collisionDetector) {
         this.grid = grid;
+        this.scoreKeeper = scoreKeeper;
+        this.collisionDetector = collisionDetector;
     }
 
     public void imprintTetromino(Tetromino tetromino) {
@@ -31,33 +33,8 @@ public class GameLogic {
         }
     }
 
-    public boolean hasCollided(Tetromino tetromino) {
-        for (int i = 0; i < tetromino.getHeight(); i++) {
-            for (int j = 0; j < tetromino.getWidth(); j++) {
-                var mappedCoordinates = tetromino.getPosition().plus(new Position(j, i));
-                var isOverlapped = isOverlapped(tetromino, mappedCoordinates);
-                var isOutOfBounds = isOutOfBounds(tetromino, mappedCoordinates);
-
-                if (isOverlapped || isOutOfBounds) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private boolean isOverlapped(Tetromino tetromino, Position coordinates) {
-        var tetrominoTile = tetromino.getMappedTile(coordinates);
-        var gridTile = grid.getTile(coordinates);
-
-        return tetrominoTile == Tile.OCCUPIED && gridTile == Tile.OCCUPIED;
-    }
-
-    private boolean isOutOfBounds(Tetromino tetromino, Position coordinates) {
-        var tetrominoTile = tetromino.getMappedTile(coordinates);
-        var gridTile = grid.getTile(coordinates);
-
-        return tetrominoTile == Tile.OCCUPIED && gridTile == Tile.OUT_OF_BOUNDS;
+    public boolean hasCollidedWithGrid(Tetromino tetromino) {
+        return collisionDetector.hasCollided(grid, tetromino);
     }
 
     public void removeFilledLines() {

@@ -27,6 +27,7 @@ public class GameApplication extends Application {
     private Scene scene;
     private Grid grid;
     private TetrominoConveyor conveyor;
+    private EnumMap<KeyCode, CommandInterface> commands = new EnumMap<>(KeyCode.class);
 
     public static void main(String[] args) {
         launch();
@@ -41,7 +42,7 @@ public class GameApplication extends Application {
     private void injectDependencies() {
         root = new Group();
         grid = new Grid(10, 20);
-        logic = new GameLogic(new ScoreKeeper(), grid);
+        logic = new GameLogic(grid, new ScoreKeeper(), new CollisionDetector());
         TetrominoGenerator generator = new TetrominoGenerator(new Random());
         conveyor = new TetrominoConveyor(grid, generator);
 
@@ -50,7 +51,7 @@ public class GameApplication extends Application {
     }
 
     private void mapCommandsToKeyboardInput() {
-        EnumMap<KeyCode, CommandInterface> commands = getPreparedCommands();
+        prepareCommands();
         scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> handleCommand(commands, key));
     }
 
@@ -65,9 +66,7 @@ public class GameApplication extends Application {
         return new DefaultRenderer(root, grid, logic, conveyor);
     }
 
-    private EnumMap<KeyCode, CommandInterface> getPreparedCommands() {
-        EnumMap<KeyCode, CommandInterface> commands = new EnumMap<>(KeyCode.class);
-
+    private void prepareCommands() {
         commands.put(KeyCode.A, new MoveLeftCommand(conveyor, logic));
         commands.put(KeyCode.LEFT, new MoveLeftCommand(conveyor, logic));
 
@@ -79,8 +78,6 @@ public class GameApplication extends Application {
 
         commands.put(KeyCode.W, new RotateTetrominoCommand(conveyor, logic));
         commands.put(KeyCode.UP, new RotateTetrominoCommand(conveyor, logic));
-
-        return commands;
     }
 
     private void handleCommand(EnumMap<KeyCode, CommandInterface> commands, KeyEvent key) {
@@ -95,7 +92,7 @@ public class GameApplication extends Application {
     private void startAutomaticTetrominoMovement() {
         new AnimationTimer() {
             long lastTick = 0;
-            MoveDownCommand command = new MoveDownCommand(conveyor, logic);
+            CommandInterface moveDown = commands.get(KeyCode.DOWN);
 
             @Override
             public void handle(long now) {
@@ -107,7 +104,7 @@ public class GameApplication extends Application {
                     var gameSpeed = logic.getTickIntervalInMilliseconds() * 1e9;
                     if (now - lastTick > gameSpeed) {
                         lastTick = now;
-                        command.execute();
+                        moveDown.execute();
                         renderer.drawFrame();
                     }
                 }

@@ -4,7 +4,6 @@ import controller.GameLogic;
 import controller.TetrominoConveyor;
 
 public class MoveRightCommand implements CommandInterface {
-
     private final TetrominoConveyor conveyor;
     private final GameLogic logic;
 
@@ -18,8 +17,7 @@ public class MoveRightCommand implements CommandInterface {
         var tetromino = conveyor.getCurrent();
 
         tetromino.moveRight();
-        // Todo new class CollisionDetector?
-        if (logic.hasCollided(tetromino)) {
+        if (logic.hasCollidedWithGrid(tetromino)) {
             tetromino.moveLeft();
         }
     }

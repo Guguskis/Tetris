@@ -17,7 +17,7 @@ public class MoveLeftCommand implements CommandInterface {
         var tetromino = conveyor.getCurrent();
 
         tetromino.moveLeft();
-        if (logic.hasCollided(tetromino)) {
+        if (logic.hasCollidedWithGrid(tetromino)) {
             tetromino.moveRight();
         }
     }

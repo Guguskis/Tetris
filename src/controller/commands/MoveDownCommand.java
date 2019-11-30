@@ -5,7 +5,6 @@ import controller.TetrominoConveyor;
 import model.tetromino.Tetromino;
 
 public class MoveDownCommand implements CommandInterface {
-
     private final TetrominoConveyor conveyor;
     private final GameLogic logic;
 
@@ -22,7 +21,7 @@ public class MoveDownCommand implements CommandInterface {
     }
 
     private void handleCollisionAndGameOver(Tetromino tetromino) {
-        if (logic.hasCollided(tetromino)) {
+        if (logic.hasCollidedWithGrid(tetromino)) {
             tetromino.moveUp();
             removeFilledLines(tetromino);
             ifCannotSpawnNextSetGameOver();
@@ -31,7 +30,7 @@ public class MoveDownCommand implements CommandInterface {
     }
 
     private void ifCannotSpawnNextSetGameOver() {
-        if (logic.hasCollided(conveyor.getNext())) {
+        if (logic.hasCollidedWithGrid(conveyor.getNext())) {
             logic.setGameOver(true);
         }
     }
