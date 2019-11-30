@@ -44,7 +44,7 @@ public class GameApplication extends Application {
 
     private void injectDependencies() {
         grid = new Grid(10, 20);
-        logic = new GameLogic(new ScoreCalculator());
+        logic = new GameLogic(new ScoreKeeper());
 
         TetrominoGenerator generator = new TetrominoGenerator(new Random());
         conveyor = new TetrominoConveyor(grid, generator);

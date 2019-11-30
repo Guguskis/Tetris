@@ -6,13 +6,13 @@ import model.Tile;
 import model.tetromino.Tetromino;
 
 public class GameLogic {
-    private ScoreCalculator scoreCalculator;
+    private ScoreKeeper scoreKeeper;
     private int goal = 0;
     private boolean gameOver = false;
 
 
-    public GameLogic(ScoreCalculator scoreCalculator) {
-        this.scoreCalculator = scoreCalculator;
+    public GameLogic(ScoreKeeper scoreKeeper) {
+        this.scoreKeeper = scoreKeeper;
     }
 
     public void imprintTetromino(Grid grid, Tetromino tetromino) {
@@ -75,7 +75,7 @@ public class GameLogic {
 
         increaseGoal(linesRemoved);
         try {
-            scoreCalculator.add(linesRemoved, getLevel());
+            scoreKeeper.add(linesRemoved, getLevel());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,7 +103,7 @@ public class GameLogic {
     }
 
     public int getScore() {
-        return scoreCalculator.getScore();
+        return scoreKeeper.getScore();
     }
 
     public double getTickIntervalInMilliseconds() {

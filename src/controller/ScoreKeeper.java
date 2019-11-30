@@ -1,6 +1,6 @@
 package controller;
 
-public class ScoreCalculator {
+public class ScoreKeeper {
     private int score = 0;
 
     public void add(int linesRemoved, int level) throws Exception {
