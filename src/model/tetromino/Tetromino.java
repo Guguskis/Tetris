@@ -7,7 +7,7 @@ public class Tetromino {
     private Position position;
     private Tile[][] form;
 
-    protected Tetromino(int x, int y, Tile[][] form) {
+    public Tetromino(int x, int y, Tile[][] form) {
         this.position = new Position(x, y);
         this.form = form;
     }

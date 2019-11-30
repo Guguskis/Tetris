@@ -5,13 +5,13 @@ import model.Grid;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class TetrominoManager {
     private final Grid grid;
     private Tetromino current;
     private Tetromino next;
 
-    // Pasiziureti state pattern
     public TetrominoManager(Grid grid) {
         this.grid = grid;
         this.current = getRandom();
@@ -32,21 +32,20 @@ public class TetrominoManager {
     }
 
     private Tetromino getRandom() {
-        var options = getAvailableTetrominoes();
-        int selection = (int) (Math.random() * (options.size()));
-        return options.get(selection);
+        // Todo use dependency injection
+        Random r = new Random();
+
+        List<String> availableTypes = getTetrominoTypes();
+        int centerX = grid.getWidth() / 2;
+
+        int randomSelection = r.nextInt(availableTypes.size());
+
+        String randomType = availableTypes.get(randomSelection);
+        return TetrominoFactory.getInstance(randomType, centerX);
     }
 
-    private List<Tetromino> getAvailableTetrominoes() {
-        int centerX = grid.getWidth() / 2;
-        return Arrays.asList(
-                new LTetromino(centerX),
-                new JTetromino(centerX),
-                new ZTetromino(centerX),
-                new STetromino(centerX),
-                new ITetromino(centerX),
-                new OTetromino(centerX),
-                new TTetromino(centerX)
-        );
+    private List<String> getTetrominoTypes() {
+        return Arrays.asList("I", "J", "L", "O", "S", "T", "Z");
     }
+
 }
