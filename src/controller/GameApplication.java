@@ -9,22 +9,19 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.Grid;
+import view.renderer.DefaultRenderer;
 import view.renderer.Renderer;
-import view.renderer.SimpleRenderer;
 
 import java.util.EnumMap;
 import java.util.Random;
 
 public class GameApplication extends Application {
-    private int width = 800;
-    private int height = 800;
-    private int pixelScale = 20;
 
+    private Group root;
     private GameLogic logic;
     private Renderer renderer;
     private Scene scene;
@@ -42,14 +39,15 @@ public class GameApplication extends Application {
     }
 
     private void injectDependencies() {
+        root = new Group();
+
         grid = new Grid(10, 20);
         logic = new GameLogic(new ScoreKeeper());
 
         TetrominoGenerator generator = new TetrominoGenerator(new Random());
         conveyor = new TetrominoConveyor(grid, generator);
 
-        Group root = new Group();
-        renderer = getRenderer(root);
+        renderer = getRenderer(grid, logic, conveyor);
         scene = new Scene(root);
     }
 
@@ -65,10 +63,8 @@ public class GameApplication extends Application {
         primaryStage.show();
     }
 
-    private Renderer getRenderer(Group root) {
-        var canvas = new Canvas(width, height);
-        root.getChildren().add(canvas);
-        return new SimpleRenderer(canvas.getGraphicsContext2D(), width, height, pixelScale);
+    private Renderer getRenderer(Grid grid, GameLogic logic, TetrominoConveyor conveyor) {
+        return new DefaultRenderer(root, grid, logic, conveyor);
     }
 
     private EnumMap<KeyCode, CommandInterface> getPreparedCommands() {
@@ -94,7 +90,7 @@ public class GameApplication extends Application {
 
         if (command != null) {
             command.execute();
-            renderer.drawFrame(grid, logic, conveyor);
+            renderer.drawFrame();
         }
     }
 
@@ -108,13 +104,13 @@ public class GameApplication extends Application {
                 if (!logic.isGameOver()) {
                     if (lastTick == 0) {
                         lastTick = now;
-                        renderer.drawFrame(grid, logic, conveyor);
+                        renderer.drawFrame();
                     }
                     var gameSpeed = logic.getTickIntervalInMilliseconds() * 1e9;
                     if (now - lastTick > gameSpeed) {
                         lastTick = now;
                         command.execute();
-                        renderer.drawFrame(grid, logic, conveyor);
+                        renderer.drawFrame();
                     }
                 }
             }

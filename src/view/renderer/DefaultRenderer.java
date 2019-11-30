@@ -2,6 +2,8 @@ package view.renderer;
 
 import controller.GameLogic;
 import controller.TetrominoConveyor;
+import javafx.scene.Group;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.Grid;
@@ -9,12 +11,16 @@ import model.Position;
 import model.Tile;
 import model.tetromino.Tetromino;
 
-public class SimpleRenderer implements Renderer {
+public class DefaultRenderer implements Renderer {
+
+    private int width = 800;
+    private int height = 800;
+    private int scale = 20;
 
     private GraphicsContext context;
-    private int width;
-    private int height;
-    private int scale;
+    private Grid grid;
+    private GameLogic gameLogic;
+    private TetrominoConveyor conveyor;
 
     private Color backgroundColor = Color.rgb(30, 0, 40);
     private Color outlineColor = Color.rgb(125, 190, 80);
@@ -24,15 +30,21 @@ public class SimpleRenderer implements Renderer {
     private Position absoluteOffset = new Position(0, 0);
 
 
-    public SimpleRenderer(GraphicsContext context, int width, int height, int scale) {
-        this.context = context;
-        this.width = width;
-        this.height = height;
-        this.scale = scale;
+    public DefaultRenderer(Group root, Grid grid, GameLogic gameLogic, TetrominoConveyor conveyor) {
+        this.context = getGraphicsContext(root);
+        this.grid = grid;
+        this.gameLogic = gameLogic;
+        this.conveyor = conveyor;
+    }
+
+    private GraphicsContext getGraphicsContext(Group root) {
+        Canvas canvas = new Canvas(width, height);
+        root.getChildren().add(canvas);
+        return canvas.getGraphicsContext2D();
     }
 
     @Override
-    public void drawFrame(Grid grid, GameLogic gameLogic, TetrominoConveyor conveyor) {
+    public void drawFrame() {
         Tetromino currentTetromino = conveyor.getCurrent();
         Tetromino nextTetromino = conveyor.getNext();
 
