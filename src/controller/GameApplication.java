@@ -34,11 +34,11 @@ public class GameApplication extends Application {
 
     @Override
     public void init() {
-        injectDependencies();
+        registerDependencies();
         mapCommandsToKeyboardInput();
     }
 
-    private void injectDependencies() {
+    private void registerDependencies() {
         Grid grid = new Grid(10, 20);
         TetrominoGenerator generator = new TetrominoGenerator(new Random());
 
@@ -47,7 +47,7 @@ public class GameApplication extends Application {
 
         Group root = new Group();
         scene = new Scene(root);
-        renderer = getRenderer(root, grid, logic, conveyor);
+        renderer = new DefaultRenderer(root, grid, logic, conveyor);
     }
 
     private void mapCommandsToKeyboardInput() {
@@ -62,10 +62,7 @@ public class GameApplication extends Application {
         primaryStage.show();
     }
 
-    private Renderer getRenderer(Group root, Grid grid, GameLogic logic, TetrominoConveyor conveyor) {
-        return new DefaultRenderer(root, grid, logic, conveyor);
-    }
-
+    // Todo move to UserInput class
     private void prepareCommands() {
         commands.put(KeyCode.A, new MoveLeftCommand(conveyor, logic));
         commands.put(KeyCode.LEFT, new MoveLeftCommand(conveyor, logic));
