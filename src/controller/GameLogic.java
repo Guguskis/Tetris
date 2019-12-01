@@ -46,8 +46,7 @@ public class GameLogic {
         for (int y = grid.getHeight() - 1; y >= 0; ) {
             if (grid.lineIsEmpty(y)) {
                 grid.removeLine(y);
-                pushDownLinesAbove(y);
-
+                grid.pushDownLinesAbove(y);
                 linesRemoved++;
             } else {
                 y--;
@@ -59,11 +58,7 @@ public class GameLogic {
     }
 
     // Todo move to grid
-    private void pushDownLinesAbove(int y) {
-        for (int lineAbove = y - 1; lineAbove >= 0; lineAbove--) {
-            grid.pushLineDown(lineAbove);
-        }
-    }
+
 
     private void increaseGoal(int linesRemoved) {
         switch (linesRemoved) {

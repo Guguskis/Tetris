@@ -51,6 +51,12 @@ public class Grid {
         }
     }
 
+    public void pushDownLinesAbove(int y) {
+        for (int lineAbove = y - 1; lineAbove >= 0; lineAbove--) {
+            pushLineDown(lineAbove);
+        }
+    }
+
     public void pushLineDown(int y) {
         for (int x = 0; x < getWidth(); x++) {
             var tile = getTile(new Position(x, y));
