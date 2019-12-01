@@ -60,7 +60,6 @@ public class DefaultRenderer implements Renderer {
 
         Position topLeftCorner = new Position(2, 6).plus(gridOffset).plus(outlineOffset);
 
-        // Todo maybe score should be
         String scoreText = "Score: " + gameLogic.getScore();
         fillScaledText(topLeftCorner, scoreText, Color.YELLOW);
 
