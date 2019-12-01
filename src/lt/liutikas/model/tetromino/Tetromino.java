@@ -1,7 +1,7 @@
-package model.tetromino;
+package lt.liutikas.model.tetromino;
 
-import model.Position;
-import model.Tile;
+import lt.liutikas.model.Position;
+import lt.liutikas.model.Tile;
 
 public class Tetromino {
     private Position position;

@@ -1,15 +1,15 @@
-package view.renderer;
+package lt.liutikas.renderer;
 
-import controller.GameLogic;
-import controller.TetrominoConveyor;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import model.Grid;
-import model.Position;
-import model.Tile;
-import model.tetromino.Tetromino;
+import lt.liutikas.controller.GameLogic;
+import lt.liutikas.controller.TetrominoConveyor;
+import lt.liutikas.model.Grid;
+import lt.liutikas.model.Position;
+import lt.liutikas.model.Tile;
+import lt.liutikas.model.tetromino.Tetromino;
 
 public class DefaultRenderer implements Renderer {
 

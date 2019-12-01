@@ -1,9 +1,9 @@
-package controller;
+package lt.liutikas.controller;
 
-import model.Grid;
-import model.Position;
-import model.Tile;
-import model.tetromino.Tetromino;
+import lt.liutikas.model.Grid;
+import lt.liutikas.model.Position;
+import lt.liutikas.model.Tile;
+import lt.liutikas.model.tetromino.Tetromino;
 
 public class CollisionDetector {
 

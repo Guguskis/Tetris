@@ -1,8 +1,8 @@
-package controller.commands;
+package lt.liutikas.controller.commands;
 
-import controller.GameLogic;
-import controller.TetrominoConveyor;
-import model.tetromino.Tetromino;
+import lt.liutikas.controller.GameLogic;
+import lt.liutikas.controller.TetrominoConveyor;
+import lt.liutikas.model.tetromino.Tetromino;
 
 public class MoveDownCommand implements Command {
     private final TetrominoConveyor conveyor;

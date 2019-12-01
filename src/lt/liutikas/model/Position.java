@@ -1,4 +1,4 @@
-package model;
+package lt.liutikas.model;
 
 public class Position {
     public int x;

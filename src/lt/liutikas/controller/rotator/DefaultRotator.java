@@ -1,7 +1,7 @@
-package controller.rotator;
+package lt.liutikas.controller.rotator;
 
-import model.Tile;
-import model.tetromino.Tetromino;
+import lt.liutikas.model.Tile;
+import lt.liutikas.model.tetromino.Tetromino;
 
 public class DefaultRotator implements Rotator {
     @Override

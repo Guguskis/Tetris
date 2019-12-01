@@ -1,4 +1,4 @@
-package controller;
+package lt.liutikas.controller;
 
 public class ScoreKeeper {
     private int score = 0;

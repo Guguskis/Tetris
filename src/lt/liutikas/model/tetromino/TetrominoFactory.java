@@ -1,6 +1,6 @@
-package model.tetromino;
+package lt.liutikas.model.tetromino;
 
-import model.Tile;
+import lt.liutikas.model.Tile;
 
 import java.util.NoSuchElementException;
 

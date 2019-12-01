@@ -1,7 +1,7 @@
-package controller;
+package lt.liutikas.controller;
 
-import model.tetromino.Tetromino;
-import model.tetromino.TetrominoFactory;
+import lt.liutikas.model.tetromino.Tetromino;
+import lt.liutikas.model.tetromino.TetrominoFactory;
 
 import java.util.Arrays;
 import java.util.List;

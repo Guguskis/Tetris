@@ -1,8 +1,8 @@
-package controller;
+package lt.liutikas.controller;
 
 
-import model.Grid;
-import model.tetromino.Tetromino;
+import lt.liutikas.model.Grid;
+import lt.liutikas.model.tetromino.Tetromino;
 
 public class TetrominoConveyor {
     private final Grid grid;

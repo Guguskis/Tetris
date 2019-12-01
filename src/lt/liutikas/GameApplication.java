@@ -1,11 +1,5 @@
-package controller;
+package lt.liutikas;
 
-import controller.commands.Command;
-import controller.commands.MoveDownCommand;
-import controller.commands.MoveLeftCommand;
-import controller.commands.MoveRightCommand;
-import controller.commands.RotateTetrominoCommand;
-import controller.rotator.DefaultRotator;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -13,9 +7,20 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import model.Grid;
-import view.renderer.DefaultRenderer;
-import view.renderer.Renderer;
+import lt.liutikas.controller.CollisionDetector;
+import lt.liutikas.controller.GameLogic;
+import lt.liutikas.controller.ScoreKeeper;
+import lt.liutikas.controller.TetrominoConveyor;
+import lt.liutikas.controller.TetrominoGenerator;
+import lt.liutikas.controller.commands.Command;
+import lt.liutikas.controller.commands.MoveDownCommand;
+import lt.liutikas.controller.commands.MoveLeftCommand;
+import lt.liutikas.controller.commands.MoveRightCommand;
+import lt.liutikas.controller.commands.RotateTetrominoCommand;
+import lt.liutikas.controller.rotator.DefaultRotator;
+import lt.liutikas.model.Grid;
+import lt.liutikas.renderer.DefaultRenderer;
+import lt.liutikas.renderer.Renderer;
 
 import java.util.EnumMap;
 import java.util.Random;

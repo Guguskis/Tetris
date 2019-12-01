@@ -1,7 +1,7 @@
-package controller.commands;
+package lt.liutikas.controller.commands;
 
-import controller.GameLogic;
-import controller.TetrominoConveyor;
+import lt.liutikas.controller.GameLogic;
+import lt.liutikas.controller.TetrominoConveyor;
 
 public class MoveLeftCommand implements Command {
     private final TetrominoConveyor conveyor;

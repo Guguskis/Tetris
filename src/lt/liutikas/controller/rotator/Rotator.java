@@ -1,6 +1,6 @@
-package controller.rotator;
+package lt.liutikas.controller.rotator;
 
-import model.tetromino.Tetromino;
+import lt.liutikas.model.tetromino.Tetromino;
 
 public interface Rotator {
     void clockwise(Tetromino tetromino);

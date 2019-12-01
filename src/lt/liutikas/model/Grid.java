@@ -1,4 +1,4 @@
-package model;
+package lt.liutikas.model;
 
 public class Grid {
     private Tile[][] map;
