@@ -52,7 +52,7 @@ public class GameApplication extends Application {
 
     private void mapCommandsToKeyboardInput() {
         prepareCommands();
-        scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> handleCommand(commands, key));
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> handleCommand(key));
     }
 
     @Override
@@ -80,7 +80,7 @@ public class GameApplication extends Application {
         commands.put(KeyCode.UP, new RotateTetrominoCommand(conveyor, logic));
     }
 
-    private void handleCommand(EnumMap<KeyCode, Command> commands, KeyEvent key) {
+    private void handleCommand(KeyEvent key) {
         var command = commands.get(key.getCode());
 
         if (command != null) {
