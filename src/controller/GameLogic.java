@@ -1,5 +1,6 @@
 package controller;
 
+import controller.rotator.Rotator;
 import model.Grid;
 import model.Position;
 import model.Tile;
@@ -12,11 +13,13 @@ public class GameLogic {
     private Grid grid;
     private ScoreKeeper scoreKeeper;
     private CollisionDetector collisionDetector;
+    private Rotator rotator;
 
-    public GameLogic(Grid grid, ScoreKeeper scoreKeeper, CollisionDetector collisionDetector) {
+    public GameLogic(Grid grid, ScoreKeeper scoreKeeper, CollisionDetector collisionDetector, Rotator rotator) {
         this.grid = grid;
         this.scoreKeeper = scoreKeeper;
         this.collisionDetector = collisionDetector;
+        this.rotator = rotator;
     }
 
     public void imprintTetromino(Tetromino tetromino) {
@@ -55,6 +58,7 @@ public class GameLogic {
         scoreKeeper.add(linesRemoved, getLevel());
     }
 
+    // Todo move to grid
     private void pushDownLinesAbove(int y) {
         for (int lineAbove = y - 1; lineAbove >= 0; lineAbove--) {
             grid.pushLineDown(lineAbove);
@@ -96,5 +100,13 @@ public class GameLogic {
 
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
+    }
+
+    public void rotateClockwise(Tetromino tetromino) {
+        rotator.clockwise(tetromino);
+    }
+
+    public void rotateCounterClockwise(Tetromino tetromino) {
+        rotator.counterClockwise(tetromino);
     }
 }

@@ -16,9 +16,9 @@ public class RotateTetrominoCommand implements CommandInterface {
     public void execute() {
         var tetromino = conveyor.getCurrent();
 
-        tetromino.rotateClockwise();
+        logic.rotateClockwise(tetromino);
         if (logic.hasCollidedWithGrid(tetromino)) {
-            tetromino.rotateCounterClockwise();
+            logic.rotateCounterClockwise(tetromino);
         }
     }
 }

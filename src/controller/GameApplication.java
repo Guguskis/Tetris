@@ -5,6 +5,7 @@ import controller.commands.MoveDownCommand;
 import controller.commands.MoveLeftCommand;
 import controller.commands.MoveRightCommand;
 import controller.commands.RotateTetrominoCommand;
+import controller.rotator.DefaultRotator;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -42,7 +43,7 @@ public class GameApplication extends Application {
     private void injectDependencies() {
         root = new Group();
         grid = new Grid(10, 20);
-        logic = new GameLogic(grid, new ScoreKeeper(), new CollisionDetector());
+        logic = new GameLogic(grid, new ScoreKeeper(), new CollisionDetector(), new DefaultRotator());
         TetrominoGenerator generator = new TetrominoGenerator(new Random());
         conveyor = new TetrominoConveyor(grid, generator);
 

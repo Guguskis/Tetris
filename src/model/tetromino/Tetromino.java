@@ -20,6 +20,14 @@ public class Tetromino {
         return form.length;
     }
 
+    public Tile getTile(int x, int y) {
+        return form[x][y];
+    }
+
+    public void setForm(Tile[][] form) {
+        this.form = form;
+    }
+
     public Tile getUnmappedTile(Position coordinates) {
         if (inShape(coordinates)) {
             return form[coordinates.y][coordinates.x];
@@ -37,24 +45,6 @@ public class Tetromino {
         var inXAxis = coordinates.x >= 0 && coordinates.x < getWidth();
         var inYAxis = coordinates.y >= 0 && coordinates.y < getHeight();
         return inXAxis && inYAxis;
-    }
-
-    public void rotateClockwise() {
-        var newForm = new Tile[getWidth()][getHeight()];
-
-        for (int i = 0; i < getHeight(); i++) {
-            for (int j = 0; j < getWidth(); j++) {
-                newForm[j][i] = form[getHeight() - i - 1][j];
-            }
-        }
-
-        form = newForm;
-    }
-
-    public void rotateCounterClockwise() {
-        for (int i = 0; i < 3; i++) {
-            rotateClockwise();
-        }
     }
 
     public void moveLeft() {
