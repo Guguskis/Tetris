@@ -3,7 +3,7 @@ package controller.commands;
 import controller.GameLogic;
 import controller.TetrominoConveyor;
 
-public class MoveLeftCommand implements CommandInterface {
+public class MoveLeftCommand implements Command {
     private final TetrominoConveyor conveyor;
     private final GameLogic logic;
 

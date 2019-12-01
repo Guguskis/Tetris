@@ -1,6 +1,6 @@
 package controller;
 
-import controller.commands.CommandInterface;
+import controller.commands.Command;
 import controller.commands.MoveDownCommand;
 import controller.commands.MoveLeftCommand;
 import controller.commands.MoveRightCommand;
@@ -22,13 +22,11 @@ import java.util.Random;
 
 public class GameApplication extends Application {
 
-    private Group root;
     private GameLogic logic;
     private Renderer renderer;
     private Scene scene;
-    private Grid grid;
     private TetrominoConveyor conveyor;
-    private EnumMap<KeyCode, CommandInterface> commands = new EnumMap<>(KeyCode.class);
+    private EnumMap<KeyCode, Command> commands = new EnumMap<>(KeyCode.class);
 
     public static void main(String[] args) {
         launch();
@@ -41,14 +39,15 @@ public class GameApplication extends Application {
     }
 
     private void injectDependencies() {
-        root = new Group();
-        grid = new Grid(10, 20);
-        logic = new GameLogic(grid, new ScoreKeeper(), new CollisionDetector(), new DefaultRotator());
+        Grid grid = new Grid(10, 20);
         TetrominoGenerator generator = new TetrominoGenerator(new Random());
+
+        logic = new GameLogic(grid, new ScoreKeeper(), new CollisionDetector(), new DefaultRotator());
         conveyor = new TetrominoConveyor(grid, generator);
 
-        renderer = getRenderer(grid, logic, conveyor);
+        Group root = new Group();
         scene = new Scene(root);
+        renderer = getRenderer(root, grid, logic, conveyor);
     }
 
     private void mapCommandsToKeyboardInput() {
@@ -58,12 +57,12 @@ public class GameApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        startAutomaticTetrominoMovement();
+        setAutomaticMoveDown();
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    private Renderer getRenderer(Grid grid, GameLogic logic, TetrominoConveyor conveyor) {
+    private Renderer getRenderer(Group root, Grid grid, GameLogic logic, TetrominoConveyor conveyor) {
         return new DefaultRenderer(root, grid, logic, conveyor);
     }
 
@@ -81,7 +80,7 @@ public class GameApplication extends Application {
         commands.put(KeyCode.UP, new RotateTetrominoCommand(conveyor, logic));
     }
 
-    private void handleCommand(EnumMap<KeyCode, CommandInterface> commands, KeyEvent key) {
+    private void handleCommand(EnumMap<KeyCode, Command> commands, KeyEvent key) {
         var command = commands.get(key.getCode());
 
         if (command != null) {
@@ -90,10 +89,10 @@ public class GameApplication extends Application {
         }
     }
 
-    private void startAutomaticTetrominoMovement() {
+    private void setAutomaticMoveDown() {
         new AnimationTimer() {
             long lastTick = 0;
-            CommandInterface moveDown = commands.get(KeyCode.DOWN);
+            Command moveDown = new MoveDownCommand(conveyor, logic);
 
             @Override
             public void handle(long now) {

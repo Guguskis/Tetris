@@ -4,7 +4,7 @@ import controller.GameLogic;
 import controller.TetrominoConveyor;
 import model.tetromino.Tetromino;
 
-public class MoveDownCommand implements CommandInterface {
+public class MoveDownCommand implements Command {
     private final TetrominoConveyor conveyor;
     private final GameLogic logic;
 
