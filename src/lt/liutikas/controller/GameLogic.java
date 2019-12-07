@@ -1,6 +1,5 @@
 package lt.liutikas.controller;
 
-import lt.liutikas.controller.rotator.Rotator;
 import lt.liutikas.model.Grid;
 import lt.liutikas.model.Position;
 import lt.liutikas.model.Tile;
@@ -12,15 +11,11 @@ public class GameLogic {
     private Grid grid;
     private Score score;
     private Level level;
-    private CollisionDetector collisionDetector;
-    private Rotator rotator;
 
-    public GameLogic(Grid grid, Score score, Level level, CollisionDetector collisionDetector, Rotator rotator) {
+    public GameLogic(Grid grid, Score score, Level level) {
         this.grid = grid;
         this.score = score;
         this.level = level;
-        this.collisionDetector = collisionDetector;
-        this.rotator = rotator;
     }
 
     public void imprintTetromino(Tetromino tetromino) {
