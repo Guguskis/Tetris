@@ -3,7 +3,7 @@ package lt.liutikas.controller;
 public class Level {
     private int goal = 0;
 
-    public void increaseGoal(int linesRemoved) {
+    public void increase(int linesRemoved) {
         switch (linesRemoved) {
             case 1:
                 goal += 1;

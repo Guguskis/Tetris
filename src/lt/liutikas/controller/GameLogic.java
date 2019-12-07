@@ -10,14 +10,14 @@ public class GameLogic {
     private boolean gameOver = false;
 
     private Grid grid;
-    private ScoreKeeper scoreKeeper;
+    private Score score;
     private Level level;
     private CollisionDetector collisionDetector;
     private Rotator rotator;
 
-    public GameLogic(Grid grid, ScoreKeeper scoreKeeper, Level level, CollisionDetector collisionDetector, Rotator rotator) {
+    public GameLogic(Grid grid, Score score, Level level, CollisionDetector collisionDetector, Rotator rotator) {
         this.grid = grid;
-        this.scoreKeeper = scoreKeeper;
+        this.score = score;
         this.level = level;
         this.collisionDetector = collisionDetector;
         this.rotator = rotator;
@@ -55,8 +55,8 @@ public class GameLogic {
             }
         }
 
-        level.increaseGoal(linesRemoved);
-        scoreKeeper.add(linesRemoved, getLevel());
+        level.increase(linesRemoved);
+        score.increase(linesRemoved, getLevel());
     }
 
 
@@ -65,7 +65,7 @@ public class GameLogic {
     }
 
     public int getScore() {
-        return scoreKeeper.getScore();
+        return score.getScore();
     }
 
     public double getTickIntervalInMilliseconds() {

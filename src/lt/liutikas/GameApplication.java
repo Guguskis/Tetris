@@ -11,7 +11,7 @@ import lt.liutikas.controller.GameLogic;
 import lt.liutikas.controller.KeyboardInput;
 import lt.liutikas.controller.Level;
 import lt.liutikas.controller.RandomTetrominoGenerator;
-import lt.liutikas.controller.ScoreKeeper;
+import lt.liutikas.controller.Score;
 import lt.liutikas.controller.TetrominoConveyor;
 import lt.liutikas.controller.commands.Command;
 import lt.liutikas.controller.commands.MoveDownCommand;
@@ -43,7 +43,7 @@ public class GameApplication extends Application {
     private void configure() {
         Grid grid = new Grid(10, 20);
 
-        logic = new GameLogic(grid, new ScoreKeeper(), new Level(), new CollisionDetector(), new DefaultRotator());
+        logic = new GameLogic(grid, new Score(), new Level(), new CollisionDetector(), new DefaultRotator());
         conveyor = new TetrominoConveyor(grid, new RandomTetrominoGenerator(new Random()));
 
         Group root = new Group();

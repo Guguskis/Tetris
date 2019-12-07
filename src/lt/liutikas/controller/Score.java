@@ -1,15 +1,15 @@
 package lt.liutikas.controller;
 
-public class ScoreKeeper {
+public class Score {
     private int score = 0;
-
-    public void add(int linesRemoved, int level) {
-        int scoreToAdd = (level + 1) * getLineCoefficient(linesRemoved);
-        score += scoreToAdd;
-    }
 
     public int getScore() {
         return score;
+    }
+
+    public void increase(int linesRemoved, int level) {
+        int scoreToAdd = (level + 1) * getLineCoefficient(linesRemoved);
+        score += scoreToAdd;
     }
 
     private int getLineCoefficient(int linesRemoved) {
