@@ -8,16 +8,17 @@ import lt.liutikas.model.tetromino.Tetromino;
 
 public class GameLogic {
     private boolean gameOver = false;
-    private int goal = 0;
 
     private Grid grid;
     private ScoreKeeper scoreKeeper;
+    private Level level;
     private CollisionDetector collisionDetector;
     private Rotator rotator;
 
-    public GameLogic(Grid grid, ScoreKeeper scoreKeeper, CollisionDetector collisionDetector, Rotator rotator) {
+    public GameLogic(Grid grid, ScoreKeeper scoreKeeper, Level level, CollisionDetector collisionDetector, Rotator rotator) {
         this.grid = grid;
         this.scoreKeeper = scoreKeeper;
+        this.level = level;
         this.collisionDetector = collisionDetector;
         this.rotator = rotator;
     }
@@ -54,31 +55,13 @@ public class GameLogic {
             }
         }
 
-        increaseGoal(linesRemoved);
+        level.increaseGoal(linesRemoved);
         scoreKeeper.add(linesRemoved, getLevel());
     }
 
 
-
-    private void increaseGoal(int linesRemoved) {
-        switch (linesRemoved) {
-            case 1:
-                goal += 1;
-                break;
-            case 2:
-                goal += 3;
-                break;
-            case 3:
-                goal += 5;
-                break;
-            case 4:
-                goal += 8;
-                break;
-        }
-    }
-
     public int getLevel() {
-        return goal / 10 + 1;
+        return level.getLevel();
     }
 
     public int getScore() {
