@@ -40,6 +40,7 @@ public class GameLogic {
         return collisionDetector.hasCollided(grid, tetromino);
     }
 
+    // Todo move to grid, atleast do something about his
     public void removeFilledLines() {
         var linesRemoved = 0;
 
@@ -57,7 +58,6 @@ public class GameLogic {
         scoreKeeper.add(linesRemoved, getLevel());
     }
 
-    // Todo move to grid
 
 
     private void increaseGoal(int linesRemoved) {

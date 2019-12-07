@@ -12,7 +12,7 @@ public class ScoreKeeper {
         return score;
     }
 
-    private int getLineCoefficient(int linesRemoved) throws RuntimeException {
+    private int getLineCoefficient(int linesRemoved) {
         switch (linesRemoved) {
             case 0:
                 return 0;
