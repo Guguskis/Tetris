@@ -1,15 +1,18 @@
 package lt.liutikas.controller.commands;
 
-import lt.liutikas.controller.GameLogic;
+import lt.liutikas.controller.CollisionDetector;
 import lt.liutikas.controller.TetrominoConveyor;
+import lt.liutikas.model.Grid;
 
 public class MoveRightCommand implements Command {
+    private final Grid grid;
     private final TetrominoConveyor conveyor;
-    private final GameLogic logic;
+    private final CollisionDetector detector;
 
-    public MoveRightCommand(TetrominoConveyor conveyor, GameLogic gameLogic) {
+    public MoveRightCommand(Grid grid, TetrominoConveyor conveyor, CollisionDetector detector) {
+        this.grid = grid;
         this.conveyor = conveyor;
-        this.logic = gameLogic;
+        this.detector = detector;
     }
 
     @Override
@@ -17,7 +20,7 @@ public class MoveRightCommand implements Command {
         var tetromino = conveyor.getCurrent();
 
         tetromino.moveRight();
-        if (logic.hasCollidedWithGrid(tetromino)) {
+        if (detector.hasCollided(grid, tetromino)) {
             tetromino.moveLeft();
         }
     }

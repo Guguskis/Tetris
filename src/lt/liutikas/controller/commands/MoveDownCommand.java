@@ -1,16 +1,22 @@
 package lt.liutikas.controller.commands;
 
+import lt.liutikas.controller.CollisionDetector;
 import lt.liutikas.controller.GameLogic;
 import lt.liutikas.controller.TetrominoConveyor;
+import lt.liutikas.model.Grid;
 import lt.liutikas.model.tetromino.Tetromino;
 
 public class MoveDownCommand implements Command {
-    private final TetrominoConveyor conveyor;
+    private final Grid grid;
     private final GameLogic logic;
+    private final TetrominoConveyor conveyor;
+    private final CollisionDetector detector;
 
-    public MoveDownCommand(TetrominoConveyor conveyor, GameLogic gameLogic) {
-        this.conveyor = conveyor;
+    public MoveDownCommand(Grid grid, GameLogic gameLogic, TetrominoConveyor conveyor, CollisionDetector detector) {
+        this.grid = grid;
         this.logic = gameLogic;
+        this.conveyor = conveyor;
+        this.detector = detector;
     }
 
     @Override
@@ -21,7 +27,7 @@ public class MoveDownCommand implements Command {
     }
 
     private void handleCollisionAndGameOver(Tetromino tetromino) {
-        if (logic.hasCollidedWithGrid(tetromino)) {
+        if (hasCollided(tetromino)) {
             tetromino.moveUp();
             removeFilledLines(tetromino);
             ifCannotSpawnNextSetGameOver();
@@ -29,8 +35,12 @@ public class MoveDownCommand implements Command {
         }
     }
 
+    private boolean hasCollided(Tetromino tetromino) {
+        return detector.hasCollided(grid, tetromino);
+    }
+
     private void ifCannotSpawnNextSetGameOver() {
-        if (logic.hasCollidedWithGrid(conveyor.getNext())) {
+        if (hasCollided(conveyor.getNext())) {
             logic.setGameOver(true);
         }
     }

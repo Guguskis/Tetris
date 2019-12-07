@@ -1,24 +1,30 @@
 package lt.liutikas.controller.commands;
 
-import lt.liutikas.controller.GameLogic;
+import lt.liutikas.controller.CollisionDetector;
 import lt.liutikas.controller.TetrominoConveyor;
+import lt.liutikas.controller.rotator.Rotator;
+import lt.liutikas.model.Grid;
 
 public class RotateTetrominoCommand implements Command {
+    private final Grid grid;
+    private final Rotator rotator;
     private final TetrominoConveyor conveyor;
-    private final GameLogic logic;
+    private final CollisionDetector detector;
 
-    public RotateTetrominoCommand(TetrominoConveyor conveyor, GameLogic gameLogic) {
+    public RotateTetrominoCommand(Grid grid, Rotator rotator, TetrominoConveyor conveyor, CollisionDetector detector) {
+        this.grid = grid;
+        this.rotator = rotator;
         this.conveyor = conveyor;
-        this.logic = gameLogic;
+        this.detector = detector;
     }
 
     @Override
     public void execute() {
         var tetromino = conveyor.getCurrent();
 
-        logic.rotateClockwise(tetromino);
-        if (logic.hasCollidedWithGrid(tetromino)) {
-            logic.rotateCounterClockwise(tetromino);
+        rotator.clockwise(tetromino);
+        if (detector.hasCollided(grid, tetromino)) {
+            rotator.counterClockwise(tetromino);
         }
     }
 }

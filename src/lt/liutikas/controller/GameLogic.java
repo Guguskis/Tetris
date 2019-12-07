@@ -37,11 +37,8 @@ public class GameLogic {
         }
     }
 
-    public boolean hasCollidedWithGrid(Tetromino tetromino) {
-        return collisionDetector.hasCollided(grid, tetromino);
-    }
 
-    // Todo move to grid, atleast do something about his
+    // Todo move to grid, at least do something about his
     public void removeFilledLines() {
         var linesRemoved = 0;
 
@@ -78,13 +75,5 @@ public class GameLogic {
 
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
-    }
-
-    public void rotateClockwise(Tetromino tetromino) {
-        rotator.clockwise(tetromino);
-    }
-
-    public void rotateCounterClockwise(Tetromino tetromino) {
-        rotator.counterClockwise(tetromino);
     }
 }

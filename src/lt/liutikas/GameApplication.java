@@ -16,6 +16,7 @@ import lt.liutikas.controller.TetrominoConveyor;
 import lt.liutikas.controller.commands.Command;
 import lt.liutikas.controller.commands.MoveDownCommand;
 import lt.liutikas.controller.rotator.DefaultRotator;
+import lt.liutikas.controller.rotator.Rotator;
 import lt.liutikas.model.Grid;
 import lt.liutikas.renderer.DefaultRenderer;
 import lt.liutikas.renderer.Renderer;
@@ -29,6 +30,9 @@ public class GameApplication extends Application {
     private Scene scene;
     private TetrominoConveyor conveyor;
     private KeyboardInput keyboardInput;
+    private Grid grid;
+    private CollisionDetector detector;
+    private Rotator rotator;
 
     public static void main(String[] args) {
         launch();
@@ -37,20 +41,23 @@ public class GameApplication extends Application {
     @Override
     public void init() {
         configure();
+        setAutomaticMoveDown();
         mapCommandsToKeyboardInput();
     }
 
     private void configure() {
-        Grid grid = new Grid(10, 20);
+        grid = new Grid(10, 20);
+        detector = new CollisionDetector();
+        rotator = new DefaultRotator();
 
-        logic = new GameLogic(grid, new Score(), new Level(), new CollisionDetector(), new DefaultRotator());
+        logic = new GameLogic(grid, new Score(), new Level(), detector, new DefaultRotator());
         conveyor = new TetrominoConveyor(grid, new RandomTetrominoGenerator(new Random()));
 
         Group root = new Group();
         scene = new Scene(root);
         renderer = new DefaultRenderer(root, grid, logic, conveyor);
 
-        keyboardInput = new KeyboardInput(renderer, logic, conveyor);
+        keyboardInput = new KeyboardInput(renderer, grid, logic, conveyor, detector, rotator);
     }
 
     private void mapCommandsToKeyboardInput() {
@@ -59,7 +66,6 @@ public class GameApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        setAutomaticMoveDown();
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -67,7 +73,7 @@ public class GameApplication extends Application {
     private void setAutomaticMoveDown() {
         new AnimationTimer() {
             long lastTick = 0;
-            Command moveDown = new MoveDownCommand(conveyor, logic);
+            Command moveDown = new MoveDownCommand(grid, logic, conveyor, detector);
 
             @Override
             public void handle(long now) {

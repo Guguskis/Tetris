@@ -7,18 +7,30 @@ import lt.liutikas.controller.commands.MoveDownCommand;
 import lt.liutikas.controller.commands.MoveLeftCommand;
 import lt.liutikas.controller.commands.MoveRightCommand;
 import lt.liutikas.controller.commands.RotateTetrominoCommand;
+import lt.liutikas.controller.rotator.Rotator;
+import lt.liutikas.model.Grid;
 import lt.liutikas.renderer.Renderer;
 
 import java.util.EnumMap;
 
 public class KeyboardInput {
     private Renderer renderer;
+    private Grid grid;
+    private GameLogic logic;
+    private TetrominoConveyor conveyor;
+    private CollisionDetector detector;
+    private Rotator rotator;
 
     private EnumMap<KeyCode, Command> commands = new EnumMap<>(KeyCode.class);
 
-    public KeyboardInput(Renderer renderer, GameLogic logic, TetrominoConveyor conveyor) {
+    public KeyboardInput(Renderer renderer, Grid grid, GameLogic logic, TetrominoConveyor conveyor, CollisionDetector detector, Rotator rotator) {
         this.renderer = renderer;
-        prepareCommands(conveyor, logic);
+        this.grid = grid;
+        this.logic = logic;
+        this.conveyor = conveyor;
+        this.detector = detector;
+        this.rotator = rotator;
+        prepareCommands();
     }
 
     public void handle(KeyEvent key) {
@@ -30,17 +42,25 @@ public class KeyboardInput {
         }
     }
 
-    private void prepareCommands(TetrominoConveyor conveyor, GameLogic logic) {
-        commands.put(KeyCode.A, new MoveLeftCommand(conveyor, logic));
-        commands.put(KeyCode.LEFT, new MoveLeftCommand(conveyor, logic));
+    private void prepareCommands() {
+        var moveLeft = new MoveLeftCommand(grid, conveyor, detector);
+        add(moveLeft, KeyCode.A);
+        add(moveLeft, KeyCode.LEFT);
 
-        commands.put(KeyCode.D, new MoveRightCommand(conveyor, logic));
-        commands.put(KeyCode.RIGHT, new MoveRightCommand(conveyor, logic));
+        var moveRight = new MoveRightCommand(grid, conveyor, detector);
+        add(moveRight, KeyCode.D);
+        add(moveRight, KeyCode.RIGHT);
 
-        commands.put(KeyCode.S, new MoveDownCommand(conveyor, logic));
-        commands.put(KeyCode.DOWN, new MoveDownCommand(conveyor, logic));
+        var moveDown = new MoveDownCommand(grid, logic, conveyor, detector);
+        add(moveDown, KeyCode.S);
+        add(moveDown, KeyCode.DOWN);
 
-        commands.put(KeyCode.W, new RotateTetrominoCommand(conveyor, logic));
-        commands.put(KeyCode.UP, new RotateTetrominoCommand(conveyor, logic));
+        var rotateTetromino = new RotateTetrominoCommand(grid, rotator, conveyor, detector);
+        add(rotateTetromino, KeyCode.W);
+        add(rotateTetromino, KeyCode.UP);
+    }
+
+    private void add(Command command, KeyCode a) {
+        commands.put(a, command);
     }
 }
