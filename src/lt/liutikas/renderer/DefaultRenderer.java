@@ -45,12 +45,9 @@ public class DefaultRenderer implements Renderer {
 
     @Override
     public void drawFrame() {
-        Tetromino currentTetromino = conveyor.getCurrent();
-        Tetromino nextTetromino = conveyor.getNext();
-
         fillBackground();
-        drawOutlinedGridAndCurrentTetromino(grid, currentTetromino);
-        drawNextTetromino(grid, nextTetromino);
+        drawOutlinedGridAndCurrentTetromino(grid, conveyor.getCurrent());
+        drawNextTetromino(grid, conveyor.getNext());
         drawGameInformation(grid, gameLogic);
     }
 
