@@ -12,7 +12,6 @@ import lt.liutikas.controller.GameLogic;
 import lt.liutikas.controller.RandomTetrominoGenerator;
 import lt.liutikas.controller.ScoreKeeper;
 import lt.liutikas.controller.TetrominoConveyor;
-import lt.liutikas.controller.TetrominoGenerator;
 import lt.liutikas.controller.commands.Command;
 import lt.liutikas.controller.commands.MoveDownCommand;
 import lt.liutikas.controller.commands.MoveLeftCommand;
@@ -40,16 +39,15 @@ public class GameApplication extends Application {
 
     @Override
     public void init() {
-        registerDependencies();
+        applyConfiguration();
         mapCommandsToKeyboardInput();
     }
 
-    private void registerDependencies() {
+    private void applyConfiguration() {
         Grid grid = new Grid(10, 20);
-        TetrominoGenerator generator = new RandomTetrominoGenerator(new Random());
 
         logic = new GameLogic(grid, new ScoreKeeper(), new CollisionDetector(), new DefaultRotator());
-        conveyor = new TetrominoConveyor(grid, generator);
+        conveyor = new TetrominoConveyor(grid, new RandomTetrominoGenerator(new Random()));
 
         Group root = new Group();
         scene = new Scene(root);
@@ -58,7 +56,7 @@ public class GameApplication extends Application {
 
     private void mapCommandsToKeyboardInput() {
         prepareCommands();
-        scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> handleCommand(key));
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, this::handleCommand);
     }
 
     @Override

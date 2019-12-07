@@ -6,9 +6,6 @@ import java.util.NoSuchElementException;
 
 public class TetrominoFactory {
     public static Tetromino getInstance(Type type, int x) {
-        if (Type.Z == Type.Z) {
-
-        }
         switch (type) {
             case I:
                 return getITetromino(x);
@@ -78,9 +75,6 @@ public class TetrominoFactory {
     }
 
     private static String getNoSuchElementMessage(String type) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\"").append(type).append("\"");
-        stringBuilder.append(" does not exist.");
-        return stringBuilder.toString();
+        return "\"" + type + "\"" + " does not exist.";
     }
 }
