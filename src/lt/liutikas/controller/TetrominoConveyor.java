@@ -14,8 +14,8 @@ public class TetrominoConveyor {
         this.grid = grid;
 
         this.generator = generator;
-        this.current = generator.getRandom(getCenterX());
-        this.next = generator.getRandom(getCenterX());
+        this.current = generator.getNext(getCenterX());
+        this.next = generator.getNext(getCenterX());
     }
 
     private int getCenterX() {
@@ -32,6 +32,6 @@ public class TetrominoConveyor {
 
     public void move() {
         current = next;
-        next = generator.getRandom(getCenterX());
+        next = generator.getNext(getCenterX());
     }
 }

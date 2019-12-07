@@ -9,6 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import lt.liutikas.controller.CollisionDetector;
 import lt.liutikas.controller.GameLogic;
+import lt.liutikas.controller.RandomTetrominoGenerator;
 import lt.liutikas.controller.ScoreKeeper;
 import lt.liutikas.controller.TetrominoConveyor;
 import lt.liutikas.controller.TetrominoGenerator;
@@ -45,7 +46,7 @@ public class GameApplication extends Application {
 
     private void registerDependencies() {
         Grid grid = new Grid(10, 20);
-        TetrominoGenerator generator = new TetrominoGenerator(new Random());
+        TetrominoGenerator generator = new RandomTetrominoGenerator(new Random());
 
         logic = new GameLogic(grid, new ScoreKeeper(), new CollisionDetector(), new DefaultRotator());
         conveyor = new TetrominoConveyor(grid, generator);

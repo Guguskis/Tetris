@@ -5,24 +5,27 @@ import lt.liutikas.model.Tile;
 import java.util.NoSuchElementException;
 
 public class TetrominoFactory {
-    public static Tetromino getInstance(String type, int x) {
-        switch (type.toUpperCase()) {
-            case "I":
+    public static Tetromino getInstance(Type type, int x) {
+        if (Type.Z == Type.Z) {
+
+        }
+        switch (type) {
+            case I:
                 return getITetromino(x);
-            case "J":
+            case J:
                 return getJTetromino(x);
-            case "L":
+            case L:
                 return getLTetromino(x);
-            case "O":
+            case O:
                 return getOTetromino(x);
-            case "S":
+            case S:
                 return getSTetromino(x);
-            case "T":
+            case T:
                 return getTTetromino(x);
-            case "Z":
+            case Z:
                 return getZTetromino(x);
             default:
-                throw new NoSuchElementException(getNoSuchElementMessage(type));
+                throw new NoSuchElementException(getNoSuchElementMessage(type.toString()));
         }
     }
 
