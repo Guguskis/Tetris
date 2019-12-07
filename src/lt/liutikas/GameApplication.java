@@ -70,17 +70,20 @@ public class GameApplication extends Application {
 
             @Override
             public void handle(long now) {
-                if (!logic.isGameOver()) {
-                    if (lastTick == 0) {
-                        lastTick = now;
-                        renderer.drawFrame();
-                    }
-                    var gameSpeed = logic.getTickIntervalInMilliseconds() * 1e9;
-                    if (now - lastTick > gameSpeed) {
-                        lastTick = now;
-                        moveDown.execute();
-                        renderer.drawFrame();
-                    }
+                if (logic.isGameOver()) {
+                    stop();
+                }
+
+                if (lastTick == 0) {
+                    lastTick = now;
+                    renderer.drawFrame();
+                }
+
+                var gameSpeed = logic.getTickIntervalInMilliseconds() * 1e9;
+                if (now - lastTick > gameSpeed) {
+                    lastTick = now;
+                    moveDown.execute();
+                    renderer.drawFrame();
                 }
             }
         }.start();
