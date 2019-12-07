@@ -16,17 +16,17 @@ import java.util.EnumMap;
 public class KeyboardInput {
     private Renderer renderer;
     private Grid grid;
-    private GameLogic logic;
+    private GameState gameState;
     private TetrominoConveyor conveyor;
     private CollisionDetector detector;
     private Rotator rotator;
 
     private EnumMap<KeyCode, Command> commands = new EnumMap<>(KeyCode.class);
 
-    public KeyboardInput(Renderer renderer, Grid grid, GameLogic logic, TetrominoConveyor conveyor, CollisionDetector detector, Rotator rotator) {
+    public KeyboardInput(Renderer renderer, Grid grid, GameState gameState, TetrominoConveyor conveyor, CollisionDetector detector, Rotator rotator) {
         this.renderer = renderer;
         this.grid = grid;
-        this.logic = logic;
+        this.gameState = gameState;
         this.conveyor = conveyor;
         this.detector = detector;
         this.rotator = rotator;
@@ -51,7 +51,7 @@ public class KeyboardInput {
         add(moveRight, KeyCode.D);
         add(moveRight, KeyCode.RIGHT);
 
-        var moveDown = new MoveDownCommand(grid, logic, conveyor, detector);
+        var moveDown = new MoveDownCommand(grid, gameState, conveyor, detector);
         add(moveDown, KeyCode.S);
         add(moveDown, KeyCode.DOWN);
 

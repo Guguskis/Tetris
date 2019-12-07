@@ -4,7 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import lt.liutikas.controller.GameLogic;
+import lt.liutikas.controller.GameState;
 import lt.liutikas.controller.TetrominoConveyor;
 import lt.liutikas.model.Grid;
 import lt.liutikas.model.Position;
@@ -19,7 +19,7 @@ public class DefaultRenderer implements Renderer {
 
     private GraphicsContext context;
     private Grid grid;
-    private GameLogic gameLogic;
+    private GameState gameState;
     private TetrominoConveyor conveyor;
 
     private Color backgroundColor = Color.rgb(30, 0, 40);
@@ -30,10 +30,10 @@ public class DefaultRenderer implements Renderer {
     private Position absoluteOffset = new Position(0, 0);
 
 
-    public DefaultRenderer(Group root, Grid grid, GameLogic gameLogic, TetrominoConveyor conveyor) {
+    public DefaultRenderer(Group root, Grid grid, GameState gameState, TetrominoConveyor conveyor) {
         this.context = getGraphicsContext(root);
         this.grid = grid;
-        this.gameLogic = gameLogic;
+        this.gameState = gameState;
         this.conveyor = conveyor;
     }
 
@@ -48,21 +48,21 @@ public class DefaultRenderer implements Renderer {
         fillBackground();
         drawOutlinedGridAndCurrentTetromino(grid, conveyor.getCurrent());
         drawNextTetromino(grid, conveyor.getNext());
-        drawGameInformation(grid, gameLogic);
+        drawGameInformation(grid, gameState);
     }
 
-    private void drawGameInformation(Grid grid, GameLogic gameLogic) {
+    private void drawGameInformation(Grid grid, GameState gameState) {
         Position gridOffset = getGridOffset(grid);
         Position outlineOffset = getOutlineOffset();
 
         Position topLeftCorner = new Position(2, 6).plus(gridOffset).plus(outlineOffset);
 
-        String scoreText = "Score: " + gameLogic.getScore();
+        String scoreText = "Score: " + gameState.getScore();
         fillScaledText(topLeftCorner, scoreText, Color.YELLOW);
 
         int linesToSkip = 1;
         Position levelCoordinates = topLeftCorner.plus(0, linesToSkip);
-        String levelText = "Level: " + gameLogic.getLevel();
+        String levelText = "Level: " + gameState.getLevel();
         fillScaledText(levelCoordinates, levelText, Color.YELLOWGREEN);
     }
 

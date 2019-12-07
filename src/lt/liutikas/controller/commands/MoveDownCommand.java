@@ -1,27 +1,27 @@
 package lt.liutikas.controller.commands;
 
 import lt.liutikas.controller.CollisionDetector;
-import lt.liutikas.controller.GameLogic;
+import lt.liutikas.controller.GameState;
 import lt.liutikas.controller.TetrominoConveyor;
 import lt.liutikas.model.Grid;
 import lt.liutikas.model.tetromino.Tetromino;
 
 public class MoveDownCommand implements Command {
     private final Grid grid;
-    private final GameLogic logic;
+    private final GameState gameState;
     private final TetrominoConveyor conveyor;
     private final CollisionDetector detector;
 
-    public MoveDownCommand(Grid grid, GameLogic gameLogic, TetrominoConveyor conveyor, CollisionDetector detector) {
+    public MoveDownCommand(Grid grid, GameState gameState, TetrominoConveyor conveyor, CollisionDetector detector) {
         this.grid = grid;
-        this.logic = gameLogic;
+        this.gameState = gameState;
         this.conveyor = conveyor;
         this.detector = detector;
     }
 
     @Override
     public void execute() {
-        if (!logic.isGameOver()) {
+        if (!gameState.isGameOver()) {
             Tetromino tetromino = conveyor.getCurrent();
             tetromino.moveDown();
             handleCollisionAndGameOver(tetromino);
@@ -43,13 +43,13 @@ public class MoveDownCommand implements Command {
 
     private void ifCannotSpawnNextSetGameOver() {
         if (hasCollided(conveyor.getNext())) {
-            logic.setGameOver(true);
+            gameState.setGameOver(true);
         }
     }
 
     private void removeFilledLines(Tetromino tetromino) {
         int removedLines = grid.getFullLineCount(tetromino);
-        logic.increaseStats(removedLines);
+        gameState.update(removedLines);
         grid.removeFullLines(tetromino);
     }
 

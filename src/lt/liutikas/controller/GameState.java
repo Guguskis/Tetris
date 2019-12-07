@@ -1,12 +1,11 @@
 package lt.liutikas.controller;
 
-public class GameLogic {
+public class GameState {
     private boolean gameOver = false;
-
     private Score score;
     private Level level;
 
-    public GameLogic(Score score, Level level) {
+    public GameState(Score score, Level level) {
         this.score = score;
         this.level = level;
     }
@@ -31,7 +30,7 @@ public class GameLogic {
         this.gameOver = gameOver;
     }
 
-    public void increaseStats(int removedLines) {
+    public void update(int removedLines) {
         score.increase(removedLines, getLevel());
         level.increase(removedLines);
     }

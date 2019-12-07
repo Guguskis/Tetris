@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import lt.liutikas.controller.CollisionDetector;
-import lt.liutikas.controller.GameLogic;
+import lt.liutikas.controller.GameState;
 import lt.liutikas.controller.KeyboardInput;
 import lt.liutikas.controller.Level;
 import lt.liutikas.controller.RandomTetrominoGenerator;
@@ -25,7 +25,7 @@ import java.util.Random;
 
 public class GameApplication extends Application {
 
-    private GameLogic logic;
+    private GameState gameState;
     private Renderer renderer;
     private Scene scene;
     private TetrominoConveyor conveyor;
@@ -50,14 +50,14 @@ public class GameApplication extends Application {
         detector = new CollisionDetector();
         rotator = new DefaultRotator();
 
-        logic = new GameLogic(new Score(), new Level());
+        gameState = new GameState(new Score(), new Level());
         conveyor = new TetrominoConveyor(grid, new RandomTetrominoGenerator(new Random()));
 
         Group root = new Group();
         scene = new Scene(root);
-        renderer = new DefaultRenderer(root, grid, logic, conveyor);
+        renderer = new DefaultRenderer(root, grid, gameState, conveyor);
 
-        keyboardInput = new KeyboardInput(renderer, grid, logic, conveyor, detector, rotator);
+        keyboardInput = new KeyboardInput(renderer, grid, gameState, conveyor, detector, rotator);
     }
 
     private void mapCommandsToKeyboardInput() {
@@ -73,11 +73,11 @@ public class GameApplication extends Application {
     private void setAutomaticMoveDown() {
         new AnimationTimer() {
             long lastTick = 0;
-            Command moveDown = new MoveDownCommand(grid, logic, conveyor, detector);
+            Command moveDown = new MoveDownCommand(grid, gameState, conveyor, detector);
 
             @Override
             public void handle(long now) {
-                if (logic.isGameOver()) {
+                if (gameState.isGameOver()) {
                     stop();
                 }
 
@@ -86,7 +86,7 @@ public class GameApplication extends Application {
                     renderer.drawFrame();
                 }
 
-                var gameSpeed = logic.getTickIntervalInMilliseconds() * 1e9;
+                var gameSpeed = gameState.getTickIntervalInMilliseconds() * 1e9;
                 if (now - lastTick > gameSpeed) {
                     lastTick = now;
                     moveDown.execute();
