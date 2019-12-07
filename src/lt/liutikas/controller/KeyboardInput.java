@@ -34,8 +34,11 @@ public class KeyboardInput {
     }
 
     public void handle(KeyEvent key) {
-        var command = commands.get(key.getCode());
+        if (gameState.isGameOver()) {
+            return;
+        }
 
+        var command = commands.get(key.getCode());
         if (command != null) {
             command.execute();
             renderer.drawFrame();

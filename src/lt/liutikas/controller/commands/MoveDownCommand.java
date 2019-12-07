@@ -21,11 +21,9 @@ public class MoveDownCommand implements Command {
 
     @Override
     public void execute() {
-        if (!gameState.isGameOver()) {
-            Tetromino tetromino = conveyor.getCurrent();
-            tetromino.moveDown();
-            handleCollisionAndGameOver(tetromino);
-        }
+        Tetromino tetromino = conveyor.getCurrent();
+        tetromino.moveDown();
+        handleCollisionAndGameOver(tetromino);
     }
 
     private void handleCollisionAndGameOver(Tetromino tetromino) {
