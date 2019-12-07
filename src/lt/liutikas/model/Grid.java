@@ -1,10 +1,16 @@
 package lt.liutikas.model;
 
+import lt.liutikas.model.tetromino.Tetromino;
+
 public class Grid {
     private Tile[][] map;
 
     public Grid(int width, int height) {
         this.map = new Tile[height][width];
+    }
+
+    public Grid(Grid grid) {
+        this.map = grid.map;
     }
 
     public int getWidth() {
@@ -36,7 +42,7 @@ public class Grid {
         }
     }
 
-    public boolean lineIsEmpty(int y) {
+    public boolean lineIsFull(int y) {
         for (int x = 0; x < getWidth(); x++) {
             if (getTile(new Position(x, y)) != Tile.OCCUPIED) {
                 return false;
@@ -67,5 +73,46 @@ public class Grid {
 
     public Tile getTile(int x, int y) {
         return getTile(new Position(x, y));
+    }
+
+    public void imprint(Tetromino tetromino) {
+        for (int i = 0; i < tetromino.getHeight(); i++) {
+            for (int j = 0; j < tetromino.getWidth(); j++) {
+                var coordinates = new Position(j, i);
+                var tile = tetromino.getUnmappedTile(coordinates);
+
+                if (tile == Tile.OCCUPIED) {
+                    var mappedCoordinates = coordinates.plus(tetromino.getPosition());
+                    setTile(mappedCoordinates, tile);
+                }
+            }
+        }
+    }
+
+    public int getFullLineCount(Tetromino tetromino) {
+        int count = 0;
+        Grid gridCopy = new Grid(this);
+        gridCopy.imprint(tetromino);
+
+        for (int y = 0; y < gridCopy.getHeight(); y++) {
+            if (gridCopy.lineIsFull(y)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public void removeFullLines(Tetromino tetromino) {
+        imprint(tetromino);
+
+        for (int y = getHeight() - 1; y >= 0; ) {
+            if (lineIsFull(y)) {
+                removeLine(y);
+                pushDownLinesAbove(y);
+            } else {
+                y--;
+            }
+        }
     }
 }

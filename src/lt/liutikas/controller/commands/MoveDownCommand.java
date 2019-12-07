@@ -21,9 +21,11 @@ public class MoveDownCommand implements Command {
 
     @Override
     public void execute() {
-        var tetromino = conveyor.getCurrent();
-        tetromino.moveDown();
-        handleCollisionAndGameOver(tetromino);
+        if (!logic.isGameOver()) {
+            Tetromino tetromino = conveyor.getCurrent();
+            tetromino.moveDown();
+            handleCollisionAndGameOver(tetromino);
+        }
     }
 
     private void handleCollisionAndGameOver(Tetromino tetromino) {
@@ -46,8 +48,9 @@ public class MoveDownCommand implements Command {
     }
 
     private void removeFilledLines(Tetromino tetromino) {
-        logic.imprintTetromino(tetromino);
-        logic.removeFilledLines();
+        int removedLines = grid.getFullLineCount(tetromino);
+        logic.increaseStats(removedLines);
+        grid.removeFullLines(tetromino);
     }
 
 }

@@ -50,7 +50,7 @@ public class GameApplication extends Application {
         detector = new CollisionDetector();
         rotator = new DefaultRotator();
 
-        logic = new GameLogic(grid, new Score(), new Level());
+        logic = new GameLogic(new Score(), new Level());
         conveyor = new TetrominoConveyor(grid, new RandomTetrominoGenerator(new Random()));
 
         Group root = new Group();
