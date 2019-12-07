@@ -11,12 +11,12 @@ import lt.liutikas.renderer.Renderer;
 
 import java.util.EnumMap;
 
-public class CommandHandler {
+public class KeyboardInput {
     private Renderer renderer;
 
     private EnumMap<KeyCode, Command> commands = new EnumMap<>(KeyCode.class);
 
-    public CommandHandler(Renderer renderer, GameLogic logic, TetrominoConveyor conveyor) {
+    public KeyboardInput(Renderer renderer, GameLogic logic, TetrominoConveyor conveyor) {
         this.renderer = renderer;
         prepareCommands(conveyor, logic);
     }

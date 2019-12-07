@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import lt.liutikas.controller.CollisionDetector;
-import lt.liutikas.controller.CommandHandler;
 import lt.liutikas.controller.GameLogic;
+import lt.liutikas.controller.KeyboardInput;
 import lt.liutikas.controller.RandomTetrominoGenerator;
 import lt.liutikas.controller.ScoreKeeper;
 import lt.liutikas.controller.TetrominoConveyor;
@@ -27,7 +27,7 @@ public class GameApplication extends Application {
     private Renderer renderer;
     private Scene scene;
     private TetrominoConveyor conveyor;
-    private CommandHandler commandHandler;
+    private KeyboardInput keyboardInput;
 
     public static void main(String[] args) {
         launch();
@@ -35,11 +35,11 @@ public class GameApplication extends Application {
 
     @Override
     public void init() {
-        applyConfiguration();
+        configure();
         mapCommandsToKeyboardInput();
     }
 
-    private void applyConfiguration() {
+    private void configure() {
         Grid grid = new Grid(10, 20);
 
         logic = new GameLogic(grid, new ScoreKeeper(), new CollisionDetector(), new DefaultRotator());
@@ -49,11 +49,11 @@ public class GameApplication extends Application {
         scene = new Scene(root);
         renderer = new DefaultRenderer(root, grid, logic, conveyor);
 
-        commandHandler = new CommandHandler(renderer, logic, conveyor);
+        keyboardInput = new KeyboardInput(renderer, logic, conveyor);
     }
 
     private void mapCommandsToKeyboardInput() {
-        scene.addEventFilter(KeyEvent.KEY_PRESSED, commandHandler::handle);
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, keyboardInput::handle);
     }
 
     @Override
