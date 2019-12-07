@@ -3,7 +3,7 @@ package lt.liutikas.controller;
 public class Score {
     private int score = 0;
 
-    public int getScore() {
+    public int get() {
         return score;
     }
 

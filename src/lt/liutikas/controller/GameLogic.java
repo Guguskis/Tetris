@@ -61,11 +61,11 @@ public class GameLogic {
 
 
     public int getLevel() {
-        return level.getLevel();
+        return level.get();
     }
 
     public int getScore() {
-        return score.getScore();
+        return score.get();
     }
 
     public double getTickIntervalInMilliseconds() {

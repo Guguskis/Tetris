@@ -20,7 +20,7 @@ public class Level {
         }
     }
 
-    public int getLevel() {
+    public int get() {
         return goal / 10 + 1;
     }
 }
