@@ -1,5 +1,5 @@
 package lt.liutikas.model.tetromino;
 
-public enum Type {
+public enum TetrominoType {
     I, J, L, O, S, T, Z
 }

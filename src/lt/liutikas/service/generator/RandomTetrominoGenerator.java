@@ -2,7 +2,7 @@ package lt.liutikas.service.generator;
 
 import lt.liutikas.model.tetromino.Tetromino;
 import lt.liutikas.model.tetromino.TetrominoFactory;
-import lt.liutikas.model.tetromino.Type;
+import lt.liutikas.model.tetromino.TetrominoType;
 
 import java.util.Random;
 
@@ -13,8 +13,8 @@ public class RandomTetrominoGenerator implements TetrominoGenerator {
         this.random = random;
     }
 
-    private Type getRandomType() {
-        Type[] values = Type.values();
+    private TetrominoType getRandomType() {
+        TetrominoType[] values = TetrominoType.values();
         int randomSelection = random.nextInt(values.length);
         return values[randomSelection];
     }
