@@ -21,7 +21,7 @@ public class Grid {
         return map.length;
     }
 
-    public boolean inBounds(Position coordinates) {
+    private boolean inBounds(Position coordinates) {
         var inXAxis = coordinates.x >= 0 && coordinates.x < getWidth();
         var inYAxis = coordinates.y >= 0 && coordinates.y < getHeight();
         return inXAxis && inYAxis;
@@ -36,13 +36,13 @@ public class Grid {
         return Tile.OUT_OF_BOUNDS;
     }
 
-    public void setTile(Position coordinates, Tile tile) {
+    private void setTile(Position coordinates, Tile tile) {
         if (inBounds(coordinates)) {
             map[coordinates.y][coordinates.x] = tile;
         }
     }
 
-    public boolean lineIsFull(int y) {
+    private boolean lineIsFull(int y) {
         for (int x = 0; x < getWidth(); x++) {
             if (getTile(new Position(x, y)) != Tile.OCCUPIED) {
                 return false;
@@ -51,19 +51,19 @@ public class Grid {
         return true;
     }
 
-    public void removeLine(int y) {
+    private void removeLine(int y) {
         for (int x = 0; x < getWidth(); x++) {
             setTile(new Position(x, y), Tile.EMPTY);
         }
     }
 
-    public void pushDownLinesAbove(int y) {
+    private void pushDownLinesAbove(int y) {
         for (int lineAbove = y - 1; lineAbove >= 0; lineAbove--) {
             pushLineDown(lineAbove);
         }
     }
 
-    public void pushLineDown(int y) {
+    private void pushLineDown(int y) {
         for (int x = 0; x < getWidth(); x++) {
             var tile = getTile(new Position(x, y));
             setTile(new Position(x, y + 1), tile);
@@ -75,7 +75,7 @@ public class Grid {
         return getTile(new Position(x, y));
     }
 
-    public void imprint(Tetromino tetromino) {
+    private void imprint(Tetromino tetromino) {
         for (int i = 0; i < tetromino.getHeight(); i++) {
             for (int j = 0; j < tetromino.getWidth(); j++) {
                 var coordinates = new Position(j, i);
@@ -106,7 +106,8 @@ public class Grid {
     public void removeFullLines(Tetromino tetromino) {
         imprint(tetromino);
 
-        for (int y = getHeight() - 1; y >= 0; ) {
+        var top = getHeight() - 1;
+        for (int y = top; y >= 0; ) {
             if (lineIsFull(y)) {
                 removeLine(y);
                 pushDownLinesAbove(y);
