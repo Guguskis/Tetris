@@ -1,11 +1,11 @@
-package lt.liutikas.renderer;
+package lt.liutikas.controller.renderer;
 
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import lt.liutikas.controller.GameState;
-import lt.liutikas.controller.TetrominoConveyor;
+import lt.liutikas.service.TetrominoConveyor;
 import lt.liutikas.model.Grid;
 import lt.liutikas.model.Position;
 import lt.liutikas.model.Tile;

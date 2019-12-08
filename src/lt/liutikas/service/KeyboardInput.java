@@ -1,15 +1,16 @@
-package lt.liutikas.controller;
+package lt.liutikas.service;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import lt.liutikas.controller.GameState;
 import lt.liutikas.controller.commands.Command;
 import lt.liutikas.controller.commands.MoveDownCommand;
 import lt.liutikas.controller.commands.MoveLeftCommand;
 import lt.liutikas.controller.commands.MoveRightCommand;
 import lt.liutikas.controller.commands.RotateTetrominoCommand;
-import lt.liutikas.controller.rotator.Rotator;
+import lt.liutikas.service.rotator.Rotator;
 import lt.liutikas.model.Grid;
-import lt.liutikas.renderer.Renderer;
+import lt.liutikas.controller.renderer.Renderer;
 
 import java.util.EnumMap;
 

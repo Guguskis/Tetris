@@ -1,7 +1,8 @@
-package lt.liutikas.controller;
+package lt.liutikas.service;
 
 
 import lt.liutikas.model.Grid;
+import lt.liutikas.service.generator.TetrominoGenerator;
 import lt.liutikas.model.tetromino.Tetromino;
 
 public class TetrominoConveyor {

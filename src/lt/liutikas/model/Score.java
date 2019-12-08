@@ -1,4 +1,4 @@
-package lt.liutikas.controller;
+package lt.liutikas.model;
 
 public class Score {
     private int score = 0;

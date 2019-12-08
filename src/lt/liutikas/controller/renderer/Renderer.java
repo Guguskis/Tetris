@@ -1,4 +1,4 @@
-package lt.liutikas.renderer;
+package lt.liutikas.controller.renderer;
 
 public interface Renderer {
     void drawFrame();

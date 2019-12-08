@@ -1,4 +1,4 @@
-package lt.liutikas.controller.rotator;
+package lt.liutikas.service.rotator;
 
 import lt.liutikas.model.Tile;
 import lt.liutikas.model.tetromino.Tetromino;

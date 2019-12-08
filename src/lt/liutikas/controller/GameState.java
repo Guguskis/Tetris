@@ -1,5 +1,8 @@
 package lt.liutikas.controller;
 
+import lt.liutikas.model.Level;
+import lt.liutikas.model.Score;
+
 public class GameState {
     private boolean gameOver = false;
     private Score score;

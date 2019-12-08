@@ -1,4 +1,4 @@
-package lt.liutikas.controller;
+package lt.liutikas.service;
 
 import lt.liutikas.model.Grid;
 import lt.liutikas.model.Position;

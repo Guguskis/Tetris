@@ -1,8 +1,8 @@
 package lt.liutikas.controller.commands;
 
-import lt.liutikas.controller.CollisionDetector;
+import lt.liutikas.service.CollisionDetector;
 import lt.liutikas.controller.GameState;
-import lt.liutikas.controller.TetrominoConveyor;
+import lt.liutikas.service.TetrominoConveyor;
 import lt.liutikas.model.Grid;
 import lt.liutikas.model.tetromino.Tetromino;
 

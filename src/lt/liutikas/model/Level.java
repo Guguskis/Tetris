@@ -1,4 +1,4 @@
-package lt.liutikas.controller;
+package lt.liutikas.model;
 
 public class Level {
     private int goal = 0;
