@@ -5,6 +5,10 @@ import lt.liutikas.model.Tile;
 import java.util.NoSuchElementException;
 
 public class TetrominoFactory {
+    private TetrominoFactory() {
+
+    }
+
     public static Tetromino getInstance(TetrominoType type, int x) {
         switch (type) {
             case I:
