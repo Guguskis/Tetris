@@ -46,7 +46,7 @@ public class DefaultRenderer implements Renderer {
     @Override
     public void drawFrame() {
         fillBackground();
-        drawOutlinedPlayfieldAndCurrentTetromino(playfield, conveyor.getCurrent());
+        drawGameField(playfield, conveyor.getCurrent());
         drawNextTetromino(playfield, conveyor.getNext());
         drawGameInformation(playfield, gameState);
     }
@@ -80,16 +80,14 @@ public class DefaultRenderer implements Renderer {
         drawTetromino(topLeftCorner, tetromino, nextTetrominoColor);
     }
 
-    private void drawOutlinedPlayfieldAndCurrentTetromino(Playfield playfield, Tetromino tetromino) {
+    private void drawGameField(Playfield playfield, Tetromino tetromino) {
         Vector2 outlinePosition = new Vector2(0, 0);
+        Vector2 playfieldPosition = outlinePosition.plus(1, 1);
+        Vector2 tetrominoPosition = playfieldPosition.plus(tetromino.getPosition());
+
         drawOutlineAround(playfield, outlinePosition);
-
-        Vector2 playfieldPositionOffset = new Vector2(1, 1);
-        Vector2 playfieldPosition = outlinePosition.plus(playfieldPositionOffset);
         drawPlayfield(playfield, playfieldPosition);
-
-        Vector2 tetrominoTopLeftCorner = playfieldPosition.plus(tetromino.getPosition());
-        drawTetromino(tetrominoTopLeftCorner, tetromino, currentTetrominoColor);
+        drawTetromino(tetrominoPosition, tetromino, currentTetrominoColor);
     }
 
     private void drawOutlineAround(Playfield playfield, Vector2 topLeftCorner) {
