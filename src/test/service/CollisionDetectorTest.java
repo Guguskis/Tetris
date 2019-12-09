@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class CollisionDetectorTest {
+public class CollisionDetectorTest {
     private CollisionDetector detector = new CollisionDetector();
 
     @Test
