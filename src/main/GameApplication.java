@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import main.service.CollisionDetector;
-import main.controller.GameState;
-import main.service.KeyboardInput;
+import main.model.GameState;
+import main.service.KeyboardMapper;
 import main.model.Level;
 import main.service.generator.RandomTetrominoGenerator;
 import main.model.Score;
@@ -29,7 +29,7 @@ public class GameApplication extends Application {
     private Renderer renderer;
     private Scene scene;
     private TetrominoConveyor conveyor;
-    private KeyboardInput keyboardInput;
+    private KeyboardMapper keyboardInput;
     private Grid grid;
     private CollisionDetector detector;
     private Rotator rotator;
@@ -57,7 +57,7 @@ public class GameApplication extends Application {
         scene = new Scene(root);
         renderer = new DefaultRenderer(root, grid, gameState, conveyor);
 
-        keyboardInput = new KeyboardInput(renderer, grid, gameState, conveyor, detector, rotator);
+        keyboardInput = new KeyboardMapper(renderer, grid, gameState, conveyor, detector, rotator);
     }
 
     private void mapCommandsToKeyboardInput() {

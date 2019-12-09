@@ -1,7 +1,7 @@
 package main.controller.commands;
 
 import main.service.CollisionDetector;
-import main.controller.GameState;
+import main.model.GameState;
 import main.service.TetrominoConveyor;
 import main.model.Grid;
 import main.model.tetromino.Tetromino;

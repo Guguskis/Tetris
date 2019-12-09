@@ -1,7 +1,4 @@
-package main.controller;
-
-import main.model.Level;
-import main.model.Score;
+package main.model;
 
 public class GameState {
     private boolean gameOver = false;

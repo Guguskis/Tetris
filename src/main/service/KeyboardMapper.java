@@ -2,7 +2,7 @@ package main.service;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import main.controller.GameState;
+import main.model.GameState;
 import main.controller.commands.Command;
 import main.controller.commands.MoveDownCommand;
 import main.controller.commands.MoveLeftCommand;
@@ -14,7 +14,7 @@ import main.controller.renderer.Renderer;
 
 import java.util.EnumMap;
 
-public class KeyboardInput {
+public class KeyboardMapper {
     private Renderer renderer;
     private Grid grid;
     private GameState gameState;
@@ -24,7 +24,7 @@ public class KeyboardInput {
 
     private EnumMap<KeyCode, Command> commands = new EnumMap<>(KeyCode.class);
 
-    public KeyboardInput(Renderer renderer, Grid grid, GameState gameState, TetrominoConveyor conveyor, CollisionDetector detector, Rotator rotator) {
+    public KeyboardMapper(Renderer renderer, Grid grid, GameState gameState, TetrominoConveyor conveyor, CollisionDetector detector, Rotator rotator) {
         this.renderer = renderer;
         this.grid = grid;
         this.gameState = gameState;

@@ -4,10 +4,10 @@ import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import main.controller.GameState;
+import main.model.GameState;
 import main.service.TetrominoConveyor;
 import main.model.Grid;
-import main.model.Position;
+import main.model.Vector2;
 import main.model.Tile;
 import main.model.tetromino.Tetromino;
 
@@ -27,7 +27,7 @@ public class DefaultRenderer implements Renderer {
     private Color currentTetrominoColor = Color.GREEN;
     private Color gridColor = Color.GREY;
     private Color nextTetrominoColor = Color.PURPLE;
-    private Position absoluteOffset = new Position(0, 0);
+    private Vector2 absoluteOffset = new Vector2(0, 0);
 
 
     public DefaultRenderer(Group root, Grid grid, GameState gameState, TetrominoConveyor conveyor) {
@@ -52,106 +52,106 @@ public class DefaultRenderer implements Renderer {
     }
 
     private void drawGameInformation(Grid grid, GameState gameState) {
-        Position gridOffset = getGridOffset(grid);
-        Position outlineOffset = getOutlineOffset();
+        Vector2 gridOffset = getGridOffset(grid);
+        Vector2 outlineOffset = getOutlineOffset();
 
-        Position topLeftCorner = new Position(2, 6).plus(gridOffset).plus(outlineOffset);
+        Vector2 topLeftCorner = new Vector2(2, 6).plus(gridOffset).plus(outlineOffset);
 
         String scoreText = "Score: " + gameState.getScore();
         fillScaledText(topLeftCorner, scoreText, Color.YELLOW);
 
         int linesToSkip = 1;
-        Position levelCoordinates = topLeftCorner.plus(0, linesToSkip);
+        Vector2 levelCoordinates = topLeftCorner.plus(0, linesToSkip);
         String levelText = "Level: " + gameState.getLevel();
         fillScaledText(levelCoordinates, levelText, Color.YELLOWGREEN);
     }
 
-    private Position getOutlineOffset() {
-        return new Position(2, 0);
+    private Vector2 getOutlineOffset() {
+        return new Vector2(2, 0);
     }
 
-    private Position getGridOffset(Grid grid) {
-        return new Position(grid.getWidth(), 0);
+    private Vector2 getGridOffset(Grid grid) {
+        return new Vector2(grid.getWidth(), 0);
     }
 
     private void drawNextTetromino(Grid grid, Tetromino tetromino) {
-        Position offset = getOutlineOffset().plus(getGridOffset(grid));
-        Position topLeftCorner = new Position(2, 1).plus(offset);
+        Vector2 offset = getOutlineOffset().plus(getGridOffset(grid));
+        Vector2 topLeftCorner = new Vector2(2, 1).plus(offset);
         drawTetromino(topLeftCorner, tetromino, nextTetrominoColor);
     }
 
     private void drawOutlinedGridAndCurrentTetromino(Grid grid, Tetromino tetromino) {
-        Position topLeftCorner = new Position(0, 0);
+        Vector2 topLeftCorner = new Vector2(0, 0);
         drawOutline(grid, topLeftCorner);
 
-        Position gridPositionOffset = new Position(1, 1);
-        Position gridPosition = topLeftCorner.plus(gridPositionOffset);
+        Vector2 gridPositionOffset = new Vector2(1, 1);
+        Vector2 gridPosition = topLeftCorner.plus(gridPositionOffset);
         drawGrid(grid, gridPosition);
 
-        Position tetrominoTopLeftCorner = gridPosition.plus(tetromino.getPosition());
+        Vector2 tetrominoTopLeftCorner = gridPosition.plus(tetromino.getPosition());
         drawTetromino(tetrominoTopLeftCorner, tetromino, currentTetrominoColor);
     }
 
-    private void drawOutline(Grid grid, Position topLeftCorner) {
-        Position bottomRightCorner = topLeftCorner.plus(grid.getWidth() + 1, grid.getHeight() + 1);
+    private void drawOutline(Grid grid, Vector2 topLeftCorner) {
+        Vector2 bottomRightCorner = topLeftCorner.plus(grid.getWidth() + 1, grid.getHeight() + 1);
 
         for (int y = topLeftCorner.y; y <= bottomRightCorner.y; y++) {
             for (int x = topLeftCorner.x; x <= bottomRightCorner.x; x++) {
                 if (onOutline(topLeftCorner, bottomRightCorner, y, x)) {
-                    drawScaledRect(new Position(x, y), outlineColor);
+                    drawScaledRect(new Vector2(x, y), outlineColor);
                 }
             }
         }
     }
 
-    private boolean onOutline(Position topLeftCorner, Position bottomRightCorner, int y, int x) {
+    private boolean onOutline(Vector2 topLeftCorner, Vector2 bottomRightCorner, int y, int x) {
         return y == topLeftCorner.y || y == bottomRightCorner.y || x == topLeftCorner.x || x == bottomRightCorner.x;
     }
 
     private void fillBackground() {
-        drawRect(new Position(0, 0), width, height, backgroundColor);
+        drawRect(new Vector2(0, 0), width, height, backgroundColor);
     }
 
-    private void drawTetromino(Position startPosition, Tetromino tetromino, Color color) {
+    private void drawTetromino(Vector2 startPosition, Tetromino tetromino, Color color) {
         for (int i = 0; i < tetromino.getHeight(); i++) {
             for (int j = 0; j < tetromino.getWidth(); j++) {
-                Position currentPosition = new Position(j, i);
+                Vector2 currentPosition = new Vector2(j, i);
                 if (tetromino.getUnmappedTile(currentPosition) == Tile.OCCUPIED) {
-                    Position drawPosition = startPosition.plus(currentPosition);
+                    Vector2 drawPosition = startPosition.plus(currentPosition);
                     drawScaledRect(drawPosition, color);
                 }
             }
         }
     }
 
-    private void drawGrid(Grid grid, Position topLeftCorner) {
+    private void drawGrid(Grid grid, Vector2 topLeftCorner) {
         for (int y = 0; y < grid.getHeight(); y++) {
             for (int x = 0; x < grid.getWidth(); x++) {
                 if (grid.getTile(x, y) == Tile.OCCUPIED) {
-                    Position drawPosition = topLeftCorner.plus(x, y);
+                    Vector2 drawPosition = topLeftCorner.plus(x, y);
                     drawScaledRect(drawPosition, gridColor);
                 }
             }
         }
     }
 
-    private void fillScaledText(Position position, String text, Color color) {
+    private void fillScaledText(Vector2 position, String text, Color color) {
         position = position.plus(absoluteOffset);
-        Position scaledPosition = position.multiply(scale);
+        Vector2 scaledPosition = position.multiply(scale);
         context.setFill(color);
         context.fillText(text, scaledPosition.x, scaledPosition.y);
     }
 
-    private void drawScaledRect(Position position, Color color) {
-        Position scaledWhere = getScaled(position.plus(absoluteOffset));
+    private void drawScaledRect(Vector2 position, Color color) {
+        Vector2 scaledWhere = getScaled(position.plus(absoluteOffset));
         drawRect(scaledWhere, scale, scale, color);
     }
 
-    private Position getScaled(Position position) {
+    private Vector2 getScaled(Vector2 position) {
         return position.multiply(scale);
     }
 
-    private void drawRect(Position where, int width, int height, Color color) {
+    private void drawRect(Vector2 where, int width, int height, Color color) {
         context.setFill(color);
         context.fillRect(where.x, where.y, width, height);
     }

@@ -21,13 +21,13 @@ public class Grid {
         return map.length;
     }
 
-    private boolean inBounds(Position coordinates) {
+    private boolean inBounds(Vector2 coordinates) {
         var inXAxis = coordinates.x >= 0 && coordinates.x < getWidth();
         var inYAxis = coordinates.y >= 0 && coordinates.y < getHeight();
         return inXAxis && inYAxis;
     }
 
-    public Tile getTile(Position coordinates) {
+    public Tile getTile(Vector2 coordinates) {
         if (inBounds(coordinates)) {
             return map[coordinates.y][coordinates.x];
         } else if (coordinates.y < 0) {
@@ -36,7 +36,7 @@ public class Grid {
         return Tile.OUT_OF_BOUNDS;
     }
 
-    private void setTile(Position coordinates, Tile tile) {
+    public void setTile(Vector2 coordinates, Tile tile) {
         if (inBounds(coordinates)) {
             map[coordinates.y][coordinates.x] = tile;
         }
@@ -44,7 +44,7 @@ public class Grid {
 
     private boolean lineIsFull(int y) {
         for (int x = 0; x < getWidth(); x++) {
-            if (getTile(new Position(x, y)) != Tile.OCCUPIED) {
+            if (getTile(new Vector2(x, y)) != Tile.OCCUPIED) {
                 return false;
             }
         }
@@ -53,7 +53,7 @@ public class Grid {
 
     private void removeLine(int y) {
         for (int x = 0; x < getWidth(); x++) {
-            setTile(new Position(x, y), Tile.EMPTY);
+            setTile(new Vector2(x, y), Tile.EMPTY);
         }
     }
 
@@ -65,20 +65,20 @@ public class Grid {
 
     private void pushLineDown(int y) {
         for (int x = 0; x < getWidth(); x++) {
-            var tile = getTile(new Position(x, y));
-            setTile(new Position(x, y + 1), tile);
+            var tile = getTile(new Vector2(x, y));
+            setTile(new Vector2(x, y + 1), tile);
         }
         removeLine(y);
     }
 
     public Tile getTile(int x, int y) {
-        return getTile(new Position(x, y));
+        return getTile(new Vector2(x, y));
     }
 
-    private void imprint(Tetromino tetromino) {
+    public void imprint(Tetromino tetromino) {
         for (int i = 0; i < tetromino.getHeight(); i++) {
             for (int j = 0; j < tetromino.getWidth(); j++) {
-                var coordinates = new Position(j, i);
+                var coordinates = new Vector2(j, i);
                 var tile = tetromino.getUnmappedTile(coordinates);
 
                 if (tile == Tile.OCCUPIED) {

@@ -1,14 +1,14 @@
 package main.model.tetromino;
 
-import main.model.Position;
+import main.model.Vector2;
 import main.model.Tile;
 
 public class Tetromino {
-    private Position position;
+    private Vector2 position;
     private Tile[][] form;
 
     public Tetromino(int x, int y, Tile[][] form) {
-        this.position = new Position(x, y);
+        this.position = new Vector2(x, y);
         this.form = form;
     }
 
@@ -28,7 +28,7 @@ public class Tetromino {
         this.form = form;
     }
 
-    public Tile getUnmappedTile(Position coordinates) {
+    public Tile getUnmappedTile(Vector2 coordinates) {
         if (inShape(coordinates)) {
             return form[coordinates.y][coordinates.x];
         } else {
@@ -36,12 +36,12 @@ public class Tetromino {
         }
     }
 
-    public Tile getMappedTile(Position coordinates) {
+    public Tile getMappedTile(Vector2 coordinates) {
         var unmappedCoordinates = coordinates.minus(position);
         return getUnmappedTile(unmappedCoordinates);
     }
 
-    private boolean inShape(Position coordinates) {
+    private boolean inShape(Vector2 coordinates) {
         var inXAxis = coordinates.x >= 0 && coordinates.x < getWidth();
         var inYAxis = coordinates.y >= 0 && coordinates.y < getHeight();
         return inXAxis && inYAxis;
@@ -63,7 +63,7 @@ public class Tetromino {
         position.y--;
     }
 
-    public Position getPosition() {
+    public Vector2 getPosition() {
         return position;
     }
 }
