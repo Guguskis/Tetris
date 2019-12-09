@@ -1,8 +1,8 @@
 package main.controller.commands;
 
+import main.model.Playfield;
 import main.service.CollisionDetector;
 import main.service.TetrominoConveyor;
-import main.model.Playfield;
 
 public class MoveLeftCommand implements Command {
     private final Playfield playfield;
@@ -18,8 +18,8 @@ public class MoveLeftCommand implements Command {
     @Override
     public void execute() {
         var tetromino = conveyor.getCurrent();
-
         tetromino.moveLeft();
+
         if (detector.hasCollided(playfield, tetromino)) {
             tetromino.moveRight();
         }

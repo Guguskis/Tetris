@@ -1,10 +1,10 @@
 package main.controller.commands;
 
-import main.service.CollisionDetector;
 import main.model.GameState;
-import main.service.TetrominoConveyor;
 import main.model.Playfield;
 import main.model.tetromino.Tetromino;
+import main.service.CollisionDetector;
+import main.service.TetrominoConveyor;
 
 public class MoveDownCommand implements Command {
     private final Playfield playfield;
@@ -47,8 +47,8 @@ public class MoveDownCommand implements Command {
 
     private void removeFilledLines(Tetromino tetromino) {
         int removedLines = playfield.getFullLineCount(tetromino);
-        gameState.update(removedLines);
         playfield.removeFullLines(tetromino);
+        gameState.update(removedLines);
     }
 
 }

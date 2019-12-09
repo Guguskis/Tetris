@@ -5,17 +5,18 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import main.model.GameState;
-import main.service.TetrominoConveyor;
 import main.model.Playfield;
-import main.model.Vector2;
 import main.model.Tile;
+import main.model.Vector2;
 import main.model.tetromino.Tetromino;
+import main.service.TetrominoConveyor;
 
 public class DefaultRenderer implements Renderer {
 
     private int width = 800;
     private int height = 800;
     private int scale = 20;
+    private Vector2 screenPosition = new Vector2(0, 0);
 
     private GraphicsContext context;
     private Playfield playfield;
@@ -27,7 +28,6 @@ public class DefaultRenderer implements Renderer {
     private Color currentTetrominoColor = Color.GREEN;
     private Color playfieldColor = Color.GREY;
     private Color nextTetrominoColor = Color.PURPLE;
-    private Vector2 absoluteOffset = new Vector2(0, 0);
 
 
     public DefaultRenderer(Group root, Playfield playfield, GameState gameState, TetrominoConveyor conveyor) {
@@ -81,18 +81,18 @@ public class DefaultRenderer implements Renderer {
     }
 
     private void drawOutlinedPlayfieldAndCurrentTetromino(Playfield playfield, Tetromino tetromino) {
-        Vector2 topLeftCorner = new Vector2(0, 0);
-        drawOutline(playfield, topLeftCorner);
+        Vector2 outlinePosition = new Vector2(0, 0);
+        drawOutlineAround(playfield, outlinePosition);
 
         Vector2 playfieldPositionOffset = new Vector2(1, 1);
-        Vector2 playfieldPosition = topLeftCorner.plus(playfieldPositionOffset);
+        Vector2 playfieldPosition = outlinePosition.plus(playfieldPositionOffset);
         drawPlayfield(playfield, playfieldPosition);
 
         Vector2 tetrominoTopLeftCorner = playfieldPosition.plus(tetromino.getPosition());
         drawTetromino(tetrominoTopLeftCorner, tetromino, currentTetrominoColor);
     }
 
-    private void drawOutline(Playfield playfield, Vector2 topLeftCorner) {
+    private void drawOutlineAround(Playfield playfield, Vector2 topLeftCorner) {
         Vector2 bottomRightCorner = topLeftCorner.plus(playfield.getWidth() + 1, playfield.getHeight() + 1);
 
         for (int y = topLeftCorner.y; y <= bottomRightCorner.y; y++) {
@@ -136,14 +136,14 @@ public class DefaultRenderer implements Renderer {
     }
 
     private void fillScaledText(Vector2 position, String text, Color color) {
-        position = position.plus(absoluteOffset);
+        position = position.plus(screenPosition);
         Vector2 scaledPosition = position.multiply(scale);
         context.setFill(color);
         context.fillText(text, scaledPosition.x, scaledPosition.y);
     }
 
     private void drawScaledRect(Vector2 position, Color color) {
-        Vector2 scaledWhere = getScaled(position.plus(absoluteOffset));
+        Vector2 scaledWhere = getScaled(position.plus(screenPosition));
         drawRect(scaledWhere, scale, scale, color);
     }
 
