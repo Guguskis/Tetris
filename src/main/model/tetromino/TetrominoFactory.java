@@ -30,6 +30,10 @@ public class TetrominoFactory {
         }
     }
 
+    public static Tetromino make(int x, int y, Tile[][] tiles) {
+        return new Tetromino(x, y, tiles);
+    }
+
     private static Tetromino getZTetromino(int x) {
         return new Tetromino(x - 1, 0, new Tile[][]{
                 {Tile.OCCUPIED, Tile.OCCUPIED, Tile.EMPTY},

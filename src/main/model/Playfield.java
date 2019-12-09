@@ -3,22 +3,26 @@ package main.model;
 import main.model.tetromino.Tetromino;
 
 public class Playfield {
-    private Tile[][] map;
+    private Tile[][] tiles;
 
     public Playfield(int width, int height) {
-        this.map = new Tile[height][width];
+        this.tiles = new Tile[height][width];
     }
 
     public Playfield(Playfield playfield) {
-        this.map = playfield.map;
+        this.tiles = playfield.tiles;
+    }
+
+    public Playfield(Tile[][] tiles) {
+        this.tiles = tiles;
     }
 
     public int getWidth() {
-        return map[0].length;
+        return tiles[0].length;
     }
 
     public int getHeight() {
-        return map.length;
+        return tiles.length;
     }
 
     private boolean inBounds(Vector2 coordinates) {
@@ -29,7 +33,7 @@ public class Playfield {
 
     public Tile getTile(Vector2 coordinates) {
         if (inBounds(coordinates)) {
-            return map[coordinates.y][coordinates.x];
+            return tiles[coordinates.y][coordinates.x];
         } else if (coordinates.y < 0) {
             return Tile.EMPTY;
         }
@@ -38,7 +42,7 @@ public class Playfield {
 
     public void setTile(Vector2 coordinates, Tile tile) {
         if (inBounds(coordinates)) {
-            map[coordinates.y][coordinates.x] = tile;
+            tiles[coordinates.y][coordinates.x] = tile;
         }
     }
 
