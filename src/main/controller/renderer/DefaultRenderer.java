@@ -6,7 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import main.model.GameState;
 import main.service.TetrominoConveyor;
-import main.model.Grid;
+import main.model.Playfield;
 import main.model.Vector2;
 import main.model.Tile;
 import main.model.tetromino.Tetromino;
@@ -18,21 +18,21 @@ public class DefaultRenderer implements Renderer {
     private int scale = 20;
 
     private GraphicsContext context;
-    private Grid grid;
+    private Playfield playfield;
     private GameState gameState;
     private TetrominoConveyor conveyor;
 
     private Color backgroundColor = Color.rgb(30, 0, 40);
     private Color outlineColor = Color.rgb(125, 190, 80);
     private Color currentTetrominoColor = Color.GREEN;
-    private Color gridColor = Color.GREY;
+    private Color playfieldColor = Color.GREY;
     private Color nextTetrominoColor = Color.PURPLE;
     private Vector2 absoluteOffset = new Vector2(0, 0);
 
 
-    public DefaultRenderer(Group root, Grid grid, GameState gameState, TetrominoConveyor conveyor) {
+    public DefaultRenderer(Group root, Playfield playfield, GameState gameState, TetrominoConveyor conveyor) {
         this.context = getGraphicsContext(root);
-        this.grid = grid;
+        this.playfield = playfield;
         this.gameState = gameState;
         this.conveyor = conveyor;
     }
@@ -46,16 +46,16 @@ public class DefaultRenderer implements Renderer {
     @Override
     public void drawFrame() {
         fillBackground();
-        drawOutlinedGridAndCurrentTetromino(grid, conveyor.getCurrent());
-        drawNextTetromino(grid, conveyor.getNext());
-        drawGameInformation(grid, gameState);
+        drawOutlinedPlayfieldAndCurrentTetromino(playfield, conveyor.getCurrent());
+        drawNextTetromino(playfield, conveyor.getNext());
+        drawGameInformation(playfield, gameState);
     }
 
-    private void drawGameInformation(Grid grid, GameState gameState) {
-        Vector2 gridOffset = getGridOffset(grid);
+    private void drawGameInformation(Playfield playfield, GameState gameState) {
+        Vector2 playfieldOffset = getPlayfieldOffset(playfield);
         Vector2 outlineOffset = getOutlineOffset();
 
-        Vector2 topLeftCorner = new Vector2(2, 6).plus(gridOffset).plus(outlineOffset);
+        Vector2 topLeftCorner = new Vector2(2, 6).plus(playfieldOffset).plus(outlineOffset);
 
         String scoreText = "Score: " + gameState.getScore();
         fillScaledText(topLeftCorner, scoreText, Color.YELLOW);
@@ -70,30 +70,30 @@ public class DefaultRenderer implements Renderer {
         return new Vector2(2, 0);
     }
 
-    private Vector2 getGridOffset(Grid grid) {
-        return new Vector2(grid.getWidth(), 0);
+    private Vector2 getPlayfieldOffset(Playfield playfield) {
+        return new Vector2(playfield.getWidth(), 0);
     }
 
-    private void drawNextTetromino(Grid grid, Tetromino tetromino) {
-        Vector2 offset = getOutlineOffset().plus(getGridOffset(grid));
+    private void drawNextTetromino(Playfield playfield, Tetromino tetromino) {
+        Vector2 offset = getOutlineOffset().plus(getPlayfieldOffset(playfield));
         Vector2 topLeftCorner = new Vector2(2, 1).plus(offset);
         drawTetromino(topLeftCorner, tetromino, nextTetrominoColor);
     }
 
-    private void drawOutlinedGridAndCurrentTetromino(Grid grid, Tetromino tetromino) {
+    private void drawOutlinedPlayfieldAndCurrentTetromino(Playfield playfield, Tetromino tetromino) {
         Vector2 topLeftCorner = new Vector2(0, 0);
-        drawOutline(grid, topLeftCorner);
+        drawOutline(playfield, topLeftCorner);
 
-        Vector2 gridPositionOffset = new Vector2(1, 1);
-        Vector2 gridPosition = topLeftCorner.plus(gridPositionOffset);
-        drawGrid(grid, gridPosition);
+        Vector2 playfieldPositionOffset = new Vector2(1, 1);
+        Vector2 playfieldPosition = topLeftCorner.plus(playfieldPositionOffset);
+        drawPlayfield(playfield, playfieldPosition);
 
-        Vector2 tetrominoTopLeftCorner = gridPosition.plus(tetromino.getPosition());
+        Vector2 tetrominoTopLeftCorner = playfieldPosition.plus(tetromino.getPosition());
         drawTetromino(tetrominoTopLeftCorner, tetromino, currentTetrominoColor);
     }
 
-    private void drawOutline(Grid grid, Vector2 topLeftCorner) {
-        Vector2 bottomRightCorner = topLeftCorner.plus(grid.getWidth() + 1, grid.getHeight() + 1);
+    private void drawOutline(Playfield playfield, Vector2 topLeftCorner) {
+        Vector2 bottomRightCorner = topLeftCorner.plus(playfield.getWidth() + 1, playfield.getHeight() + 1);
 
         for (int y = topLeftCorner.y; y <= bottomRightCorner.y; y++) {
             for (int x = topLeftCorner.x; x <= bottomRightCorner.x; x++) {
@@ -124,12 +124,12 @@ public class DefaultRenderer implements Renderer {
         }
     }
 
-    private void drawGrid(Grid grid, Vector2 topLeftCorner) {
-        for (int y = 0; y < grid.getHeight(); y++) {
-            for (int x = 0; x < grid.getWidth(); x++) {
-                if (grid.getTile(x, y) == Tile.OCCUPIED) {
+    private void drawPlayfield(Playfield playfield, Vector2 topLeftCorner) {
+        for (int y = 0; y < playfield.getHeight(); y++) {
+            for (int x = 0; x < playfield.getWidth(); x++) {
+                if (playfield.getTile(x, y) == Tile.OCCUPIED) {
                     Vector2 drawPosition = topLeftCorner.plus(x, y);
-                    drawScaledRect(drawPosition, gridColor);
+                    drawScaledRect(drawPosition, playfieldColor);
                 }
             }
         }

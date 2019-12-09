@@ -3,17 +3,17 @@ package main.controller.commands;
 import main.service.CollisionDetector;
 import main.model.GameState;
 import main.service.TetrominoConveyor;
-import main.model.Grid;
+import main.model.Playfield;
 import main.model.tetromino.Tetromino;
 
 public class MoveDownCommand implements Command {
-    private final Grid grid;
+    private final Playfield playfield;
     private final GameState gameState;
     private final TetrominoConveyor conveyor;
     private final CollisionDetector detector;
 
-    public MoveDownCommand(Grid grid, GameState gameState, TetrominoConveyor conveyor, CollisionDetector detector) {
-        this.grid = grid;
+    public MoveDownCommand(Playfield playfield, GameState gameState, TetrominoConveyor conveyor, CollisionDetector detector) {
+        this.playfield = playfield;
         this.gameState = gameState;
         this.conveyor = conveyor;
         this.detector = detector;
@@ -36,7 +36,7 @@ public class MoveDownCommand implements Command {
     }
 
     private boolean hasCollided(Tetromino tetromino) {
-        return detector.hasCollided(grid, tetromino);
+        return detector.hasCollided(playfield, tetromino);
     }
 
     private void ifCannotSpawnNextSetGameOver() {
@@ -46,9 +46,9 @@ public class MoveDownCommand implements Command {
     }
 
     private void removeFilledLines(Tetromino tetromino) {
-        int removedLines = grid.getFullLineCount(tetromino);
+        int removedLines = playfield.getFullLineCount(tetromino);
         gameState.update(removedLines);
-        grid.removeFullLines(tetromino);
+        playfield.removeFullLines(tetromino);
     }
 
 }

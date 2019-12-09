@@ -1,18 +1,18 @@
 package main.service;
 
 
-import main.model.Grid;
+import main.model.Playfield;
 import main.service.generator.TetrominoGenerator;
 import main.model.tetromino.Tetromino;
 
 public class TetrominoConveyor {
-    private final Grid grid;
+    private final Playfield playfield;
     private Tetromino current;
     private Tetromino next;
     private TetrominoGenerator generator;
 
-    public TetrominoConveyor(Grid grid, TetrominoGenerator generator) {
-        this.grid = grid;
+    public TetrominoConveyor(Playfield playfield, TetrominoGenerator generator) {
+        this.playfield = playfield;
 
         this.generator = generator;
         this.current = generator.getNext(getCenterX());
@@ -20,7 +20,7 @@ public class TetrominoConveyor {
     }
 
     private int getCenterX() {
-        return grid.getWidth() / 2;
+        return playfield.getWidth() / 2;
     }
 
     public Tetromino getNext() {

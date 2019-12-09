@@ -2,17 +2,17 @@ package main.controller.commands;
 
 import main.service.CollisionDetector;
 import main.service.TetrominoConveyor;
-import main.model.Grid;
+import main.model.Playfield;
 
 public class MoveLeftCommand implements Command {
-    private final Grid grid;
+    private final Playfield playfield;
     private final TetrominoConveyor conveyor;
     private final CollisionDetector detector;
 
-    public MoveLeftCommand(Grid grid, TetrominoConveyor conveyor, CollisionDetector detector) {
+    public MoveLeftCommand(Playfield playfield, TetrominoConveyor conveyor, CollisionDetector detector) {
         this.conveyor = conveyor;
         this.detector = detector;
-        this.grid = grid;
+        this.playfield = playfield;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class MoveLeftCommand implements Command {
         var tetromino = conveyor.getCurrent();
 
         tetromino.moveLeft();
-        if (detector.hasCollided(grid, tetromino)) {
+        if (detector.hasCollided(playfield, tetromino)) {
             tetromino.moveRight();
         }
     }

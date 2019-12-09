@@ -2,15 +2,15 @@ package main.model;
 
 import main.model.tetromino.Tetromino;
 
-public class Grid {
+public class Playfield {
     private Tile[][] map;
 
-    public Grid(int width, int height) {
+    public Playfield(int width, int height) {
         this.map = new Tile[height][width];
     }
 
-    public Grid(Grid grid) {
-        this.map = grid.map;
+    public Playfield(Playfield playfield) {
+        this.map = playfield.map;
     }
 
     public int getWidth() {
@@ -91,11 +91,11 @@ public class Grid {
 
     public int getFullLineCount(Tetromino tetromino) {
         int count = 0;
-        Grid gridCopy = new Grid(this);
-        gridCopy.imprint(tetromino);
+        Playfield playfieldCopy = new Playfield(this);
+        playfieldCopy.imprint(tetromino);
 
-        for (int y = 0; y < gridCopy.getHeight(); y++) {
-            if (gridCopy.lineIsFull(y)) {
+        for (int y = 0; y < playfieldCopy.getHeight(); y++) {
+            if (playfieldCopy.lineIsFull(y)) {
                 count++;
             }
         }

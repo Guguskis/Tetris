@@ -17,7 +17,7 @@ import main.controller.commands.Command;
 import main.controller.commands.MoveDownCommand;
 import main.service.rotator.DefaultRotator;
 import main.service.rotator.Rotator;
-import main.model.Grid;
+import main.model.Playfield;
 import main.controller.renderer.DefaultRenderer;
 import main.controller.renderer.Renderer;
 
@@ -30,7 +30,7 @@ public class GameApplication extends Application {
     private Scene scene;
     private TetrominoConveyor conveyor;
     private KeyboardMapper keyboardInput;
-    private Grid grid;
+    private Playfield playfield;
     private CollisionDetector detector;
     private Rotator rotator;
 
@@ -46,18 +46,18 @@ public class GameApplication extends Application {
     }
 
     private void configure() {
-        grid = new Grid(10, 20);
+        playfield = new Playfield(10, 20);
         detector = new CollisionDetector();
         rotator = new DefaultRotator();
 
         gameState = new GameState(new Score(), new Level());
-        conveyor = new TetrominoConveyor(grid, new RandomTetrominoGenerator(new Random()));
+        conveyor = new TetrominoConveyor(playfield, new RandomTetrominoGenerator(new Random()));
 
         Group root = new Group();
         scene = new Scene(root);
-        renderer = new DefaultRenderer(root, grid, gameState, conveyor);
+        renderer = new DefaultRenderer(root, playfield, gameState, conveyor);
 
-        keyboardInput = new KeyboardMapper(renderer, grid, gameState, conveyor, detector, rotator);
+        keyboardInput = new KeyboardMapper(renderer, playfield, gameState, conveyor, detector, rotator);
     }
 
     private void mapCommandsToKeyboardInput() {
@@ -73,7 +73,7 @@ public class GameApplication extends Application {
     private void setAutomaticMoveDown() {
         new AnimationTimer() {
             long lastTick = 0;
-            Command moveDown = new MoveDownCommand(grid, gameState, conveyor, detector);
+            Command moveDown = new MoveDownCommand(playfield, gameState, conveyor, detector);
 
             @Override
             public void handle(long now) {
