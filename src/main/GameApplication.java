@@ -6,20 +6,20 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import main.service.CollisionDetector;
-import main.model.GameState;
-import main.service.KeyboardMapper;
-import main.model.Level;
-import main.service.generator.RandomTetrominoGenerator;
-import main.model.Score;
-import main.service.TetrominoConveyor;
 import main.controller.commands.Command;
 import main.controller.commands.MoveDownCommand;
-import main.service.rotator.DefaultRotator;
-import main.service.rotator.Rotator;
-import main.model.Playfield;
 import main.controller.renderer.DefaultRenderer;
 import main.controller.renderer.Renderer;
+import main.model.GameState;
+import main.model.Level;
+import main.model.Playfield;
+import main.model.Score;
+import main.service.CollisionDetector;
+import main.service.KeyboardHandler;
+import main.service.TetrominoConveyor;
+import main.service.generator.RandomTetrominoGenerator;
+import main.service.rotator.DefaultRotator;
+import main.service.rotator.Rotator;
 
 import java.util.Random;
 
@@ -29,7 +29,7 @@ public class GameApplication extends Application {
     private Renderer renderer;
     private Scene scene;
     private TetrominoConveyor conveyor;
-    private KeyboardMapper keyboardInput;
+    private KeyboardHandler keyboardHandler;
     private Playfield playfield;
     private CollisionDetector detector;
     private Rotator rotator;
@@ -42,7 +42,7 @@ public class GameApplication extends Application {
     public void init() {
         configure();
         setAutomaticMoveDown();
-        mapCommandsToKeyboardInput();
+        addKeyboardListener();
     }
 
     private void configure() {
@@ -57,11 +57,12 @@ public class GameApplication extends Application {
         scene = new Scene(root);
         renderer = new DefaultRenderer(root, playfield, gameState, conveyor);
 
-        keyboardInput = new KeyboardMapper(renderer, playfield, gameState, conveyor, detector, rotator);
+        KeyboardCommandMapper mapper = new KeyboardCommandMapper(playfield, conveyor, detector, rotator, gameState);
+        keyboardHandler = new KeyboardHandler(mapper.getCommands(), gameState, renderer);
     }
 
-    private void mapCommandsToKeyboardInput() {
-        scene.addEventFilter(KeyEvent.KEY_PRESSED, keyboardInput::handle);
+    private void addKeyboardListener() {
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, keyboardHandler::handle);
     }
 
     @Override
