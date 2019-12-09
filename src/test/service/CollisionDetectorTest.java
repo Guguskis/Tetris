@@ -47,7 +47,7 @@ class CollisionDetectorTest {
         Playfield playfield = new Playfield(new Tile[][]{
                 {Tile.EMPTY, Tile.EMPTY},
         });
-        Tetromino tetromino = TetrominoFactory.make(0, 2, new Tile[][]{
+        Tetromino tetromino = TetrominoFactory.make(0, 0, new Tile[][]{
                 {Tile.EMPTY, Tile.EMPTY, Tile.OCCUPIED}
         });
 
@@ -61,8 +61,8 @@ class CollisionDetectorTest {
         Playfield playfield = new Playfield(new Tile[][]{
                 {Tile.EMPTY, Tile.EMPTY},
         });
-        Tetromino tetromino = TetrominoFactory.make(0, 2, new Tile[][]{
-                {Tile.EMPTY, Tile.EMPTY, Tile.EMPTY}
+        Tetromino tetromino = TetrominoFactory.make(0, 0, new Tile[][]{
+                {Tile.OCCUPIED, Tile.OCCUPIED, Tile.EMPTY}
         });
 
         boolean actual = detector.hasCollided(playfield, tetromino);
